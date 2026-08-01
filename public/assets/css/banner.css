@@ -1,5 +1,551 @@
-/*
- * CookieDK Banner CSS
+/**
+ * CookieDK Banner Styles
+ *
+ * Responsive cookie-banner styling med dansk UI.
+ * Understøtter top/bottom/side positioner og dark mode.
  *
  * @package CookieDK
+ * @since   1.0.0
  */
+
+/* =========================================================
+   CSS Custom Properties
+   ========================================================= */
+:root {
+	--cookiedk-primary:     #2271b1;
+	--cookiedk-secondary:   #135e96;
+	--cookiedk-bg:          #ffffff;
+	--cookiedk-text:        #1d2327;
+	--cookiedk-text-muted:  #646970;
+	--cookiedk-border:      #dcdcde;
+	--cookiedk-overlay:     rgba(0, 0, 0, 0.5);
+	--cookiedk-shadow:      0 4px 24px rgba(0, 0, 0, 0.12);
+	--cookiedk-radius:      8px;
+	--cookiedk-radius-sm:   4px;
+	--cookiedk-transition:  0.2s ease;
+	--cookiedk-z-banner:    99990;
+	--cookiedk-z-overlay:   99980;
+	--cookiedk-z-panel:     99995;
+}
+
+/* =========================================================
+   Accessibility: focus rings
+   ========================================================= */
+#cookiedk-banner *:focus-visible {
+	outline: 3px solid var(--cookiedk-primary);
+	outline-offset: 2px;
+}
+
+/* =========================================================
+   Banner – base
+   ========================================================= */
+#cookiedk-banner {
+	position: fixed;
+	left: 0;
+	right: 0;
+	z-index: var(--cookiedk-z-banner);
+	background: var(--cookiedk-bg);
+	box-shadow: var(--cookiedk-shadow);
+	padding: 20px 24px;
+	box-sizing: border-box;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, sans-serif;
+	font-size: 14px;
+	line-height: 1.5;
+	color: var(--cookiedk-text);
+}
+
+/* Position: bottom */
+#cookiedk-banner.cookiedk-position-bottom {
+	bottom: 0;
+	border-top: 3px solid var(--cookiedk-primary);
+}
+
+/* Position: top */
+#cookiedk-banner.cookiedk-position-top {
+	top: 0;
+	border-bottom: 3px solid var(--cookiedk-primary);
+}
+
+/* Position: side */
+#cookiedk-banner.cookiedk-position-side {
+	bottom: 24px;
+	right: 24px;
+	left: auto;
+	max-width: 380px;
+	border-radius: var(--cookiedk-radius);
+	border-top: 3px solid var(--cookiedk-primary);
+}
+
+/* Skjult */
+#cookiedk-banner.cookiedk-hidden {
+	display: none !important;
+}
+
+/* =========================================================
+   Banner – layout
+   ========================================================= */
+.cookiedk-banner__inner {
+	max-width: 1200px;
+	margin: 0 auto;
+	display: flex;
+	align-items: center;
+	gap: 20px;
+	flex-wrap: wrap;
+}
+
+.cookiedk-banner__content {
+	flex: 1 1 300px;
+}
+
+.cookiedk-banner__title {
+	font-size: 16px;
+	font-weight: 600;
+	margin: 0 0 6px;
+	color: var(--cookiedk-text);
+}
+
+.cookiedk-banner__text {
+	margin: 0;
+	color: var(--cookiedk-text-muted);
+}
+
+.cookiedk-banner__link {
+	color: var(--cookiedk-primary);
+	text-decoration: underline;
+}
+
+.cookiedk-banner__link:hover,
+.cookiedk-banner__link:focus {
+	color: var(--cookiedk-secondary);
+}
+
+/* =========================================================
+   Knapper
+   ========================================================= */
+.cookiedk-banner__actions {
+	display: flex;
+	gap: 10px;
+	flex-shrink: 0;
+	flex-wrap: wrap;
+	align-items: center;
+}
+
+.cookiedk-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 10px 18px;
+	border-radius: var(--cookiedk-radius-sm);
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 1;
+	cursor: pointer;
+	border: 2px solid transparent;
+	text-decoration: none;
+	transition: background-color var(--cookiedk-transition),
+	            border-color var(--cookiedk-transition),
+	            color var(--cookiedk-transition);
+	white-space: nowrap;
+}
+
+.cookiedk-btn--primary {
+	background-color: var(--cookiedk-primary);
+	border-color: var(--cookiedk-primary);
+	color: #ffffff;
+}
+
+.cookiedk-btn--primary:hover,
+.cookiedk-btn--primary:focus {
+	background-color: var(--cookiedk-secondary);
+	border-color: var(--cookiedk-secondary);
+	color: #ffffff;
+}
+
+.cookiedk-btn--secondary {
+	background-color: transparent;
+	border-color: var(--cookiedk-border);
+	color: var(--cookiedk-text);
+}
+
+.cookiedk-btn--secondary:hover,
+.cookiedk-btn--secondary:focus {
+	border-color: var(--cookiedk-primary);
+	color: var(--cookiedk-primary);
+}
+
+.cookiedk-btn--text {
+	background: none;
+	border-color: transparent;
+	color: var(--cookiedk-primary);
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.cookiedk-btn--text:hover,
+.cookiedk-btn--text:focus {
+	color: var(--cookiedk-secondary);
+	text-decoration: underline;
+}
+
+/* =========================================================
+   Overlay
+   ========================================================= */
+#cookiedk-overlay {
+	display: none;
+	position: fixed;
+	inset: 0;
+	z-index: var(--cookiedk-z-overlay);
+	background: var(--cookiedk-overlay);
+}
+
+#cookiedk-overlay.cookiedk-overlay--active {
+	display: block;
+}
+
+/* =========================================================
+   Indstillingspanel
+   ========================================================= */
+#cookiedk-settings-panel {
+	display: none;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: var(--cookiedk-z-panel);
+	background: var(--cookiedk-bg);
+	border-radius: var(--cookiedk-radius);
+	box-shadow: var(--cookiedk-shadow);
+	width: min(600px, calc(100vw - 32px));
+	max-height: calc(100vh - 64px);
+	overflow-y: auto;
+	box-sizing: border-box;
+}
+
+#cookiedk-settings-panel.cookiedk-panel--active {
+	display: flex;
+	flex-direction: column;
+}
+
+.cookiedk-panel__header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 20px 24px 16px;
+	border-bottom: 1px solid var(--cookiedk-border);
+	position: sticky;
+	top: 0;
+	background: var(--cookiedk-bg);
+	z-index: 1;
+}
+
+.cookiedk-panel__title {
+	font-size: 18px;
+	font-weight: 600;
+	margin: 0;
+	color: var(--cookiedk-text);
+}
+
+.cookiedk-panel__close {
+	background: none;
+	border: none;
+	cursor: pointer;
+	padding: 4px;
+	color: var(--cookiedk-text-muted);
+	font-size: 20px;
+	line-height: 1;
+	border-radius: var(--cookiedk-radius-sm);
+	transition: color var(--cookiedk-transition);
+}
+
+.cookiedk-panel__close:hover,
+.cookiedk-panel__close:focus {
+	color: var(--cookiedk-text);
+}
+
+.cookiedk-panel__body {
+	padding: 20px 24px;
+	flex: 1;
+}
+
+.cookiedk-panel__intro {
+	margin: 0 0 20px;
+	color: var(--cookiedk-text-muted);
+	font-size: 14px;
+}
+
+/* Kategori-blok */
+.cookiedk-category {
+	border: 1px solid var(--cookiedk-border);
+	border-radius: var(--cookiedk-radius-sm);
+	margin-bottom: 12px;
+	overflow: hidden;
+}
+
+.cookiedk-category__header {
+	display: flex;
+	align-items: center;
+	padding: 14px 16px;
+	background: #f6f7f7;
+	gap: 12px;
+}
+
+.cookiedk-category__header:hover {
+	background: #f0f0f1;
+}
+
+/* Toggle-switch */
+.cookiedk-toggle {
+	position: relative;
+	display: inline-block;
+	width: 44px;
+	height: 24px;
+	flex-shrink: 0;
+}
+
+.cookiedk-toggle input {
+	opacity: 0;
+	width: 0;
+	height: 0;
+	position: absolute;
+}
+
+.cookiedk-toggle__track {
+	position: absolute;
+	inset: 0;
+	background: var(--cookiedk-border);
+	border-radius: 24px;
+	transition: background var(--cookiedk-transition);
+	cursor: pointer;
+}
+
+.cookiedk-toggle__track::after {
+	content: "";
+	position: absolute;
+	left: 3px;
+	top: 3px;
+	width: 18px;
+	height: 18px;
+	border-radius: 50%;
+	background: #ffffff;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+	transition: transform var(--cookiedk-transition);
+}
+
+.cookiedk-toggle input:checked + .cookiedk-toggle__track {
+	background: var(--cookiedk-primary);
+}
+
+.cookiedk-toggle input:checked + .cookiedk-toggle__track::after {
+	transform: translateX(20px);
+}
+
+.cookiedk-toggle input:disabled + .cookiedk-toggle__track {
+	opacity: 0.6;
+	cursor: not-allowed;
+}
+
+.cookiedk-category__label-group {
+	flex: 1;
+}
+
+.cookiedk-category__name {
+	font-weight: 600;
+	font-size: 14px;
+	color: var(--cookiedk-text);
+	display: block;
+}
+
+.cookiedk-category__count {
+	font-size: 12px;
+	color: var(--cookiedk-text-muted);
+}
+
+.cookiedk-category__required-badge {
+	font-size: 11px;
+	font-weight: 500;
+	background: #e8f0fe;
+	color: #1a56db;
+	padding: 2px 8px;
+	border-radius: 20px;
+	white-space: nowrap;
+}
+
+.cookiedk-category__expander {
+	background: none;
+	border: none;
+	cursor: pointer;
+	padding: 4px;
+	color: var(--cookiedk-text-muted);
+	margin-left: auto;
+	transition: transform var(--cookiedk-transition);
+	display: flex;
+	align-items: center;
+}
+
+.cookiedk-category__expander[aria-expanded="true"] {
+	transform: rotate(180deg);
+}
+
+/* Cookie-liste */
+.cookiedk-cookie-list {
+	display: none;
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	border-top: 1px solid var(--cookiedk-border);
+}
+
+.cookiedk-cookie-list.cookiedk-expanded {
+	display: block;
+}
+
+.cookiedk-cookie-list__item {
+	padding: 12px 16px;
+	border-bottom: 1px solid var(--cookiedk-border);
+	font-size: 13px;
+}
+
+.cookiedk-cookie-list__item:last-child {
+	border-bottom: none;
+}
+
+.cookiedk-cookie-list__name {
+	font-weight: 600;
+	color: var(--cookiedk-text);
+	font-family: monospace;
+	font-size: 12px;
+	background: #f6f7f7;
+	padding: 2px 6px;
+	border-radius: 3px;
+}
+
+.cookiedk-cookie-list__meta {
+	display: flex;
+	gap: 16px;
+	margin-top: 4px;
+	flex-wrap: wrap;
+}
+
+.cookiedk-cookie-list__meta-item {
+	color: var(--cookiedk-text-muted);
+	font-size: 12px;
+}
+
+.cookiedk-cookie-list__meta-item strong {
+	color: var(--cookiedk-text);
+}
+
+.cookiedk-cookie-list__desc {
+	margin-top: 6px;
+	color: var(--cookiedk-text-muted);
+	line-height: 1.5;
+}
+
+/* Panel-footer */
+.cookiedk-panel__footer {
+	display: flex;
+	gap: 10px;
+	padding: 16px 24px 20px;
+	border-top: 1px solid var(--cookiedk-border);
+	flex-wrap: wrap;
+	position: sticky;
+	bottom: 0;
+	background: var(--cookiedk-bg);
+}
+
+/* =========================================================
+   Tilgængelighed
+   ========================================================= */
+.cookiedk-sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border-width: 0;
+}
+
+/* =========================================================
+   Dark mode
+   ========================================================= */
+@media (prefers-color-scheme: dark) {
+	:root {
+		--cookiedk-bg:         #1d2327;
+		--cookiedk-text:       #f0f0f1;
+		--cookiedk-text-muted: #a7aaad;
+		--cookiedk-border:     #3c434a;
+	}
+
+	.cookiedk-category__header {
+		background: #2c3338;
+	}
+
+	.cookiedk-category__header:hover {
+		background: #32373c;
+	}
+
+	.cookiedk-cookie-list__name {
+		background: #2c3338;
+	}
+
+	.cookiedk-category__required-badge {
+		background: #1a3a6b;
+		color: #93c5fd;
+	}
+}
+
+/* =========================================================
+   Responsive
+   ========================================================= */
+@media screen and (max-width: 782px) {
+	#cookiedk-banner {
+		padding: 16px;
+	}
+
+	#cookiedk-banner.cookiedk-position-side {
+		bottom: 0;
+		right: 0;
+		left: 0;
+		max-width: 100%;
+		border-radius: 0;
+	}
+
+	.cookiedk-banner__inner {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 14px;
+	}
+
+	.cookiedk-banner__actions {
+		width: 100%;
+	}
+
+	.cookiedk-btn {
+		flex: 1;
+		justify-content: center;
+	}
+
+	.cookiedk-panel__header,
+	.cookiedk-panel__body,
+	.cookiedk-panel__footer {
+		padding-left: 16px;
+		padding-right: 16px;
+	}
+
+	.cookiedk-panel__footer {
+		flex-direction: column;
+	}
+
+	.cookiedk-panel__footer .cookiedk-btn {
+		width: 100%;
+	}
+}
+
+@media screen and (max-width: 480px) {
+	.cookiedk-banner__actions {
+		flex-direction: column;
+	}
+}

@@ -1,5 +1,386 @@
-/*
- * CookieDK Admin CSS
+/**
+ * CookieDK Admin Styles
+ *
+ * Admin-interface styling med tabel, formular og responsivt design.
  *
  * @package CookieDK
+ * @since   1.0.0
  */
+
+/* =========================================================
+   Layout
+   ========================================================= */
+.cookiedk-admin {
+	max-width: 1200px;
+}
+
+.cookiedk-admin__heading {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	font-size: 23px;
+	font-weight: 400;
+	margin: 0 0 16px;
+	padding: 9px 0;
+}
+
+.cookiedk-admin__logo {
+	font-size: 28px;
+}
+
+/* =========================================================
+   Tab-navigation
+   ========================================================= */
+.cookiedk-admin__tabs {
+	border-bottom: 1px solid #c3c4c7;
+	margin-bottom: 20px;
+}
+
+.cookiedk-admin__tabs ul {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.cookiedk-admin__tab {
+	display: block;
+	padding: 8px 16px;
+	font-size: 14px;
+	font-weight: 400;
+	color: #646970;
+	text-decoration: none;
+	border: 1px solid transparent;
+	border-bottom: none;
+	margin-bottom: -1px;
+	border-radius: 3px 3px 0 0;
+	transition: color 0.15s;
+}
+
+.cookiedk-admin__tab:hover {
+	color: #1d2327;
+}
+
+.cookiedk-admin__tab.active {
+	color: #1d2327;
+	background: #f0f0f1;
+	border-color: #c3c4c7;
+	border-bottom-color: #f0f0f1;
+	font-weight: 500;
+}
+
+/* =========================================================
+   Indholdsområde
+   ========================================================= */
+.cookiedk-admin__content {
+	background: #fff;
+	border: 1px solid #c3c4c7;
+	border-radius: 0 3px 3px 3px;
+	padding: 24px;
+}
+
+/* =========================================================
+   Statistik-kort (dashboard)
+   ========================================================= */
+.cookiedk-stats {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+	gap: 16px;
+	margin-bottom: 28px;
+}
+
+.cookiedk-stat-card {
+	background: #f6f7f7;
+	border: 1px solid #dcdcde;
+	border-radius: 4px;
+	padding: 20px 16px;
+	text-align: center;
+}
+
+.cookiedk-stat-card__value {
+	font-size: 32px;
+	font-weight: 600;
+	color: #2271b1;
+	line-height: 1;
+	display: block;
+}
+
+.cookiedk-stat-card__label {
+	font-size: 13px;
+	color: #646970;
+	margin-top: 6px;
+	display: block;
+}
+
+/* =========================================================
+   Tabeller
+   ========================================================= */
+.cookiedk-table-wrap {
+	overflow-x: auto;
+	margin-bottom: 20px;
+}
+
+.cookiedk-table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 13px;
+}
+
+.cookiedk-table th,
+.cookiedk-table td {
+	text-align: left;
+	padding: 10px 12px;
+	border-bottom: 1px solid #dcdcde;
+	vertical-align: middle;
+}
+
+.cookiedk-table th {
+	background: #f6f7f7;
+	font-weight: 600;
+	color: #1d2327;
+	white-space: nowrap;
+}
+
+.cookiedk-table tr:hover td {
+	background: #f9f9f9;
+}
+
+.cookiedk-table .cookiedk-table__actions {
+	white-space: nowrap;
+}
+
+.cookiedk-table .cookiedk-table__actions a,
+.cookiedk-table .cookiedk-table__actions button {
+	margin-right: 6px;
+}
+
+/* Kategori-badge */
+.cookiedk-badge {
+	display: inline-block;
+	font-size: 11px;
+	font-weight: 500;
+	padding: 2px 8px;
+	border-radius: 20px;
+	text-transform: uppercase;
+	letter-spacing: 0.03em;
+}
+
+.cookiedk-badge--necessary  { background: #e8f0fe; color: #1a56db; }
+.cookiedk-badge--functional { background: #fef3c7; color: #92400e; }
+.cookiedk-badge--analytics  { background: #ecfdf5; color: #065f46; }
+.cookiedk-badge--marketing  { background: #fce7f3; color: #9d174d; }
+
+/* =========================================================
+   Formularer
+   ========================================================= */
+.cookiedk-form-table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.cookiedk-form-table th,
+.cookiedk-form-table td {
+	padding: 12px 0;
+	vertical-align: top;
+}
+
+.cookiedk-form-table th {
+	font-weight: 600;
+	font-size: 14px;
+	color: #1d2327;
+	width: 220px;
+	padding-right: 20px;
+}
+
+.cookiedk-form-table tr + tr th,
+.cookiedk-form-table tr + tr td {
+	border-top: 1px solid #f0f0f1;
+}
+
+.cookiedk-form-table p.description {
+	font-size: 13px;
+	color: #646970;
+	margin-top: 4px;
+}
+
+.cookiedk-form-table input[type="text"],
+.cookiedk-form-table input[type="url"],
+.cookiedk-form-table input[type="number"],
+.cookiedk-form-table input[type="color"],
+.cookiedk-form-table select,
+.cookiedk-form-table textarea {
+	width: 100%;
+	max-width: 400px;
+}
+
+.cookiedk-form-table input[type="color"] {
+	height: 36px;
+	padding: 2px 4px;
+	max-width: 80px;
+}
+
+/* =========================================================
+   Handlingsknapper
+   ========================================================= */
+.cookiedk-actions {
+	display: flex;
+	gap: 10px;
+	flex-wrap: wrap;
+	margin-bottom: 16px;
+	align-items: center;
+}
+
+/* =========================================================
+   Modal-dialog
+   ========================================================= */
+.cookiedk-modal-overlay {
+	display: none;
+	position: fixed;
+	inset: 0;
+	background: rgba(0, 0, 0, 0.5);
+	z-index: 100000;
+}
+
+.cookiedk-modal-overlay.active {
+	display: block;
+}
+
+.cookiedk-modal {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background: #fff;
+	border-radius: 4px;
+	box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+	width: min(560px, calc(100vw - 32px));
+	max-height: calc(100vh - 64px);
+	overflow-y: auto;
+}
+
+.cookiedk-modal__header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 16px 20px;
+	border-bottom: 1px solid #dcdcde;
+}
+
+.cookiedk-modal__title {
+	font-size: 16px;
+	font-weight: 600;
+	margin: 0;
+}
+
+.cookiedk-modal__close {
+	background: none;
+	border: none;
+	cursor: pointer;
+	font-size: 20px;
+	color: #646970;
+	padding: 4px;
+	line-height: 1;
+}
+
+.cookiedk-modal__body {
+	padding: 20px;
+}
+
+.cookiedk-modal__footer {
+	padding: 12px 20px;
+	border-top: 1px solid #dcdcde;
+	display: flex;
+	gap: 10px;
+	justify-content: flex-end;
+}
+
+/* =========================================================
+   Samtykkelogning
+   ========================================================= */
+.cookiedk-filter-bar {
+	display: flex;
+	gap: 10px;
+	flex-wrap: wrap;
+	align-items: flex-end;
+	margin-bottom: 16px;
+	padding: 16px;
+	background: #f6f7f7;
+	border: 1px solid #dcdcde;
+	border-radius: 4px;
+}
+
+.cookiedk-filter-bar label {
+	font-size: 13px;
+	font-weight: 500;
+}
+
+.cookiedk-filter-bar input {
+	display: block;
+	margin-top: 4px;
+}
+
+/* =========================================================
+   Test-side
+   ========================================================= */
+.cookiedk-test-actions {
+	display: flex;
+	gap: 12px;
+	flex-wrap: wrap;
+	margin-bottom: 24px;
+}
+
+.cookiedk-preview-frame {
+	border: 1px solid #dcdcde;
+	border-radius: 4px;
+	width: 100%;
+	height: 300px;
+	background: #f6f7f7;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #646970;
+	font-size: 14px;
+}
+
+/* =========================================================
+   Notifikationer
+   ========================================================= */
+.cookiedk-notice {
+	display: none;
+	padding: 10px 14px;
+	border-left: 4px solid #2271b1;
+	background: #f0f6fc;
+	font-size: 14px;
+	margin-bottom: 16px;
+	border-radius: 0 4px 4px 0;
+}
+
+.cookiedk-notice.success { border-color: #00a32a; background: #edfaef; }
+.cookiedk-notice.error   { border-color: #d63638; background: #fcf0f1; }
+.cookiedk-notice.visible { display: block; }
+
+/* =========================================================
+   Responsive
+   ========================================================= */
+@media screen and (max-width: 782px) {
+	.cookiedk-stats {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	.cookiedk-form-table th {
+		width: auto;
+		display: block;
+		padding-bottom: 4px;
+	}
+
+	.cookiedk-form-table td {
+		display: block;
+		padding-top: 0;
+	}
+
+	.cookiedk-admin__content {
+		padding: 16px;
+	}
+}

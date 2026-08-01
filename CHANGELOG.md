@@ -7,6 +7,95 @@ og dette projekt følger [Semantisk Versionering](https://semver.org/lang/da/).
 
 ---
 
+## [Unreleased]
+
+### Tilføjet
+
+#### Fase 4 – Banner & Brugergrænsefladen
+- Oprettet `public/class-frontend.php` med:
+  - Registrering af banner-scripts og styles via `wp_enqueue_scripts`
+  - Banner-rendering via `wp_footer` hook
+  - Dynamisk inline CSS med brugerdefinerede farver
+  - Overgivelse af indstillinger og i18n til JavaScript via `wp_localize_script`
+- Oprettet `public/assets/css/banner.css` med:
+  - CSS Custom Properties til nem tilpasning
+  - Responsive design (mobil-først, breakpoints ved 782px og 480px)
+  - Banner-positioner: bund (standard), top og side
+  - Indstillingspanel med kategori-toggles og cookie-liste
+  - Toggle-switch komponent (CSS-only)
+  - Dark mode support via `prefers-color-scheme`
+  - WCAG 2.1 AA tilgængelighed (fokus-ringe)
+- Oprettet `public/assets/js/banner.js` med:
+  - Banner-visning/skjulning
+  - Indstillingspanel åbne/luk
+  - Fokus-trap i modal-dialog
+  - Tastaturnavigation (Escape-tast)
+  - ARIA live region til skærmlæser-annoncering
+  - Ekspander/kollaps cookie-lister pr. kategori
+- Oprettet `public/assets/js/cookie-consent.js` med:
+  - LocalStorage-håndtering med udløbsdato
+  - `acceptAll()` – acceptér alle kategorier
+  - `acceptNecessaryOnly()` – kun nødvendige cookies
+  - `saveCustomConsent()` – gem brugerdefineret samtykke
+  - `getCurrentConsent()` / `isCategoryAccepted()` – læs nuværende samtykke
+  - AJAX POST til `cookiedk_log_consent` for server-side logning
+  - Custom DOM-events: `cookiedk:consent` og `cookiedk:consent:{kategori}`
+  - Data-attributter på `<body>` til CSS-targeting
+- Oprettet `public/templates/banner.php` med:
+  - HTML-struktur med ARIA `dialog`-rolle
+  - Tre knapper: Accepter alle, Indstillinger, Kun nødvendige
+  - Link til cookiepolitik (valgfrit)
+  - Live region til skærmlæsere
+- Oprettet `public/templates/settings-panel.php` med:
+  - Modal-dialog med ARIA `dialog`-rolle og fokus-trap
+  - Toggle-switches pr. kategori (nødvendige låst aktive)
+  - Ekspanderbare cookie-lister med navn, udbyder, varighed og beskrivelse
+  - "Gem indstillinger" og "Accepter alle"-knapper
+
+#### Fase 5 – Admin-interface
+- Oprettet `admin/class-admin-menu.php` med:
+  - Registrering af admin-side under **Indstillinger → CookieDK**
+  - Capability-check (`manage_options`) på alle sider
+  - Betinget indlæsning af admin-assets
+- Oprettet `admin/class-admin-page.php` med:
+  - Tab-baseret navigation (Dashboard, Cookies, Indstillinger, Samtykker, Test)
+  - `handle_settings_form()` – behandler indstillingsformular med nonce-verificering
+  - `handle_cookie_form()` – tilføj/rediger cookie med nonce-verificering
+  - AJAX-endpoints:
+    - `cookiedk_update_cookie` – opdater cookie-data
+    - `cookiedk_delete_cookie` – slet en cookie
+    - `cookiedk_export_cookies` – eksportér cookies som JSON
+    - `cookiedk_save_settings` – gem indstillinger via AJAX
+  - Fuldstændig input-sanitering og nonce-beskyttelse på alle endpoints
+- Oprettet `admin/assets/css/admin.css` med:
+  - Tab-navigation styling
+  - Statistik-kort layout (CSS Grid)
+  - Tabel-styling med kategori-badges
+  - Formular-styling
+  - Modal-dialog CSS
+  - Notifikations-komponent
+  - Responsive design (tablet og mobil)
+- Oprettet `admin/assets/js/admin.js` med:
+  - Modal-dialog åben/luk med fokus-håndtering og Escape-tast
+  - AJAX cookie-redigering (inline i tabel)
+  - AJAX cookie-sletning med bekræftelsesdialog
+  - JSON-eksport til fil via Blob API
+  - Tabel-sortering efter kolonne
+  - Notifikations-system (success/error)
+  - LocalStorage nulstil-funktion (test-mode)
+- Oprettet `admin/partials/dashboard.php` med statistik-overblik
+- Oprettet `admin/partials/cookies.php` med cookie-tabel, rediger- og slet-funktioner samt "Tilføj cookie"-modal
+- Oprettet `admin/partials/settings.php` med alle indstillingsfelter og nonce-beskyttet formular
+- Oprettet `admin/partials/consent-log.php` med samtykketabel, datofilter og statistik
+- Oprettet `admin/partials/test.php` med banner-preview-link, reset-funktion og cookie-detektion-status
+
+#### Opdateringer
+- Opdateret `cookiedk.php` til at indlæse og initialisere Fase 4-5 klasser
+- Opdateret standardindstillinger med `primary_color` og `secondary_color`
+- Opdateret `README.md` med banner-konfiguration og opdateret mappestruktur
+
+---
+
 ## [1.0.0] – 2026-08-01
 
 ### Tilføjet
