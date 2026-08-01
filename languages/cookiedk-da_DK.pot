@@ -1,0 +1,526 @@
+# Copyright (C) 2024 WebJax
+# This file is distributed under the same license as the CookieDK plugin.
+# WebJax <info@webjax.dk>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: CookieDK 1.0.0\n"
+"Report-Msgid-Bugs-To: https://github.com/WebJax/CookieDK/issues\n"
+"POT-Creation-Date: 2024-01-01 00:00+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"X-Generator: WP-CLI 2.x\n"
+"X-Domain: cookiedk\n"
+
+#. Plugin Name of the plugin
+msgid "CookieDK"
+msgstr ""
+
+#. Description of the plugin
+msgid "GDPR-compliant cookiebanner med auto-detektion (dansk)"
+msgstr ""
+
+#. Author of the plugin
+msgid "WebJax"
+msgstr ""
+
+#: cookiedk.php
+msgid "Ugyldige samtykke-data."
+msgstr ""
+
+#: cookiedk.php
+msgid "Samtykke kunne ikke gemmes."
+msgstr ""
+
+#: cookiedk.php
+msgid "Samtykke gemt."
+msgstr ""
+
+#: includes/class-gdpr-compliance.php
+msgid "Ugyldige samtykke-data."
+msgstr ""
+
+#: includes/class-gdpr-compliance.php
+msgid "Samtykke kunne ikke gemmes."
+msgstr ""
+
+#: includes/class-gdpr-compliance.php
+msgid "Samtykke gemt."
+msgstr ""
+
+#: includes/class-gdpr-compliance.php
+msgid "Du skal være logget ind for at eksportere data."
+msgstr ""
+
+#: includes/class-gdpr-compliance.php
+msgid "Data eksporteret."
+msgstr ""
+
+#: includes/class-gdpr-compliance.php
+msgid "Fingerprint mangler."
+msgstr ""
+
+#: includes/class-gdpr-compliance.php
+msgid "Samtykke tilbagekaldt."
+msgstr ""
+
+#: includes/class-gdpr-compliance.php
+msgid "Samtykke kunne ikke tilbagekaldes."
+msgstr ""
+
+#: includes/class-gdpr-compliance.php
+msgid "Samtykke-data slettet."
+msgstr ""
+
+#: includes/class-gdpr-compliance.php
+msgid "Data kunne ikke slettes."
+msgstr ""
+
+#: includes/class-gdpr-compliance.php
+msgid "CookieDK Samtykkedata"
+msgstr ""
+
+#: includes/class-gdpr-compliance.php
+msgid "CookieDK Samtykker"
+msgstr ""
+
+#: includes/class-gdpr-compliance.php
+msgid "Tidspunkt"
+msgstr ""
+
+#: includes/class-gdpr-compliance.php
+msgid "Samtykke"
+msgstr ""
+
+#: includes/class-gdpr-compliance.php
+msgid "Ja"
+msgstr ""
+
+#: includes/class-gdpr-compliance.php
+msgid "Nej"
+msgstr ""
+
+#: includes/class-gdpr-compliance.php
+msgid "CookieDK samtykke-data slettet."
+msgstr ""
+
+#: includes/class-consent-export.php
+msgid "[anonymiseret]"
+msgstr ""
+
+#: includes/class-consent-export.php
+msgid "Nødvendige"
+msgstr ""
+
+#: includes/class-consent-export.php
+msgid "Funktionelle"
+msgstr ""
+
+#: includes/class-consent-export.php
+msgid "Analyser"
+msgstr ""
+
+#: includes/class-consent-export.php
+msgid "Marketing"
+msgstr ""
+
+#: includes/class-consent-export.php
+msgid "Ja"
+msgstr ""
+
+#: includes/class-consent-export.php
+msgid "Nej"
+msgstr ""
+
+#: includes/class-consent-export.php
+msgid "IP-adresse"
+msgstr ""
+
+#: includes/class-consent-export.php
+msgid "Browser"
+msgstr ""
+
+#: includes/class-consent-export.php
+msgid "CookieDK Samtykker"
+msgstr ""
+
+#: includes/class-privacy-policy.php
+msgid "Cookiepolitik"
+msgstr ""
+
+#. translators: %s: Webstedets navn.
+#: includes/class-privacy-policy.php
+msgid "%s bruger cookies til at forbedre din oplevelse på vores website. Denne side forklarer, hvilke cookies vi bruger, og hvad de bruges til."
+msgstr ""
+
+#: includes/class-privacy-policy.php
+msgid "Hvad er cookies?"
+msgstr ""
+
+#: includes/class-privacy-policy.php
+msgid "Cookies er små tekstfiler, der gemmes på din computer eller enhed, når du besøger et website. De bruges til at huske dine præferencer, holde dig logget ind og indsamle anonyme statistikker om brug af websitet."
+msgstr ""
+
+#: includes/class-privacy-policy.php
+msgid "Samtykke"
+msgstr ""
+
+#: includes/class-privacy-policy.php
+msgid "Når du besøger vores website for første gang, vises et cookie-banner, hvor du kan vælge, hvilke kategorier af cookies du accepterer. Du kan til enhver tid ændre dine præferencer ved at klikke på cookie-indstillingerne."
+msgstr ""
+
+#: includes/class-privacy-policy.php
+msgid "Nødvendige cookies"
+msgstr ""
+
+#: includes/class-privacy-policy.php
+msgid "Disse cookies er nødvendige for at websitet fungerer korrekt. De kan ikke deaktiveres. De bruges typisk til at huske dine cookie-præferencer, holde din session aktiv og sikre grundlæggende websitfunktioner."
+msgstr ""
+
+#: includes/class-privacy-policy.php
+msgid "Retsgrundlag: Legitim interesse (artikel 6(1)(f) GDPR) – nødvendig for webstedets funktion."
+msgstr ""
+
+#: includes/class-privacy-policy.php
+msgid "Funktionelle cookies"
+msgstr ""
+
+#: includes/class-privacy-policy.php
+msgid "Disse cookies giver websitet mulighed for at huske valg, du træffer (f.eks. dit brugernavn, sprog eller region), og tilbyde forbedrede, mere personlige funktioner."
+msgstr ""
+
+#: includes/class-privacy-policy.php
+msgid "Retsgrundlag: Samtykke (artikel 6(1)(a) GDPR)."
+msgstr ""
+
+#: includes/class-privacy-policy.php
+msgid "Analytiske cookies"
+msgstr ""
+
+#: includes/class-privacy-policy.php
+msgid "Disse cookies hjælper os med at forstå, hvordan besøgende interagerer med websitet, ved at indsamle og rapportere informationer anonymt. De hjælper os med at forbedre websitets indhold og brugervenlighed."
+msgstr ""
+
+#: includes/class-privacy-policy.php
+msgid "Marketing-cookies"
+msgstr ""
+
+#: includes/class-privacy-policy.php
+msgid "Disse cookies bruges til at vise dig relevante annoncer baseret på dine interesser. De bruges til at begrænse, hvor mange gange du ser en annonce, og til at måle effektiviteten af annoncekampagner."
+msgstr ""
+
+#: includes/class-privacy-policy.php
+msgid "Cookie"
+msgstr ""
+
+#: includes/class-privacy-policy.php
+msgid "Udbyder"
+msgstr ""
+
+#: includes/class-privacy-policy.php
+msgid "Formål"
+msgstr ""
+
+#: includes/class-privacy-policy.php
+msgid "Levetid"
+msgstr ""
+
+#: includes/class-privacy-policy.php
+msgid "Opbevaring og sletning"
+msgstr ""
+
+#: includes/class-privacy-policy.php
+msgid "Dit samtykke gemmes i op til 365 dage. IP-adresser i vores samtykke-log anonymiseres automatisk efter 30 dage."
+msgstr ""
+
+#: includes/class-privacy-policy.php
+msgid "Dine rettigheder"
+msgstr ""
+
+#: includes/class-privacy-policy.php
+msgid "Ret til indsigt – Du kan til enhver tid anmode om en kopi af de data, vi har registreret om dig."
+msgstr ""
+
+#: includes/class-privacy-policy.php
+msgid "Ret til sletning – Du kan anmode om sletning af dine samtykke-data (\"retten til at blive glemt\")."
+msgstr ""
+
+#: includes/class-privacy-policy.php
+msgid "Ret til at trække samtykke tilbage – Du kan til enhver tid trække dit samtykke tilbage uden begrundelse."
+msgstr ""
+
+#. translators: %s: Link til Datatilsynets hjemmeside.
+#: includes/class-privacy-policy.php
+msgid "Du har ret til at klage til Datatilsynet, hvis du mener, at behandlingen af dine personoplysninger er i strid med GDPR. Læs mere på %s."
+msgstr ""
+
+#: includes/class-privacy-policy.php
+msgid "Disse cookies er nødvendige for at websitet fungerer"
+msgstr ""
+
+#: includes/class-privacy-policy.php
+msgid "Disse cookies husker dine præferencer"
+msgstr ""
+
+#: includes/class-privacy-policy.php
+msgid "Disse cookies hjælper os med at forstå hvordan du bruger websitet"
+msgstr ""
+
+#: includes/class-privacy-policy.php
+msgid "Disse cookies bruges til at vise dig relevante annoncer"
+msgstr ""
+
+#: includes/class-privacy-policy.php
+msgid "Teknisk nødvendige cookies, som altid er aktive."
+msgstr ""
+
+#: includes/class-privacy-policy.php
+msgid "Cookies der husker dine valg og præferencer."
+msgstr ""
+
+#: includes/class-privacy-policy.php
+msgid "Anonyme statistik-cookies til forbedring af websitet."
+msgstr ""
+
+#: includes/class-privacy-policy.php
+msgid "Cookies til personaliserede annoncer og markedsføring."
+msgstr ""
+
+#: includes/class-translations.php
+msgid "Vi bruger cookies"
+msgstr ""
+
+#: includes/class-translations.php
+msgid "Vi bruger cookies til at forbedre din oplevelse på vores website. Vælg hvilke cookies du accepterer, eller læs mere i vores cookiepolitik."
+msgstr ""
+
+#: includes/class-translations.php
+msgid "Accepter alle"
+msgstr ""
+
+#: includes/class-translations.php
+msgid "Kun nødvendige"
+msgstr ""
+
+#: includes/class-translations.php
+msgid "Indstillinger"
+msgstr ""
+
+#: includes/class-translations.php
+msgid "Læs vores cookiepolitik"
+msgstr ""
+
+#: includes/class-translations.php
+msgid "Dine cookie-præferencer er gemt."
+msgstr ""
+
+#: includes/class-translations.php
+msgid "Dit samtykke er tilbagekaldt."
+msgstr ""
+
+#: includes/class-translations.php
+msgid "Cookie-indstillinger"
+msgstr ""
+
+#: includes/class-translations.php
+msgid "Her kan du vælge, hvilke kategorier af cookies du accepterer. Nødvendige cookies kan ikke deaktiveres."
+msgstr ""
+
+#: includes/class-translations.php
+msgid "Gem indstillinger"
+msgstr ""
+
+#: includes/class-translations.php
+msgid "Luk"
+msgstr ""
+
+#: includes/class-translations.php
+msgid "Vis cookies"
+msgstr ""
+
+#: includes/class-translations.php
+msgid "Skjul cookies"
+msgstr ""
+
+#: includes/class-translations.php
+msgid "Nødvendige"
+msgstr ""
+
+#: includes/class-translations.php
+msgid "Funktionelle"
+msgstr ""
+
+#: includes/class-translations.php
+msgid "Analyser"
+msgstr ""
+
+#: includes/class-translations.php
+msgid "Marketing"
+msgstr ""
+
+#: includes/class-translations.php
+msgid "Disse cookies er nødvendige for at websitet fungerer korrekt og kan ikke deaktiveres."
+msgstr ""
+
+#: includes/class-translations.php
+msgid "Disse cookies husker dine præferencer og indstillinger for en bedre oplevelse."
+msgstr ""
+
+#: includes/class-translations.php
+msgid "Disse cookies hjælper os med at forstå, hvordan du bruger websitet, så vi kan forbedre det."
+msgstr ""
+
+#: includes/class-translations.php
+msgid "Disse cookies bruges til at vise dig relevante annoncer og måle effekten af markedsføring."
+msgstr ""
+
+#: includes/class-translations.php
+msgid "CookieDK"
+msgstr ""
+
+#: includes/class-translations.php
+msgid "Dashboard"
+msgstr ""
+
+#: includes/class-translations.php
+msgid "Cookies"
+msgstr ""
+
+#: includes/class-translations.php
+msgid "Indstillinger"
+msgstr ""
+
+#: includes/class-translations.php
+msgid "Samtykker"
+msgstr ""
+
+#: includes/class-translations.php
+msgid "Test"
+msgstr ""
+
+#: includes/class-translations.php
+msgid "Gem ændringer"
+msgstr ""
+
+#: includes/class-translations.php
+msgid "Slet"
+msgstr ""
+
+#: includes/class-translations.php
+msgid "Rediger"
+msgstr ""
+
+#: includes/class-translations.php
+msgid "Eksportér"
+msgstr ""
+
+#: includes/class-translations.php
+msgid "Tilføj cookie"
+msgstr ""
+
+#: includes/class-translations.php
+msgid "Cookie-navn"
+msgstr ""
+
+#: includes/class-translations.php
+msgid "Kategori"
+msgstr ""
+
+#: includes/class-translations.php
+msgid "Beskrivelse"
+msgstr ""
+
+#: includes/class-translations.php
+msgid "Levetid"
+msgstr ""
+
+#: includes/class-translations.php
+msgid "Udbyder"
+msgstr ""
+
+#: includes/class-translations.php
+msgid "Ingen cookies fundet."
+msgstr ""
+
+#: includes/class-translations.php
+msgid "Er du sikker på, at du vil slette denne cookie?"
+msgstr ""
+
+#: includes/class-translations.php
+msgid "Indstillinger gemt."
+msgstr ""
+
+#: includes/class-translations.php
+msgid "Der opstod en fejl. Prøv igen."
+msgstr ""
+
+#: includes/class-translations.php
+msgid "Sikkerhedstokenet er ugyldigt. Genindlæs siden og prøv igen."
+msgstr ""
+
+#: includes/class-translations.php
+msgid "Du har ikke tilladelse til at udføre denne handling."
+msgstr ""
+
+#: includes/class-translations.php
+msgid "Ugyldige samtykke-data."
+msgstr ""
+
+#: includes/class-translations.php
+msgid "Samtykke kunne ikke gemmes. Prøv igen."
+msgstr ""
+
+#: includes/class-translations.php
+msgid "Samtykke ikke fundet."
+msgstr ""
+
+#: includes/class-translations.php
+msgid "Eksport mislykkedes. Prøv igen."
+msgstr ""
+
+#: includes/class-translations.php
+msgid "Sletning mislykkedes. Prøv igen."
+msgstr ""
+
+#: includes/class-translations.php
+msgid "Ugyldig e-mailadresse."
+msgstr ""
+
+#: includes/class-cookie-detector.php
+#. translators: %s: Cookie-navn.
+msgid "Cookie ved navn \"%s\". Formålet med denne cookie er ikke identificeret."
+msgstr ""
+
+#: includes/class-cookie-detector.php
+msgid "Ukendt"
+msgstr ""
+
+#: includes/class-cookie-detector.php
+msgid "Ukendt udbyder"
+msgstr ""
+
+#: includes/class-cookie-detector.php
+msgid "Ugyldige cookie-data."
+msgstr ""
+
+#: includes/class-cookie-detector.php
+msgid "Nødvendige"
+msgstr ""
+
+#: includes/class-cookie-detector.php
+msgid "Funktionelle"
+msgstr ""
+
+#: includes/class-cookie-detector.php
+msgid "Analyser"
+msgstr ""
+
+#: includes/class-cookie-detector.php
+msgid "Marketing"
+msgstr ""

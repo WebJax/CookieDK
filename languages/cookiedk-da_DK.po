@@ -1,0 +1,361 @@
+# Danish translation for CookieDK
+# Copyright (C) 2024 WebJax
+# This file is distributed under the same license as the CookieDK plugin.
+# WebJax <info@webjax.dk>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: CookieDK 1.0.0\n"
+"Report-Msgid-Bugs-To: https://github.com/WebJax/CookieDK/issues\n"
+"POT-Creation-Date: 2024-01-01 00:00+0000\n"
+"PO-Revision-Date: 2024-01-01 00:00+0000\n"
+"Last-Translator: WebJax <info@webjax.dk>\n"
+"Language-Team: Danish <info@webjax.dk>\n"
+"Language: da_DK\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.x\n"
+"X-Domain: cookiedk\n"
+
+#. Plugin Name
+msgid "CookieDK"
+msgstr "CookieDK"
+
+#. Plugin Description
+msgid "GDPR-compliant cookiebanner med auto-detektion (dansk)"
+msgstr "GDPR-compliant cookiebanner med auto-detektion (dansk)"
+
+#. Plugin Author
+msgid "WebJax"
+msgstr "WebJax"
+
+# === GDPR / Consent ===
+
+msgid "Ugyldige samtykke-data."
+msgstr "Ugyldige samtykke-data."
+
+msgid "Samtykke kunne ikke gemmes."
+msgstr "Samtykke kunne ikke gemmes. Prøv igen."
+
+msgid "Samtykke gemt."
+msgstr "Samtykke gemt."
+
+msgid "Du skal være logget ind for at eksportere data."
+msgstr "Du skal være logget ind for at eksportere data."
+
+msgid "Data eksporteret."
+msgstr "Data eksporteret."
+
+msgid "Fingerprint mangler."
+msgstr "Fingerprint mangler."
+
+msgid "Samtykke tilbagekaldt."
+msgstr "Samtykke tilbagekaldt."
+
+msgid "Samtykke kunne ikke tilbagekaldes."
+msgstr "Samtykke kunne ikke tilbagekaldes. Prøv igen."
+
+msgid "Samtykke-data slettet."
+msgstr "Samtykke-data slettet."
+
+msgid "Data kunne ikke slettes."
+msgstr "Data kunne ikke slettes. Prøv igen."
+
+msgid "CookieDK Samtykkedata"
+msgstr "CookieDK Samtykkedata"
+
+msgid "CookieDK samtykke-data slettet."
+msgstr "CookieDK samtykke-data slettet."
+
+# === Export / Privacy ===
+
+msgid "[anonymiseret]"
+msgstr "[anonymiseret]"
+
+msgid "IP-adresse"
+msgstr "IP-adresse"
+
+msgid "Browser"
+msgstr "Browser"
+
+msgid "CookieDK Samtykker"
+msgstr "CookieDK Samtykker"
+
+msgid "Tidspunkt"
+msgstr "Tidspunkt"
+
+msgid "Samtykke"
+msgstr "Samtykke"
+
+msgid "Ja"
+msgstr "Ja"
+
+msgid "Nej"
+msgstr "Nej"
+
+# === Categories ===
+
+msgid "Nødvendige"
+msgstr "Nødvendige"
+
+msgid "Funktionelle"
+msgstr "Funktionelle"
+
+msgid "Analyser"
+msgstr "Analyser"
+
+msgid "Marketing"
+msgstr "Marketing"
+
+# === Privacy Policy ===
+
+msgid "Cookiepolitik"
+msgstr "Cookiepolitik"
+
+msgid "%s bruger cookies til at forbedre din oplevelse på vores website. Denne side forklarer, hvilke cookies vi bruger, og hvad de bruges til."
+msgstr "%s bruger cookies til at forbedre din oplevelse på vores website. Denne side forklarer, hvilke cookies vi bruger, og hvad de bruges til."
+
+msgid "Hvad er cookies?"
+msgstr "Hvad er cookies?"
+
+msgid "Cookies er små tekstfiler, der gemmes på din computer eller enhed, når du besøger et website. De bruges til at huske dine præferencer, holde dig logget ind og indsamle anonyme statistikker om brug af websitet."
+msgstr "Cookies er små tekstfiler, der gemmes på din computer eller enhed, når du besøger et website. De bruges til at huske dine præferencer, holde dig logget ind og indsamle anonyme statistikker om brug af websitet."
+
+msgid "Når du besøger vores website for første gang, vises et cookie-banner, hvor du kan vælge, hvilke kategorier af cookies du accepterer. Du kan til enhver tid ændre dine præferencer ved at klikke på cookie-indstillingerne."
+msgstr "Når du besøger vores website for første gang, vises et cookie-banner, hvor du kan vælge, hvilke kategorier af cookies du accepterer. Du kan til enhver tid ændre dine præferencer ved at klikke på cookie-indstillingerne."
+
+msgid "Nødvendige cookies"
+msgstr "Nødvendige cookies"
+
+msgid "Disse cookies er nødvendige for at websitet fungerer korrekt. De kan ikke deaktiveres. De bruges typisk til at huske dine cookie-præferencer, holde din session aktiv og sikre grundlæggende websitfunktioner."
+msgstr "Disse cookies er nødvendige for at websitet fungerer korrekt. De kan ikke deaktiveres. De bruges typisk til at huske dine cookie-præferencer, holde din session aktiv og sikre grundlæggende websitfunktioner."
+
+msgid "Retsgrundlag: Legitim interesse (artikel 6(1)(f) GDPR) – nødvendig for webstedets funktion."
+msgstr "Retsgrundlag: Legitim interesse (artikel 6(1)(f) GDPR) – nødvendig for webstedets funktion."
+
+msgid "Funktionelle cookies"
+msgstr "Funktionelle cookies"
+
+msgid "Disse cookies giver websitet mulighed for at huske valg, du træffer (f.eks. dit brugernavn, sprog eller region), og tilbyde forbedrede, mere personlige funktioner."
+msgstr "Disse cookies giver websitet mulighed for at huske valg, du træffer (f.eks. dit brugernavn, sprog eller region), og tilbyde forbedrede, mere personlige funktioner."
+
+msgid "Retsgrundlag: Samtykke (artikel 6(1)(a) GDPR)."
+msgstr "Retsgrundlag: Samtykke (artikel 6(1)(a) GDPR)."
+
+msgid "Analytiske cookies"
+msgstr "Analytiske cookies"
+
+msgid "Disse cookies hjælper os med at forstå, hvordan besøgende interagerer med websitet, ved at indsamle og rapportere informationer anonymt. De hjælper os med at forbedre websitets indhold og brugervenlighed."
+msgstr "Disse cookies hjælper os med at forstå, hvordan besøgende interagerer med websitet, ved at indsamle og rapportere informationer anonymt. De hjælper os med at forbedre websitets indhold og brugervenlighed."
+
+msgid "Marketing-cookies"
+msgstr "Marketing-cookies"
+
+msgid "Disse cookies bruges til at vise dig relevante annoncer baseret på dine interesser. De bruges til at begrænse, hvor mange gange du ser en annonce, og til at måle effektiviteten af annoncekampagner."
+msgstr "Disse cookies bruges til at vise dig relevante annoncer baseret på dine interesser. De bruges til at begrænse, hvor mange gange du ser en annonce, og til at måle effektiviteten af annoncekampagner."
+
+msgid "Cookie"
+msgstr "Cookie"
+
+msgid "Udbyder"
+msgstr "Udbyder"
+
+msgid "Formål"
+msgstr "Formål"
+
+msgid "Levetid"
+msgstr "Levetid"
+
+msgid "Opbevaring og sletning"
+msgstr "Opbevaring og sletning"
+
+msgid "Dit samtykke gemmes i op til 365 dage. IP-adresser i vores samtykke-log anonymiseres automatisk efter 30 dage."
+msgstr "Dit samtykke gemmes i op til 365 dage. IP-adresser i vores samtykke-log anonymiseres automatisk efter 30 dage."
+
+msgid "Dine rettigheder"
+msgstr "Dine rettigheder"
+
+msgid "Ret til indsigt – Du kan til enhver tid anmode om en kopi af de data, vi har registreret om dig."
+msgstr "Ret til indsigt – Du kan til enhver tid anmode om en kopi af de data, vi har registreret om dig."
+
+msgid "Ret til sletning – Du kan anmode om sletning af dine samtykke-data (\"retten til at blive glemt\")."
+msgstr "Ret til sletning – Du kan anmode om sletning af dine samtykke-data (\"retten til at blive glemt\")."
+
+msgid "Ret til at trække samtykke tilbage – Du kan til enhver tid trække dit samtykke tilbage uden begrundelse."
+msgstr "Ret til at trække samtykke tilbage – Du kan til enhver tid trække dit samtykke tilbage uden begrundelse."
+
+msgid "Du har ret til at klage til Datatilsynet, hvis du mener, at behandlingen af dine personoplysninger er i strid med GDPR. Læs mere på %s."
+msgstr "Du har ret til at klage til Datatilsynet, hvis du mener, at behandlingen af dine personoplysninger er i strid med GDPR. Læs mere på %s."
+
+msgid "Disse cookies er nødvendige for at websitet fungerer"
+msgstr "Disse cookies er nødvendige for at websitet fungerer"
+
+msgid "Disse cookies husker dine præferencer"
+msgstr "Disse cookies husker dine præferencer"
+
+msgid "Disse cookies hjælper os med at forstå hvordan du bruger websitet"
+msgstr "Disse cookies hjælper os med at forstå hvordan du bruger websitet"
+
+msgid "Disse cookies bruges til at vise dig relevante annoncer"
+msgstr "Disse cookies bruges til at vise dig relevante annoncer"
+
+msgid "Teknisk nødvendige cookies, som altid er aktive."
+msgstr "Teknisk nødvendige cookies, som altid er aktive."
+
+msgid "Cookies der husker dine valg og præferencer."
+msgstr "Cookies der husker dine valg og præferencer."
+
+msgid "Anonyme statistik-cookies til forbedring af websitet."
+msgstr "Anonyme statistik-cookies til forbedring af websitet."
+
+msgid "Cookies til personaliserede annoncer og markedsføring."
+msgstr "Cookies til personaliserede annoncer og markedsføring."
+
+# === Banner ===
+
+msgid "Vi bruger cookies"
+msgstr "Vi bruger cookies"
+
+msgid "Vi bruger cookies til at forbedre din oplevelse på vores website. Vælg hvilke cookies du accepterer, eller læs mere i vores cookiepolitik."
+msgstr "Vi bruger cookies til at forbedre din oplevelse på vores website. Vælg hvilke cookies du accepterer, eller læs mere i vores cookiepolitik."
+
+msgid "Accepter alle"
+msgstr "Accepter alle"
+
+msgid "Kun nødvendige"
+msgstr "Kun nødvendige"
+
+msgid "Indstillinger"
+msgstr "Indstillinger"
+
+msgid "Læs vores cookiepolitik"
+msgstr "Læs vores cookiepolitik"
+
+msgid "Dine cookie-præferencer er gemt."
+msgstr "Dine cookie-præferencer er gemt."
+
+msgid "Dit samtykke er tilbagekaldt."
+msgstr "Dit samtykke er tilbagekaldt."
+
+# === Settings Panel ===
+
+msgid "Cookie-indstillinger"
+msgstr "Cookie-indstillinger"
+
+msgid "Her kan du vælge, hvilke kategorier af cookies du accepterer. Nødvendige cookies kan ikke deaktiveres."
+msgstr "Her kan du vælge, hvilke kategorier af cookies du accepterer. Nødvendige cookies kan ikke deaktiveres."
+
+msgid "Gem indstillinger"
+msgstr "Gem indstillinger"
+
+msgid "Luk"
+msgstr "Luk"
+
+msgid "Vis cookies"
+msgstr "Vis cookies"
+
+msgid "Skjul cookies"
+msgstr "Skjul cookies"
+
+# === Category Descriptions ===
+
+msgid "Disse cookies er nødvendige for at websitet fungerer korrekt og kan ikke deaktiveres."
+msgstr "Disse cookies er nødvendige for at websitet fungerer korrekt og kan ikke deaktiveres."
+
+msgid "Disse cookies husker dine præferencer og indstillinger for en bedre oplevelse."
+msgstr "Disse cookies husker dine præferencer og indstillinger for en bedre oplevelse."
+
+msgid "Disse cookies hjælper os med at forstå, hvordan du bruger websitet, så vi kan forbedre det."
+msgstr "Disse cookies hjælper os med at forstå, hvordan du bruger websitet, så vi kan forbedre det."
+
+msgid "Disse cookies bruges til at vise dig relevante annoncer og måle effekten af markedsføring."
+msgstr "Disse cookies bruges til at vise dig relevante annoncer og måle effekten af markedsføring."
+
+# === Admin Interface ===
+
+msgid "Dashboard"
+msgstr "Dashboard"
+
+msgid "Cookies"
+msgstr "Cookies"
+
+msgid "Samtykker"
+msgstr "Samtykker"
+
+msgid "Test"
+msgstr "Test"
+
+msgid "Gem ændringer"
+msgstr "Gem ændringer"
+
+msgid "Slet"
+msgstr "Slet"
+
+msgid "Rediger"
+msgstr "Rediger"
+
+msgid "Eksportér"
+msgstr "Eksportér"
+
+msgid "Tilføj cookie"
+msgstr "Tilføj cookie"
+
+msgid "Cookie-navn"
+msgstr "Cookie-navn"
+
+msgid "Kategori"
+msgstr "Kategori"
+
+msgid "Beskrivelse"
+msgstr "Beskrivelse"
+
+msgid "Ingen cookies fundet."
+msgstr "Ingen cookies fundet."
+
+msgid "Er du sikker på, at du vil slette denne cookie?"
+msgstr "Er du sikker på, at du vil slette denne cookie?"
+
+msgid "Indstillinger gemt."
+msgstr "Indstillinger gemt."
+
+msgid "Der opstod en fejl. Prøv igen."
+msgstr "Der opstod en fejl. Prøv igen."
+
+# === Error Messages ===
+
+msgid "Sikkerhedstokenet er ugyldigt. Genindlæs siden og prøv igen."
+msgstr "Sikkerhedstokenet er ugyldigt. Genindlæs siden og prøv igen."
+
+msgid "Du har ikke tilladelse til at udføre denne handling."
+msgstr "Du har ikke tilladelse til at udføre denne handling."
+
+msgid "Samtykke ikke fundet."
+msgstr "Samtykke ikke fundet."
+
+msgid "Eksport mislykkedes. Prøv igen."
+msgstr "Eksport mislykkedes. Prøv igen."
+
+msgid "Sletning mislykkedes. Prøv igen."
+msgstr "Sletning mislykkedes. Prøv igen."
+
+msgid "Ugyldig e-mailadresse."
+msgstr "Ugyldig e-mailadresse."
+
+# === Cookie Detector ===
+
+msgid "Cookie ved navn \"%s\". Formålet med denne cookie er ikke identificeret."
+msgstr "Cookie ved navn \"%s\". Formålet med denne cookie er ikke identificeret."
+
+msgid "Ukendt"
+msgstr "Ukendt"
+
+msgid "Ukendt udbyder"
+msgstr "Ukendt udbyder"
+
+msgid "Ugyldige cookie-data."
+msgstr "Ugyldige cookie-data."
+
+msgid "Du har ret til at klage til Datatilsynet på datatilsynet.dk."
+msgstr "Du har ret til at klage til Datatilsynet på datatilsynet.dk."

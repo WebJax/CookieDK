@@ -35,7 +35,10 @@ define( 'COOKIEDK_DB_VERSION', '1.0.0' );
 function cookiedk_load_dependencies() {
 	require_once COOKIEDK_PLUGIN_DIR . 'includes/class-cookie-detector.php';
 	require_once COOKIEDK_PLUGIN_DIR . 'includes/class-cookie-storage.php';
+	require_once COOKIEDK_PLUGIN_DIR . 'includes/class-consent-export.php';
 	require_once COOKIEDK_PLUGIN_DIR . 'includes/class-gdpr-compliance.php';
+	require_once COOKIEDK_PLUGIN_DIR . 'includes/class-privacy-policy.php';
+	require_once COOKIEDK_PLUGIN_DIR . 'includes/class-translations.php';
 	require_once COOKIEDK_PLUGIN_DIR . 'public/class-frontend.php';
 	require_once COOKIEDK_PLUGIN_DIR . 'admin/class-admin-menu.php';
 	require_once COOKIEDK_PLUGIN_DIR . 'admin/class-admin-page.php';
@@ -102,9 +105,11 @@ function cookiedk_init() {
 	$detector    = new CookieDK_Cookie_Detector();
 	$storage     = new CookieDK_Cookie_Storage();
 	$gdpr        = new CookieDK_GDPR_Compliance();
+	$privacy     = new CookieDK_Privacy_Policy();
 
 	$detector->init();
 	$gdpr->init();
+	$privacy->init();
 
 	// Fase 4: Frontend-banner (kun på frontend).
 	if ( ! is_admin() ) {

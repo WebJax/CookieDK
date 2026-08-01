@@ -11,6 +11,53 @@ og dette projekt følger [Semantisk Versionering](https://semver.org/lang/da/).
 
 ### Tilføjet
 
+#### Fase 6 – GDPR-compliance
+- Udvidet `includes/class-gdpr-compliance.php` med:
+  - Fire nye AJAX-endpoints: `cookiedk_save_consent`, `cookiedk_export_user_data`, `cookiedk_revoke_consent`, `cookiedk_delete_user_cookies`
+  - WordPress user-hooks: `user_register`, `delete_user`, `wp_logout`
+  - Automatisk sletning af samtykker ved bruger-sletning
+  - Hjælpemetode `sanitize_consent_data()` til validering af samtykke-input
+  - Fingerprint-validering med regex (SHA-256 hex)
+  - Eksplicit samtykke-flow med validering af tilladte kategorier
+  - Refaktoreret `export_user_data()` til brug af `CookieDK_Consent_Export`
+- Oprettet `includes/class-consent-export.php` (ny klasse):
+  - `export_as_json()` – Eksporterer samtykke-data i JSON-format
+  - `to_wordpress_export_format()` – Formatter data til WordPress DSAR-format
+  - `format_consents()` – Formaterer samtykke-log-poster med kategori-navne
+  - `format_cookies()` – Formaterer cookie-liste
+  - `count_consents()` – Tæller antal samtykker for et fingerprint
+  - Anonymiserer IP i eksport (`[anonymiseret]`)
+- Oprettet `includes/class-privacy-policy.php` (ny klasse):
+  - `add_privacy_policy_content()` – Tilføjer cookiepolitik til WordPress Privacy Policy
+  - `generate_policy_content()` – Auto-genererer dansk HTML-cookiepolitik
+  - `render_cookie_table()` – Bygger tabel over cookies pr. kategori
+  - `get_category_descriptions()` – GDPR-tekster pr. kategori (dansk)
+  - `get_category_banner_texts()` – Kortfattede banner-tekster
+
+#### Fase 7 – Internationalisering (i18n)
+- Oprettet `languages/cookiedk-da_DK.pot` – Oversættelsesskabelon med alle tekststrenge
+- Oprettet `languages/cookiedk-da_DK.po` – Dansk oversættelse (kildekode)
+- Oprettet `languages/cookiedk-da_DK.mo` – Kompileret binær oversættelsesfil
+- Oprettet `includes/class-translations.php` (ny klasse):
+  - `get_banner_strings()` – Banner-tekster
+  - `get_settings_panel_strings()` – Indstillingspanel-tekster
+  - `get_category_names()` – Kategori-navne (dansk)
+  - `get_category_descriptions()` – Kategori-beskrivelser (dansk)
+  - `get_admin_strings()` – Admin-interface-tekster
+  - `get_error_strings()` – Fejlmeddelelser
+  - `get_privacy_policy_strings()` – Privacy policy-tekster
+  - `get_data_export_strings()` – Data-export-tekster
+  - `get_deletion_strings()` – Samtykke-sletnings-tekster
+  - `get_cookie_descriptions()` – Danske beskrivelser for 20+ kendte cookies
+  - `get()` – Hjælpemetode til at hente enkelt tekststreng
+- Oprettet `TRANSLATION.md` – Komplet vejledning til oversættelser med eksempler
+
+### Ændret
+- `cookiedk.php`: Indlæser nu `class-consent-export.php`, `class-privacy-policy.php` og `class-translations.php`
+- `cookiedk.php`: Initialiserer `CookieDK_Privacy_Policy` og kalder `$privacy->init()`
+- `includes/class-gdpr-compliance.php`: Tilføjet `$exporter`- og `$valid_categories`-properties
+- `README.md`: Opdateret mappestruktur, funktionsliste, GDPR-integration og i18n-sektioner
+
 #### Fase 4 – Banner & Brugergrænsefladen
 - Oprettet `public/class-frontend.php` med:
   - Registrering af banner-scripts og styles via `wp_enqueue_scripts`
