@@ -16,6 +16,9 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+/** @var string $banner_position */
+/** @var string $cookie_policy */
 ?>
 <div
 	id="cookiedk-banner"

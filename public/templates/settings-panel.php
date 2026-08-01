@@ -15,6 +15,9 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+/** @var string $cookie_policy */
+/** @var array $cookies_by_category */
 ?>
 <div
 	id="cookiedk-settings-panel"
