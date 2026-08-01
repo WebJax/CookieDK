@@ -15,9 +15,13 @@
 - **Dansk** – Alle tekster og cookie-beskrivelser på dansk
 - **GDPR-compliant** – Overholder EU's GDPR og den danske cookielovgivning
 - **Kategorier** – Nødvendige, Funktionelle, Analyser og Marketing
+- **Cookie-banner** – Responsivt banner med top/bund/side-position og dark mode
+- **Indstillingspanel** – Toggle-baseret kategoriudvælgelse med cookie-detaljer
+- **Admin-interface** – Dashboard, cookie-management, indstillinger, samtykkelogning og test
 - **Samtykkelogning** – Dokumenterer bruger-samtykker med tidsstempel
 - **Data-export** – Integreret med WordPress' privatlivsværktøjer
 - **Auto-anonymisering** – IP-adresser anonymiseres automatisk efter 30 dage
+- **Tilgængelighed** – WCAG 2.1 AA kompatibel (ARIA labels, keyboard navigation)
 - **WordPress Coding Standards** – Fuldt kompatibel med WPCS
 
 ---
@@ -61,13 +65,31 @@ wp plugin install cookiedk.zip --activate
 
 Efter aktivering oprettes database-tabellerne automatisk, og du kan konfigurere pluginen:
 
-1. Gå til **Indstillinger → Cookie-indstillinger** i adminpanelet
-2. Konfigurér:
-   - **Banner-position** – Top, bund eller side
-   - **Farvetema** – Lyst eller mørkt
-   - **Cookiepolitik-URL** – Link til din cookiepolitik
-   - **Samtykke-udløb** – Antal dage samtykket bevares (standard: 365)
-   - **Anonymisering** – Aktiver/deaktiver IP-anonymisering
+1. Gå til **Indstillinger → CookieDK** i adminpanelet
+2. Konfigurér via de fem faneblade:
+   - **Dashboard** – Oversigt med statistik over detekterede cookies og samtykker
+   - **Cookies** – Administrér detekterede cookies (rediger, tilføj, slet, eksportér)
+   - **Indstillinger** – Konfigurér banner og GDPR-indstillinger:
+     - **Banner-position** – Top, bund eller side
+     - **Farvetema** – Lyst, mørkt eller automatisk (følger system-præference)
+     - **Primær farve** – Baggrundsfarve for "Accepter alle"-knappen
+     - **Sekundær farve** – Hover-farve for knapper
+     - **Cookiepolitik-URL** – Link til din cookiepolitik-side (vises i banneret)
+     - **Samtykkefrist** – Antal dage samtykket bevares (standard: 365)
+     - **Aktive kategorier** – Aktiver/deaktiver funktionelle, analytiske og marketing-cookies
+     - **IP-anonymisering** – Anonymisér IP-adresser efter 30 dage
+     - **Logopbevaring** – Antal dage samtykkelogen bevares
+   - **Samtykker** – Oversigt over samtykkeloggen med datofilter
+   - **Test** – Test banner-visning og nulstil samtykker
+
+### Banner-konfiguration
+
+Banneret vises automatisk for besøgende der ikke har givet samtykke. Det understøtter tre knapper:
+- **Accepter alle** – Aktiverer alle cookie-kategorier
+- **Indstillinger** – Åbner et detaljeret indstillingspanel
+- **Kun nødvendige** – Accepterer kun teknisk nødvendige cookies
+
+Samtykket gemmes i `localStorage` med det konfigurerede antal dages udløb.
 
 ---
 
@@ -85,13 +107,27 @@ cookiedk/
 │   ├── class-cookie-storage.php        # Database-lagring & CRUD
 │   └── class-gdpr-compliance.php       # GDPR-overholdelse
 ├── admin/
+│   ├── class-admin-menu.php            # Admin-menu registrering
+│   ├── class-admin-page.php            # Admin-side renderer & AJAX-handlers
 │   ├── assets/
-│   │   ├── css/                        # Admin CSS
-│   │   └── js/                         # Admin JavaScript
+│   │   ├── css/admin.css               # Admin CSS
+│   │   └── js/admin.js                 # Admin JavaScript
+│   └── partials/
+│       ├── dashboard.php               # Dashboard-statistik
+│       ├── cookies.php                 # Cookie-management
+│       ├── settings.php                # Plugin-indstillinger
+│       ├── consent-log.php             # Samtykkelogning
+│       └── test.php                    # Test-side
 ├── public/
+│   ├── class-frontend.php              # Frontend banner-rendering
 │   ├── assets/
-│   │   ├── css/                        # Frontend CSS
-│   │   └── js/                         # Frontend JavaScript
+│   │   ├── css/banner.css              # Banner CSS (responsivt, dark mode)
+│   │   └── js/
+│   │       ├── banner.js               # Banner interaktion & ARIA
+│   │       └── cookie-consent.js       # Samtykke-logik & localStorage
+│   └── templates/
+│       ├── banner.php                  # Banner HTML-template
+│       └── settings-panel.php          # Indstillingspanel HTML-template
 ├── languages/
 │   └── cookiedk-da_DK.pot              # Oversættelsesskabelon
 └── assets/                             # Delte ressourcer

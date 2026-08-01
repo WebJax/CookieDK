@@ -36,6 +36,9 @@ function cookiedk_load_dependencies() {
 	require_once COOKIEDK_PLUGIN_DIR . 'includes/class-cookie-detector.php';
 	require_once COOKIEDK_PLUGIN_DIR . 'includes/class-cookie-storage.php';
 	require_once COOKIEDK_PLUGIN_DIR . 'includes/class-gdpr-compliance.php';
+	require_once COOKIEDK_PLUGIN_DIR . 'public/class-frontend.php';
+	require_once COOKIEDK_PLUGIN_DIR . 'admin/class-admin-menu.php';
+	require_once COOKIEDK_PLUGIN_DIR . 'admin/class-admin-page.php';
 }
 
 /**
@@ -62,6 +65,8 @@ function cookiedk_activate() {
 		'enable_functional'    => true,
 		'anonymize_ip'         => true,
 		'log_retention_days'   => 365,
+		'primary_color'        => '#2271b1',
+		'secondary_color'      => '#135e96',
 	);
 	add_option( 'cookiedk_settings', $default_settings );
 
@@ -100,6 +105,21 @@ function cookiedk_init() {
 
 	$detector->init();
 	$gdpr->init();
+
+	// Fase 4: Frontend-banner (kun på frontend).
+	if ( ! is_admin() ) {
+		$frontend = new CookieDK_Frontend();
+		$frontend->init();
+	}
+
+	// Fase 5: Admin-interface.
+	if ( is_admin() ) {
+		$admin_menu = new CookieDK_Admin_Menu();
+		$admin_menu->init();
+
+		$admin_page = new CookieDK_Admin_Page();
+		$admin_page->register_ajax_handlers();
+	}
 }
 add_action( 'plugins_loaded', 'cookiedk_init' );
 
