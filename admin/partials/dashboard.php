@@ -53,19 +53,19 @@ foreach ( $consent_log as $log ) {
 
 <div class="cookiedk-stats">
 	<div class="cookiedk-stat-card">
-		<span class="cookiedk-stat-card__value"><?php echo esc_html( count( $cookies ) ); ?></span>
+		<span class="cookiedk-stat-card__value"><?php echo esc_html( (string) count( $cookies ) ); ?></span>
 		<span class="cookiedk-stat-card__label"><?php esc_html_e( 'Detekterede cookies', 'cookiedk' ); ?></span>
 	</div>
 	<div class="cookiedk-stat-card">
-		<span class="cookiedk-stat-card__value"><?php echo esc_html( $total_consents ); ?></span>
+		<span class="cookiedk-stat-card__value"><?php echo esc_html( (string) $total_consents ); ?></span>
 		<span class="cookiedk-stat-card__label"><?php esc_html_e( 'Samtykker logget', 'cookiedk' ); ?></span>
 	</div>
 	<div class="cookiedk-stat-card">
-		<span class="cookiedk-stat-card__value"><?php echo esc_html( $accepted_all ); ?></span>
+		<span class="cookiedk-stat-card__value"><?php echo esc_html( (string) $accepted_all ); ?></span>
 		<span class="cookiedk-stat-card__label"><?php esc_html_e( 'Accepterede alle', 'cookiedk' ); ?></span>
 	</div>
 	<div class="cookiedk-stat-card">
-		<span class="cookiedk-stat-card__value"><?php echo esc_html( $accepted_partial ); ?></span>
+		<span class="cookiedk-stat-card__value"><?php echo esc_html( (string) $accepted_partial ); ?></span>
 		<span class="cookiedk-stat-card__label"><?php esc_html_e( 'Delvist accepteret', 'cookiedk' ); ?></span>
 	</div>
 </div>
@@ -86,7 +86,7 @@ foreach ( $consent_log as $log ) {
 						<?php echo esc_html( ucfirst( $cat ) ); ?>
 					</span>
 				</td>
-				<td><?php echo esc_html( $count ); ?></td>
+				<td><?php echo esc_html( (string) $count ); ?></td>
 			</tr>
 		<?php endforeach; ?>
 	</tbody>

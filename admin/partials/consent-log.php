@@ -56,15 +56,15 @@ $categories = CookieDK_Cookie_Detector::get_categories();
 
 <div class="cookiedk-stats" style="margin-bottom: 20px;">
 	<div class="cookiedk-stat-card">
-		<span class="cookiedk-stat-card__value"><?php echo esc_html( $total ); ?></span>
+		<span class="cookiedk-stat-card__value"><?php echo esc_html( (string) $total ); ?></span>
 		<span class="cookiedk-stat-card__label"><?php esc_html_e( 'Samtykker (filtreret)', 'cookiedk' ); ?></span>
 	</div>
 	<div class="cookiedk-stat-card">
-		<span class="cookiedk-stat-card__value"><?php echo esc_html( $accepted_all ); ?></span>
+		<span class="cookiedk-stat-card__value"><?php echo esc_html( (string) $accepted_all ); ?></span>
 		<span class="cookiedk-stat-card__label"><?php esc_html_e( 'Accepterede alle', 'cookiedk' ); ?></span>
 	</div>
 	<div class="cookiedk-stat-card">
-		<span class="cookiedk-stat-card__value"><?php echo $total > 0 ? esc_html( round( $accepted_all / $total * 100 ) ) . '%' : '0%'; ?></span>
+		<span class="cookiedk-stat-card__value"><?php echo $total > 0 ? esc_html( (string) round( $accepted_all / $total * 100 ) ) . '%' : '0%'; ?></span>
 		<span class="cookiedk-stat-card__label"><?php esc_html_e( 'Accepteringsrate', 'cookiedk' ); ?></span>
 	</div>
 </div>
@@ -119,7 +119,7 @@ $categories = CookieDK_Cookie_Detector::get_categories();
 		<tbody>
 			<?php if ( empty( $log ) ) : ?>
 				<tr>
-					<td colspan="<?php echo esc_attr( 2 + count( $categories ) ); ?>">
+					<td colspan="<?php echo esc_attr( 2 + count( (array) $categories ) ); ?>">
 						<em><?php esc_html_e( 'Ingen samtykker fundet.', 'cookiedk' ); ?></em>
 					</td>
 				</tr>

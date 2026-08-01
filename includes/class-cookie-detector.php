@@ -457,7 +457,6 @@ class CookieDK_Cookie_Detector {
 		if ( class_exists( 'CookieDK_Security' ) && ! CookieDK_Security::check_rate_limit( 'cookiedk_report_cookies', 60, 60 ) ) {
 			status_header( 429 );
 			wp_send_json_error( array( 'message' => __( 'For mange forespørgsler. Prøv igen senere.', 'cookiedk' ) ) );
-			return;
 		}
 
 		$raw_cookies = isset( $_POST['cookies'] ) ? wp_unslash( $_POST['cookies'] ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
@@ -465,7 +464,6 @@ class CookieDK_Cookie_Detector {
 
 		if ( ! is_array( $cookie_names ) ) {
 			wp_send_json_error( array( 'message' => __( 'Ugyldige cookie-data.', 'cookiedk' ) ) );
-			return;
 		}
 
 		$detected = array();

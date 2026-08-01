@@ -99,7 +99,6 @@ class CookieDK_GDPR_Compliance {
 		if ( class_exists( 'CookieDK_Security' ) && ! CookieDK_Security::check_rate_limit( 'cookiedk_log_consent', 30, 60 ) ) {
 			status_header( 429 );
 			wp_send_json_error( array( 'message' => __( 'For mange forespørgsler. Prøv igen senere.', 'cookiedk' ) ) );
-			return;
 		}
 
 		$raw_consent  = isset( $_POST['consent'] ) ? wp_unslash( $_POST['consent'] ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
@@ -107,7 +106,6 @@ class CookieDK_GDPR_Compliance {
 
 		if ( ! is_array( $consent_data ) ) {
 			wp_send_json_error( array( 'message' => __( 'Ugyldige samtykke-data.', 'cookiedk' ) ) );
-			return;
 		}
 
 		$sanitized_consent = $this->sanitize_consent_data( $consent_data );
@@ -125,7 +123,6 @@ class CookieDK_GDPR_Compliance {
 
 		if ( false === $log_id ) {
 			wp_send_json_error( array( 'message' => __( 'Samtykke kunne ikke gemmes.', 'cookiedk' ) ) );
-			return;
 		}
 
 		wp_send_json_success(
@@ -150,7 +147,6 @@ class CookieDK_GDPR_Compliance {
 		if ( class_exists( 'CookieDK_Security' ) && ! CookieDK_Security::check_rate_limit( 'cookiedk_save_consent', 30, 60 ) ) {
 			status_header( 429 );
 			wp_send_json_error( array( 'message' => __( 'For mange forespørgsler. Prøv igen senere.', 'cookiedk' ) ) );
-			return;
 		}
 
 		$raw_consent  = isset( $_POST['consent'] ) ? wp_unslash( $_POST['consent'] ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
@@ -158,7 +154,6 @@ class CookieDK_GDPR_Compliance {
 
 		if ( ! is_array( $consent_data ) ) {
 			wp_send_json_error( array( 'message' => __( 'Ugyldige samtykke-data.', 'cookiedk' ) ) );
-			return;
 		}
 
 		$sanitized_consent = $this->sanitize_consent_data( $consent_data );
@@ -171,7 +166,6 @@ class CookieDK_GDPR_Compliance {
 
 		if ( false === $log_id ) {
 			wp_send_json_error( array( 'message' => __( 'Samtykke kunne ikke gemmes.', 'cookiedk' ) ) );
-			return;
 		}
 
 		wp_send_json_success(
@@ -197,12 +191,10 @@ class CookieDK_GDPR_Compliance {
 		if ( class_exists( 'CookieDK_Security' ) && ! CookieDK_Security::check_rate_limit( 'cookiedk_export_user_data', 20, 60 ) ) {
 			status_header( 429 );
 			wp_send_json_error( array( 'message' => __( 'For mange forespørgsler. Prøv igen senere.', 'cookiedk' ) ) );
-			return;
 		}
 
 		if ( ! is_user_logged_in() ) {
 			wp_send_json_error( array( 'message' => __( 'Du skal være logget ind for at eksportere data.', 'cookiedk' ) ) );
-			return;
 		}
 
 		$user_id     = get_current_user_id();
@@ -229,7 +221,6 @@ class CookieDK_GDPR_Compliance {
 		if ( class_exists( 'CookieDK_Security' ) && ! CookieDK_Security::check_rate_limit( 'cookiedk_revoke_consent', 20, 60 ) ) {
 			status_header( 429 );
 			wp_send_json_error( array( 'message' => __( 'For mange forespørgsler. Prøv igen senere.', 'cookiedk' ) ) );
-			return;
 		}
 
 		$fingerprint = '';
@@ -245,7 +236,6 @@ class CookieDK_GDPR_Compliance {
 
 		if ( empty( $fingerprint ) ) {
 			wp_send_json_error( array( 'message' => __( 'Fingerprint mangler.', 'cookiedk' ) ) );
-			return;
 		}
 
 		$deleted = $this->storage->delete_consent_log_by_fingerprint( $fingerprint );
@@ -269,7 +259,6 @@ class CookieDK_GDPR_Compliance {
 		if ( class_exists( 'CookieDK_Security' ) && ! CookieDK_Security::check_rate_limit( 'cookiedk_delete_user_cookies', 20, 60 ) ) {
 			status_header( 429 );
 			wp_send_json_error( array( 'message' => __( 'For mange forespørgsler. Prøv igen senere.', 'cookiedk' ) ) );
-			return;
 		}
 
 		$fingerprint = '';
@@ -285,7 +274,6 @@ class CookieDK_GDPR_Compliance {
 
 		if ( empty( $fingerprint ) ) {
 			wp_send_json_error( array( 'message' => __( 'Fingerprint mangler.', 'cookiedk' ) ) );
-			return;
 		}
 
 		$deleted = $this->storage->delete_consent_log_by_fingerprint( $fingerprint );
