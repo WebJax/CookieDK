@@ -119,7 +119,7 @@ $categories = CookieDK_Cookie_Detector::get_categories();
 		<tbody>
 			<?php if ( empty( $log ) ) : ?>
 				<tr>
-					<td colspan="<?php echo esc_attr( 2 + count( (array) $categories ) ); ?>">
+					<td colspan="<?php echo esc_attr( (string) ( 2 + count( $categories ) ) ); ?>">
 						<em><?php esc_html_e( 'Ingen samtykker fundet.', 'cookiedk' ); ?></em>
 					</td>
 				</tr>
