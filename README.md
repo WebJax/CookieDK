@@ -12,17 +12,20 @@
 ## 🍪 Funktioner
 
 - **Auto-detektion** – Finder og klassificerer cookies automatisk (server-side og client-side)
-- **Dansk** – Alle tekster og cookie-beskrivelser på dansk
+- **Dansk** – Alle tekster og cookie-beskrivelser på dansk (i18n-klar)
 - **GDPR-compliant** – Overholder EU's GDPR og den danske cookielovgivning
 - **Kategorier** – Nødvendige, Funktionelle, Analyser og Marketing
 - **Cookie-banner** – Responsivt banner med top/bund/side-position og dark mode
 - **Indstillingspanel** – Toggle-baseret kategoriudvælgelse med cookie-detaljer
 - **Admin-interface** – Dashboard, cookie-management, indstillinger, samtykkelogning og test
-- **Samtykkelogning** – Dokumenterer bruger-samtykker med tidsstempel
-- **Data-export** – Integreret med WordPress' privatlivsværktøjer
+- **Samtykkelogning** – Dokumenterer bruger-samtykker med tidsstempel, IP og user-agent
+- **Data-export (DSAR)** – Integreret med WordPress' privatlivsværktøjer (GDPR data-subject access)
+- **Retten til at blive glemt** – Slet alle samtykker med ét klik
 - **Auto-anonymisering** – IP-adresser anonymiseres automatisk efter 30 dage
+- **Privacy Policy** – Automatisk generering af dansk cookiepolitik til WordPress Privacy Policy-siden
 - **Tilgængelighed** – WCAG 2.1 AA kompatibel (ARIA labels, keyboard navigation)
 - **WordPress Coding Standards** – Fuldt kompatibel med WPCS
+- **Internationalisering** – Fuldt i18n-klar med `.pot`/`.po`/`.mo` oversættelsesfiler
 
 ---
 
@@ -101,11 +104,15 @@ cookiedk/
 ├── uninstall.php                       # Rydning ved afinstallation
 ├── README.md                           # Denne fil
 ├── CHANGELOG.md                        # Ændringslog
+├── TRANSLATION.md                      # Oversættelsesvejledning
 ├── PROJEKTPLAN.md                      # Projektplan
 ├── includes/
 │   ├── class-cookie-detector.php       # Cookie-detektion
 │   ├── class-cookie-storage.php        # Database-lagring & CRUD
-│   └── class-gdpr-compliance.php       # GDPR-overholdelse
+│   ├── class-gdpr-compliance.php       # GDPR-overholdelse & AJAX-endpoints
+│   ├── class-consent-export.php        # DSAR data-export (Fase 6)
+│   ├── class-privacy-policy.php        # Privacy policy-generator (Fase 6)
+│   └── class-translations.php          # Oversættelses-hjælpere (Fase 7)
 ├── admin/
 │   ├── class-admin-menu.php            # Admin-menu registrering
 │   ├── class-admin-page.php            # Admin-side renderer & AJAX-handlers
@@ -129,7 +136,9 @@ cookiedk/
 │       ├── banner.php                  # Banner HTML-template
 │       └── settings-panel.php          # Indstillingspanel HTML-template
 ├── languages/
-│   └── cookiedk-da_DK.pot              # Oversættelsesskabelon
+│   ├── cookiedk-da_DK.pot              # Oversættelsesskabelon
+│   ├── cookiedk-da_DK.po               # Dansk oversættelse (kildekode)
+│   └── cookiedk-da_DK.mo               # Kompileret oversættelsesfil
 └── assets/                             # Delte ressourcer
 ```
 
@@ -179,6 +188,62 @@ Logger bruger-samtykker.
 - **Capability-checks** med `current_user_can()`
 - **Ingen hardcodede hemmeligheder**
 - **IP-anonymisering** efter 30 dage (konfigurerbar)
+- **SHA-256 fingerprinting** – ingen PII i fingerprints
+- **Fingerprint-validering** – regex-tjek forhindrer injektion
+
+---
+
+## 🛡️ GDPR-integration (Fase 6)
+
+### AJAX-endpoints
+
+| Endpoint | Nonce | Auth | Beskrivelse |
+|----------|-------|------|-------------|
+| `cookiedk_log_consent` | `cookiedk_log_consent` | Nej | Log samtykke fra banner |
+| `cookiedk_save_consent` | `cookiedk_save_consent` | Nej | Gem samtykke (Fase 6) |
+| `cookiedk_export_user_data` | `cookiedk_export_user_data` | Ja | Eksportér bruger-data (DSAR) |
+| `cookiedk_revoke_consent` | `cookiedk_revoke_consent` | Nej | Tilbagekald samtykke |
+| `cookiedk_delete_user_cookies` | `cookiedk_delete_user_cookies` | Nej | Slet samtykke-data |
+
+### WordPress Privacy Hooks
+
+```php
+// GDPR Data-export (DSAR)
+add_filter( 'wp_privacy_personal_data_exporters', ... );
+
+// GDPR Data-sletning (RTBF)
+add_filter( 'wp_privacy_personal_data_erasers', ... );
+
+// Bruger-registrering
+add_action( 'user_register', ... );
+
+// Bruger-sletning (sletter samtykkedata automatisk)
+add_action( 'delete_user', ... );
+```
+
+### Privacy Policy Integration
+
+CookieDK tilføjer automatisk en dansk cookiepolitik-tekst til WordPress' Privacy Policy-side (via `wp_add_privacy_policy_content`). Teksten inkluderer:
+- Liste over detekterede cookies pr. kategori
+- GDPR-retsgrundlag for hver kategori
+- Rettigheder (indsigt, sletning, tilbagekald)
+- Link til Datatilsynet
+
+---
+
+## 🌍 Internationalisering (Fase 7)
+
+CookieDK er fuldt internationaliseret med tekstdomænet `cookiedk`.
+
+### Oversættelsesfiler
+
+| Fil | Beskrivelse |
+|-----|-------------|
+| `languages/cookiedk-da_DK.pot` | Skabelonfil til nye oversættelser |
+| `languages/cookiedk-da_DK.po` | Dansk oversættelse (kildekode) |
+| `languages/cookiedk-da_DK.mo` | Kompileret dansk oversættelsesfil |
+
+Se [TRANSLATION.md](TRANSLATION.md) for vejledning til at tilføje nye sprog.
 
 ---
 

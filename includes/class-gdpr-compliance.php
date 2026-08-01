@@ -29,10 +29,25 @@ class CookieDK_GDPR_Compliance {
 	private $storage;
 
 	/**
+	 * CookieDK_Consent_Export-instans.
+	 *
+	 * @var CookieDK_Consent_Export
+	 */
+	private $exporter;
+
+	/**
+	 * Gyldige cookie-kategorier.
+	 *
+	 * @var array
+	 */
+	private $valid_categories = array( 'necessary', 'functional', 'analytics', 'marketing' );
+
+	/**
 	 * Konstruktør.
 	 */
 	public function __construct() {
-		$this->storage = new CookieDK_Cookie_Storage();
+		$this->storage  = new CookieDK_Cookie_Storage();
+		$this->exporter = new CookieDK_Consent_Export();
 	}
 
 	/**
@@ -41,13 +56,30 @@ class CookieDK_GDPR_Compliance {
 	 * @return void
 	 */
 	public function init() {
-		// AJAX-handler til samtykkelogning.
+		// Eksisterende AJAX-handler til samtykkelogning.
 		add_action( 'wp_ajax_cookiedk_log_consent', array( $this, 'ajax_log_consent' ) );
 		add_action( 'wp_ajax_nopriv_cookiedk_log_consent', array( $this, 'ajax_log_consent' ) );
+
+		// Fase 6: Nye AJAX-endpoints.
+		add_action( 'wp_ajax_cookiedk_save_consent', array( $this, 'ajax_save_consent' ) );
+		add_action( 'wp_ajax_nopriv_cookiedk_save_consent', array( $this, 'ajax_save_consent' ) );
+
+		add_action( 'wp_ajax_cookiedk_export_user_data', array( $this, 'ajax_export_user_data' ) );
+
+		add_action( 'wp_ajax_cookiedk_revoke_consent', array( $this, 'ajax_revoke_consent' ) );
+		add_action( 'wp_ajax_nopriv_cookiedk_revoke_consent', array( $this, 'ajax_revoke_consent' ) );
+
+		add_action( 'wp_ajax_cookiedk_delete_user_cookies', array( $this, 'ajax_delete_user_cookies' ) );
+		add_action( 'wp_ajax_nopriv_cookiedk_delete_user_cookies', array( $this, 'ajax_delete_user_cookies' ) );
 
 		// WordPress privacy-hooks (GDPR data-export og -sletning).
 		add_filter( 'wp_privacy_personal_data_exporters', array( $this, 'register_data_exporter' ) );
 		add_filter( 'wp_privacy_personal_data_erasers', array( $this, 'register_data_eraser' ) );
+
+		// WordPress bruger-hooks.
+		add_action( 'user_register', array( $this, 'on_user_register' ) );
+		add_action( 'delete_user', array( $this, 'on_delete_user' ) );
+		add_action( 'wp_logout', array( $this, 'on_user_logout' ) );
 
 		// Daglig cron-job til IP-anonymisering.
 		add_action( 'cookiedk_daily_cron', array( $this, 'run_daily_maintenance' ) );
@@ -65,7 +97,7 @@ class CookieDK_GDPR_Compliance {
 		// Verificér nonce.
 		check_ajax_referer( 'cookiedk_log_consent', 'nonce' );
 
-		$raw_consent = isset( $_POST['consent'] ) ? wp_unslash( $_POST['consent'] ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		$raw_consent  = isset( $_POST['consent'] ) ? wp_unslash( $_POST['consent'] ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		$consent_data = json_decode( sanitize_text_field( $raw_consent ), true );
 
 		if ( ! is_array( $consent_data ) ) {
@@ -73,14 +105,7 @@ class CookieDK_GDPR_Compliance {
 			return;
 		}
 
-		// Sanitér samtykke-data – kun tilladte kategorier.
-		$valid_categories = array( 'necessary', 'functional', 'analytics', 'marketing' );
-		$sanitized_consent = array();
-		foreach ( $valid_categories as $cat ) {
-			$sanitized_consent[ $cat ] = ! empty( $consent_data[ $cat ] );
-		}
-		// Nødvendige cookies er altid aktive.
-		$sanitized_consent['necessary'] = true;
+		$sanitized_consent = $this->sanitize_consent_data( $consent_data );
 
 		// Generér anonymt fingerprint.
 		$fingerprint = $this->generate_fingerprint();
@@ -106,6 +131,192 @@ class CookieDK_GDPR_Compliance {
 				'message'     => __( 'Samtykke gemt.', 'cookiedk' ),
 			)
 		);
+	}
+
+	/**
+	 * AJAX-handler: Gem samtykke (Fase 6 endpoint).
+	 *
+	 * Endpoint: cookiedk_save_consent
+	 *
+	 * @return void
+	 */
+	public function ajax_save_consent() {
+		check_ajax_referer( 'cookiedk_save_consent', 'nonce' );
+
+		$raw_consent  = isset( $_POST['consent'] ) ? wp_unslash( $_POST['consent'] ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		$consent_data = json_decode( sanitize_text_field( $raw_consent ), true );
+
+		if ( ! is_array( $consent_data ) ) {
+			wp_send_json_error( array( 'message' => __( 'Ugyldige samtykke-data.', 'cookiedk' ) ) );
+			return;
+		}
+
+		$sanitized_consent = $this->sanitize_consent_data( $consent_data );
+
+		$fingerprint = $this->generate_fingerprint();
+		$ip_address  = $this->get_client_ip();
+		$user_agent  = isset( $_SERVER['HTTP_USER_AGENT'] ) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_USER_AGENT'] ) ) : '';
+
+		$log_id = $this->storage->log_consent( $fingerprint, $sanitized_consent, $ip_address, $user_agent );
+
+		if ( false === $log_id ) {
+			wp_send_json_error( array( 'message' => __( 'Samtykke kunne ikke gemmes.', 'cookiedk' ) ) );
+			return;
+		}
+
+		wp_send_json_success(
+			array(
+				'log_id'      => $log_id,
+				'fingerprint' => $fingerprint,
+				'consent'     => $sanitized_consent,
+				'message'     => __( 'Samtykke gemt.', 'cookiedk' ),
+			)
+		);
+	}
+
+	/**
+	 * AJAX-handler: Eksporterer bruger-data som JSON (Fase 6 endpoint).
+	 *
+	 * Endpoint: cookiedk_export_user_data
+	 * Kræver indlogget bruger.
+	 *
+	 * @return void
+	 */
+	public function ajax_export_user_data() {
+		check_ajax_referer( 'cookiedk_export_user_data', 'nonce' );
+
+		if ( ! is_user_logged_in() ) {
+			wp_send_json_error( array( 'message' => __( 'Du skal være logget ind for at eksportere data.', 'cookiedk' ) ) );
+			return;
+		}
+
+		$user_id     = get_current_user_id();
+		$fingerprint = $this->generate_fingerprint_for_user( $user_id );
+		$export_data = $this->exporter->export_as_json( $fingerprint, $user_id );
+
+		wp_send_json_success(
+			array(
+				'data'    => $export_data,
+				'message' => __( 'Data eksporteret.', 'cookiedk' ),
+			)
+		);
+	}
+
+	/**
+	 * AJAX-handler: Tilbagekald samtykke (Fase 6 endpoint).
+	 *
+	 * Endpoint: cookiedk_revoke_consent
+	 *
+	 * @return void
+	 */
+	public function ajax_revoke_consent() {
+		check_ajax_referer( 'cookiedk_revoke_consent', 'nonce' );
+
+		$fingerprint = '';
+
+		if ( is_user_logged_in() ) {
+			$fingerprint = $this->generate_fingerprint_for_user( get_current_user_id() );
+		} else {
+			$raw_fp = isset( $_POST['fingerprint'] ) ? sanitize_text_field( wp_unslash( $_POST['fingerprint'] ) ) : '';
+			if ( $raw_fp && preg_match( '/^[a-f0-9]{64}$/i', $raw_fp ) ) {
+				$fingerprint = $raw_fp;
+			}
+		}
+
+		if ( empty( $fingerprint ) ) {
+			wp_send_json_error( array( 'message' => __( 'Fingerprint mangler.', 'cookiedk' ) ) );
+			return;
+		}
+
+		$deleted = $this->storage->delete_consent_log_by_fingerprint( $fingerprint );
+
+		if ( $deleted ) {
+			wp_send_json_success( array( 'message' => __( 'Samtykke tilbagekaldt.', 'cookiedk' ) ) );
+		} else {
+			wp_send_json_error( array( 'message' => __( 'Samtykke kunne ikke tilbagekaldes.', 'cookiedk' ) ) );
+		}
+	}
+
+	/**
+	 * AJAX-handler: Slet bruger-cookies fra log (Fase 6 endpoint).
+	 *
+	 * Endpoint: cookiedk_delete_user_cookies
+	 *
+	 * @return void
+	 */
+	public function ajax_delete_user_cookies() {
+		check_ajax_referer( 'cookiedk_delete_user_cookies', 'nonce' );
+
+		$fingerprint = '';
+
+		if ( is_user_logged_in() ) {
+			$fingerprint = $this->generate_fingerprint_for_user( get_current_user_id() );
+		} else {
+			$raw_fp = isset( $_POST['fingerprint'] ) ? sanitize_text_field( wp_unslash( $_POST['fingerprint'] ) ) : '';
+			if ( $raw_fp && preg_match( '/^[a-f0-9]{64}$/i', $raw_fp ) ) {
+				$fingerprint = $raw_fp;
+			}
+		}
+
+		if ( empty( $fingerprint ) ) {
+			wp_send_json_error( array( 'message' => __( 'Fingerprint mangler.', 'cookiedk' ) ) );
+			return;
+		}
+
+		$deleted = $this->storage->delete_consent_log_by_fingerprint( $fingerprint );
+
+		if ( $deleted ) {
+			wp_send_json_success( array( 'message' => __( 'Samtykke-data slettet.', 'cookiedk' ) ) );
+		} else {
+			wp_send_json_error( array( 'message' => __( 'Data kunne ikke slettes.', 'cookiedk' ) ) );
+		}
+	}
+
+	/**
+	 * Hook: Kører ved bruger-registrering.
+	 *
+	 * Logger at en ny bruger er registreret (ingen persondata gemt).
+	 *
+	 * @param int $user_id WordPress bruger-ID.
+	 * @return void
+	 */
+	public function on_user_register( $user_id ) {
+		$user_id = absint( $user_id );
+		if ( ! $user_id ) {
+			return;
+		}
+
+		// Gem en metaværdi der noterer registreringstidspunktet for GDPR-overholdelse.
+		update_user_meta( $user_id, '_cookiedk_registered_at', current_time( 'mysql' ) );
+	}
+
+	/**
+	 * Hook: Kører ved sletning af WordPress-bruger.
+	 *
+	 * Sletter alle samtykke-log-poster for den pågældende bruger.
+	 *
+	 * @param int $user_id WordPress bruger-ID.
+	 * @return void
+	 */
+	public function on_delete_user( $user_id ) {
+		$user_id = absint( $user_id );
+		if ( ! $user_id ) {
+			return;
+		}
+
+		$fingerprint = $this->generate_fingerprint_for_user( $user_id );
+		$this->storage->delete_consent_log_by_fingerprint( $fingerprint );
+	}
+
+	/**
+	 * Hook: Kører ved logout.
+	 *
+	 * Rydder op i session-relaterede data (ingen samtykke-sletning).
+	 *
+	 * @return void
+	 */
+	public function on_user_logout() {
+		// Placeholder til fremtidig session-håndtering.
 	}
 
 	/**
@@ -145,7 +356,6 @@ class CookieDK_GDPR_Compliance {
 	 */
 	public function export_user_data( $email_address, $page = 1 ) {
 		$email_address = sanitize_email( $email_address );
-		$data_to_export = array();
 
 		// Find WordPress-bruger.
 		$user = get_user_by( 'email', $email_address );
@@ -156,36 +366,10 @@ class CookieDK_GDPR_Compliance {
 			);
 		}
 
-		// Generér fingerprint for denne bruger.
-		$fingerprint = $this->generate_fingerprint_for_user( $user->ID );
-		$consent_log = $this->storage->get_consent_log( $fingerprint, 100 );
-
-		foreach ( $consent_log as $log ) {
-			$consent_decoded = json_decode( $log->consent_data, true );
-			$consent_labels  = array();
-
-			if ( is_array( $consent_decoded ) ) {
-				foreach ( $consent_decoded as $cat => $accepted ) {
-					$consent_labels[] = esc_html( $cat ) . ': ' . ( $accepted ? __( 'Ja', 'cookiedk' ) : __( 'Nej', 'cookiedk' ) );
-				}
-			}
-
-			$data_to_export[] = array(
-				'group_id'    => 'cookiedk_consent',
-				'group_label' => __( 'CookieDK Samtykker', 'cookiedk' ),
-				'item_id'     => 'consent-' . $log->id,
-				'data'        => array(
-					array(
-						'name'  => __( 'Tidspunkt', 'cookiedk' ),
-						'value' => esc_html( $log->consent_timestamp ),
-					),
-					array(
-						'name'  => __( 'Samtykke', 'cookiedk' ),
-						'value' => esc_html( implode( ', ', $consent_labels ) ),
-					),
-				),
-			);
-		}
+		// Generér fingerprint for denne bruger og eksportér via CookieDK_Consent_Export.
+		$fingerprint    = $this->generate_fingerprint_for_user( $user->ID );
+		$consent_log    = $this->storage->get_consent_log( $fingerprint, 100 );
+		$data_to_export = $this->exporter->to_wordpress_export_format( $consent_log );
 
 		return array(
 			'data' => $data_to_export,
@@ -315,5 +499,27 @@ class CookieDK_GDPR_Compliance {
 		}
 
 		return '';
+	}
+
+	/**
+	 * Saniterer og validerer samtykke-data.
+	 *
+	 * Nødvendige cookies er altid aktive (true).
+	 * Kun tilladte kategorier bevares.
+	 *
+	 * @param array $consent_data Rå samtykke-data fra request.
+	 * @return array Saniteret samtykke-array.
+	 */
+	private function sanitize_consent_data( array $consent_data ) {
+		$sanitized = array();
+
+		foreach ( $this->valid_categories as $cat ) {
+			$sanitized[ $cat ] = ! empty( $consent_data[ $cat ] );
+		}
+
+		// Nødvendige cookies er altid aktive.
+		$sanitized['necessary'] = true;
+
+		return $sanitized;
 	}
 }
