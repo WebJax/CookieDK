@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="bootstrap.php" colors="true" verbose="true">
+    <testsuites>
+        <testsuite name="CookieDK Test Suite">
+            <file>test-cookie-detector.php</file>
+            <file>test-cookie-storage.php</file>
+            <file>test-gdpr-compliance.php</file>
+            <file>test-frontend.php</file>
+            <file>test-admin.php</file>
+        </testsuite>
+    </testsuites>
+</phpunit>

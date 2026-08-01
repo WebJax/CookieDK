@@ -138,6 +138,10 @@ class CookieDK_Admin_Page {
 	 */
 	public function handle_ajax_update_cookie() {
 		check_ajax_referer( 'cookiedk_admin_nonce', 'nonce' );
+		if ( class_exists( 'CookieDK_Security' ) && ! CookieDK_Security::check_rate_limit( 'cookiedk_update_cookie', 40, 60 ) ) {
+			status_header( 429 );
+			wp_send_json_error( array( 'message' => __( 'For mange forespørgsler. Prøv igen senere.', 'cookiedk' ) ) );
+		}
 
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_send_json_error( array( 'message' => __( 'Utilstrækkelige rettigheder.', 'cookiedk' ) ) );
@@ -177,6 +181,10 @@ class CookieDK_Admin_Page {
 	 */
 	public function handle_ajax_delete_cookie() {
 		check_ajax_referer( 'cookiedk_admin_nonce', 'nonce' );
+		if ( class_exists( 'CookieDK_Security' ) && ! CookieDK_Security::check_rate_limit( 'cookiedk_delete_cookie', 40, 60 ) ) {
+			status_header( 429 );
+			wp_send_json_error( array( 'message' => __( 'For mange forespørgsler. Prøv igen senere.', 'cookiedk' ) ) );
+		}
 
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_send_json_error( array( 'message' => __( 'Utilstrækkelige rettigheder.', 'cookiedk' ) ) );
@@ -204,6 +212,10 @@ class CookieDK_Admin_Page {
 	 */
 	public function handle_ajax_export_cookies() {
 		check_ajax_referer( 'cookiedk_admin_nonce', 'nonce' );
+		if ( class_exists( 'CookieDK_Security' ) && ! CookieDK_Security::check_rate_limit( 'cookiedk_export_cookies', 20, 60 ) ) {
+			status_header( 429 );
+			wp_send_json_error( array( 'message' => __( 'For mange forespørgsler. Prøv igen senere.', 'cookiedk' ) ) );
+		}
 
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_send_json_error( array( 'message' => __( 'Utilstrækkelige rettigheder.', 'cookiedk' ) ) );
@@ -233,6 +245,10 @@ class CookieDK_Admin_Page {
 	 */
 	public function handle_ajax_save_settings() {
 		check_ajax_referer( 'cookiedk_admin_nonce', 'nonce' );
+		if ( class_exists( 'CookieDK_Security' ) && ! CookieDK_Security::check_rate_limit( 'cookiedk_save_settings', 20, 60 ) ) {
+			status_header( 429 );
+			wp_send_json_error( array( 'message' => __( 'For mange forespørgsler. Prøv igen senere.', 'cookiedk' ) ) );
+		}
 
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_send_json_error( array( 'message' => __( 'Utilstrækkelige rettigheder.', 'cookiedk' ) ) );
