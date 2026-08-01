@@ -1,0 +1,10 @@
+parameters:
+    level: 5
+    paths:
+        - cookiedk.php
+        - includes
+        - admin
+        - public
+    excludePaths:
+        - vendor/*
+        - tests/*

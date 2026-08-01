@@ -1,0 +1,35 @@
+name: Tests
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+jobs:
+  phpunit:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version: ["7.4", "8.0", "8.1", "8.2"]
+        wordpress-version: ["5.0", "latest"]
+    name: PHP ${{ matrix.php-version }} / WP ${{ matrix.wordpress-version }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          extensions: mbstring, json, xdebug
+          coverage: xdebug
+
+      - name: Install dependencies
+        run: composer install --no-interaction --prefer-dist
+
+      - name: PHPUnit
+        env:
+          COOKIEDK_WORDPRESS_VERSION: ${{ matrix.wordpress-version }}
+        run: vendor/bin/phpunit -c tests/phpunit.xml.dist --coverage-text

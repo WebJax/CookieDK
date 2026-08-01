@@ -283,9 +283,56 @@ Pluginen følger:
 
 ---
 
+## 🖼️ Screenshots (plan)
+
+- Cookie-banner (desktop + mobil)
+- Cookie-indstillinger modal
+- Admin dashboard og samtykke-log
+
+Assets til WordPress.org:
+- Banner: `1200x400`
+- Icon: `256x256`
+
+---
+
+## ❓ FAQ
+
+**Hvordan kører jeg tests?**  
+Se [`tests/README.md`](tests/README.md).
+
+**Hvordan kører jeg security checks?**  
+Kør `composer phpstan`, `composer phpcs` og `composer lint`.
+
+**Hvor finder jeg fejlfinding?**  
+Se [`docs/TROUBLESHOOTING.md`](docs/TROUBLESHOOTING.md).
+
+---
+
+## 🛠️ Troubleshooting
+
+- Banner vises ikke: ryd cache og tjek JS-fejl i browseren.
+- AJAX fejl (403/429): tjek nonce og rate limiting.
+- Manglende eksport: verificér at brugeren er logget ind.
+
+Flere detaljer i [`docs/TROUBLESHOOTING.md`](docs/TROUBLESHOOTING.md).
+
+---
+
+## 🌍 English quick summary
+
+CookieDK is a GDPR-focused WordPress cookie consent plugin with:
+- Consent banner and category controls
+- Consent logging and privacy export/erase workflows
+- Security protections (nonce checks, sanitization, escaping, rate limiting)
+- PHPUnit tests and GitHub Actions CI workflows
+
+See English/Danish docs in the [`docs/`](docs/) folder.
+
+---
+
 ## 🤝 Bidrag
 
-Bidrag er velkomne! Se [PROJEKTPLAN.md](PROJEKTPLAN.md) for kommende funktioner.
+Bidrag er velkomne! Se [CONTRIBUTING.md](CONTRIBUTING.md) og [PROJEKTPLAN.md](PROJEKTPLAN.md).
 
 1. Fork repositoriet
 2. Opret en feature-branch (`git checkout -b feature/min-funktion`)

@@ -35,6 +35,7 @@ define( 'COOKIEDK_DB_VERSION', '1.0.0' );
 function cookiedk_load_dependencies() {
 	require_once COOKIEDK_PLUGIN_DIR . 'includes/class-cookie-detector.php';
 	require_once COOKIEDK_PLUGIN_DIR . 'includes/class-cookie-storage.php';
+	require_once COOKIEDK_PLUGIN_DIR . 'includes/class-security.php';
 	require_once COOKIEDK_PLUGIN_DIR . 'includes/class-consent-export.php';
 	require_once COOKIEDK_PLUGIN_DIR . 'includes/class-gdpr-compliance.php';
 	require_once COOKIEDK_PLUGIN_DIR . 'includes/class-privacy-policy.php';
@@ -104,10 +105,12 @@ function cookiedk_init() {
 	// Initialisér klasser.
 	$detector    = new CookieDK_Cookie_Detector();
 	$storage     = new CookieDK_Cookie_Storage();
+	$security    = new CookieDK_Security();
 	$gdpr        = new CookieDK_GDPR_Compliance();
 	$privacy     = new CookieDK_Privacy_Policy();
 
 	$detector->init();
+	$security->init();
 	$gdpr->init();
 	$privacy->init();
 

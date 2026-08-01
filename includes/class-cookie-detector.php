@@ -329,7 +329,7 @@ class CookieDK_Cookie_Detector {
 		// Wildcard-match (f.eks. wordpress_* eller _gat_*).
 		foreach ( $this->known_cookies as $pattern => $meta ) {
 			if ( false !== strpos( $pattern, '*' ) ) {
-				$regex = '/^' . str_replace( '*', '.*', preg_quote( $pattern, '/' ) ) . '$/';
+				$regex = '/^' . str_replace( '\*', '.*', preg_quote( $pattern, '/' ) ) . '$/';
 				if ( preg_match( $regex, $cookie_name ) ) {
 					return $meta;
 				}
@@ -454,6 +454,11 @@ class CookieDK_Cookie_Detector {
 	public function ajax_receive_client_cookies() {
 		// Verificér nonce.
 		check_ajax_referer( 'cookiedk_report_cookies', 'nonce' );
+		if ( class_exists( 'CookieDK_Security' ) && ! CookieDK_Security::check_rate_limit( 'cookiedk_report_cookies', 60, 60 ) ) {
+			status_header( 429 );
+			wp_send_json_error( array( 'message' => __( 'For mange forespørgsler. Prøv igen senere.', 'cookiedk' ) ) );
+			return;
+		}
 
 		$raw_cookies = isset( $_POST['cookies'] ) ? wp_unslash( $_POST['cookies'] ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		$cookie_names = json_decode( sanitize_text_field( $raw_cookies ), true );
