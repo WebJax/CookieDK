@@ -313,7 +313,8 @@
 		bindEvents();
 
 		// Vis banner hvis samtykke er nødvendigt.
-		if ( window.CookieDKConsent && window.CookieDKConsent.consentRequired() ) {
+		// Hvis CookieDKConsent ikke er tilgængeligt, vises banneret som GDPR-sikker fallback.
+		if ( ! window.CookieDKConsent || window.CookieDKConsent.consentRequired() ) {
 			showBanner();
 		} else {
 			hideBanner();
