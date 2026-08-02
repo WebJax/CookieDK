@@ -15,6 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class CookieDK_Security {
 
+
 	/**
 	 * Registrerer globale sikkerheds-hooks.
 	 *
@@ -37,15 +38,15 @@ class CookieDK_Security {
 		header( 'X-Content-Type-Options: nosniff' );
 		header( 'X-Frame-Options: SAMEORIGIN' );
 		header( 'Referrer-Policy: strict-origin-when-cross-origin' );
-		header( "Permissions-Policy: geolocation=(), microphone=(), camera=()" );
+		header( 'Permissions-Policy: geolocation=(), microphone=(), camera=()' );
 	}
 
 	/**
 	 * Enkelt rate limiting pr. action og klient.
 	 *
-	 * @param string $action       Action-navn.
-	 * @param int    $max_requests Maks antal requests i vinduet.
-	 * @param int    $window       Vindue i sekunder.
+	 * @param  string $action       Action-navn.
+	 * @param  int    $max_requests Maks antal requests i vinduet.
+	 * @param  int    $window       Vindue i sekunder.
 	 * @return bool True hvis request er tilladt, ellers false.
 	 */
 	public static function check_rate_limit( $action, $max_requests = 30, $window = 60 ) {

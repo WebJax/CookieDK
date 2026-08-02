@@ -26,6 +26,7 @@
     "test:coverage": "phpunit -c tests/phpunit.xml.dist --coverage-text",
     "phpstan": "phpstan analyse --configuration=.phpstan.neon",
     "phpcs": "phpcs --standard=WordPress ./cookiedk.php ./includes ./admin ./public",
+    "phpcbf": "phpcbf --standard=WordPress ./cookiedk.php ./includes ./admin ./public",
     "lint": "find . -type f -name '*.php' -not -path './vendor/*' -print0 | xargs -0 -n1 php -l"
   },
   "config": {

@@ -55,7 +55,7 @@ $settings    = $this->get_settings();
 		<td>
 			<?php if ( $settings['cookie_policy_url'] ) : ?>
 				<a href="<?php echo esc_url( $settings['cookie_policy_url'] ); ?>" target="_blank" rel="noopener noreferrer">
-					<?php echo esc_html( $settings['cookie_policy_url'] ); ?>
+				<?php echo esc_html( $settings['cookie_policy_url'] ); ?>
 				</a>
 			<?php else : ?>
 				<em><?php esc_html_e( 'Ikke angivet', 'cookiedk' ); ?></em>

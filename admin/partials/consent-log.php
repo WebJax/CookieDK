@@ -25,27 +25,30 @@ $log = $storage->get_consent_log( null, 500 );
 
 // Filtrér lokalt efter dato.
 if ( $date_from || $date_to ) {
-	$log = array_filter( $log, function ( $entry ) use ( $date_from, $date_to ) {
-		$ts = strtotime( $entry->consent_timestamp );
-		if ( $date_from && $ts < strtotime( $date_from ) ) {
-			return false;
+	$log = array_filter(
+		$log,
+		function ( $entry ) use ( $date_from, $date_to ) {
+			$ts = strtotime( $entry->consent_timestamp );
+			if ( $date_from && $ts < strtotime( $date_from ) ) {
+				return false;
+			}
+			if ( $date_to && $ts > strtotime( $date_to . ' 23:59:59' ) ) {
+				return false;
+			}
+			return true;
 		}
-		if ( $date_to && $ts > strtotime( $date_to . ' 23:59:59' ) ) {
-			return false;
-		}
-		return true;
-	} );
+	);
 }
 
 // Statistik.
-$total = count( $log );
+$total        = count( $log );
 $accepted_all = 0;
 foreach ( $log as $entry ) {
 	$c = json_decode( $entry->consent_data, true );
 	if ( is_array( $c ) ) {
 		$all = ! empty( $c['functional'] ) && ! empty( $c['analytics'] ) && ! empty( $c['marketing'] );
 		if ( $all ) {
-			$accepted_all++;
+			++$accepted_all;
 		}
 	}
 }
@@ -98,7 +101,7 @@ $categories = CookieDK_Cookie_Detector::get_categories();
 			<button type="submit" class="button"><?php esc_html_e( 'Filtrer', 'cookiedk' ); ?></button>
 			<?php if ( $date_from || $date_to ) : ?>
 				<a href="<?php echo esc_url( admin_url( 'options-general.php?page=cookiedk&tab=consent-log' ) ); ?>" class="button">
-					<?php esc_html_e( 'Nulstil filter', 'cookiedk' ); ?>
+				<?php esc_html_e( 'Nulstil filter', 'cookiedk' ); ?>
 				</a>
 			<?php endif; ?>
 		</div>
@@ -130,13 +133,13 @@ $categories = CookieDK_Cookie_Detector::get_categories();
 						<td><?php echo esc_html( $entry->consent_timestamp ); ?></td>
 						<td>
 							<code title="<?php echo esc_attr( $entry->user_fingerprint ); ?>">
-								<?php echo esc_html( substr( $entry->user_fingerprint, 0, 8 ) ); ?>…
+					<?php echo esc_html( substr( $entry->user_fingerprint, 0, 8 ) ); ?>…
 							</code>
 						</td>
-						<?php foreach ( $categories as $cat_slug => $cat_label ) : ?>
+					<?php foreach ( $categories as $cat_slug => $cat_label ) : ?>
 							<td>
-								<?php if ( is_array( $consent ) && isset( $consent[ $cat_slug ] ) ) : ?>
-									<?php if ( $consent[ $cat_slug ] ) : ?>
+						<?php if ( is_array( $consent ) && isset( $consent[ $cat_slug ] ) ) : ?>
+							<?php if ( $consent[ $cat_slug ] ) : ?>
 										<span style="color: #00a32a;" aria-label="<?php esc_attr_e( 'Ja', 'cookiedk' ); ?>">✓</span>
 									<?php else : ?>
 										<span style="color: #d63638;" aria-label="<?php esc_attr_e( 'Nej', 'cookiedk' ); ?>">✗</span>
@@ -145,7 +148,7 @@ $categories = CookieDK_Cookie_Detector::get_categories();
 									<span style="color: #646970;">—</span>
 								<?php endif; ?>
 							</td>
-						<?php endforeach; ?>
+					<?php endforeach; ?>
 					</tr>
 				<?php endforeach; ?>
 			<?php endif; ?>
@@ -156,7 +159,7 @@ $categories = CookieDK_Cookie_Detector::get_categories();
 <p class="description">
 	<?php
 	printf(
-		/* translators: %d: Antal poster. */
+	/* translators: %d: Antal poster. */
 		esc_html__( 'Viser op til %d samtykker. Brug datofilter til at indsnævre søgningen.', 'cookiedk' ),
 		500
 	);

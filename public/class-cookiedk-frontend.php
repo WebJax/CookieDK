@@ -21,6 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class CookieDK_Frontend {
 
+
 	/**
 	 * Plugin-indstillinger.
 	 *
@@ -100,22 +101,22 @@ class CookieDK_Frontend {
 			'cookiedk-banner',
 			'cookieDKData',
 			array(
-				'ajaxUrl'           => admin_url( 'admin-ajax.php' ),
-				'nonce'             => wp_create_nonce( 'cookiedk_log_consent' ),
-				'consentExpiry'     => absint( $this->settings['consent_expiry_days'] ),
-				'bannerPosition'    => sanitize_key( $this->settings['banner_position'] ),
-				'primaryColor'      => sanitize_hex_color( $this->settings['primary_color'] ),
-				'secondaryColor'    => sanitize_hex_color( $this->settings['secondary_color'] ),
-				'cookiePolicyUrl'   => esc_url( $this->settings['cookie_policy_url'] ),
-				'enableAnalytics'   => ! empty( $this->settings['enable_analytics'] ),
-				'enableMarketing'   => ! empty( $this->settings['enable_marketing'] ),
-				'enableFunctional'  => ! empty( $this->settings['enable_functional'] ),
-				'i18n'              => array(
-					'accept_all'      => __( 'Accepter alle', 'cookiedk' ),
-					'accept_necessary'=> __( 'Kun nødvendige', 'cookiedk' ),
-					'settings'        => __( 'Indstillinger', 'cookiedk' ),
-					'save_settings'   => __( 'Gem indstillinger', 'cookiedk' ),
-					'close'           => __( 'Luk', 'cookiedk' ),
+				'ajaxUrl'          => admin_url( 'admin-ajax.php' ),
+				'nonce'            => wp_create_nonce( 'cookiedk_log_consent' ),
+				'consentExpiry'    => absint( $this->settings['consent_expiry_days'] ),
+				'bannerPosition'   => sanitize_key( $this->settings['banner_position'] ),
+				'primaryColor'     => sanitize_hex_color( $this->settings['primary_color'] ),
+				'secondaryColor'   => sanitize_hex_color( $this->settings['secondary_color'] ),
+				'cookiePolicyUrl'  => esc_url( $this->settings['cookie_policy_url'] ),
+				'enableAnalytics'  => ! empty( $this->settings['enable_analytics'] ),
+				'enableMarketing'  => ! empty( $this->settings['enable_marketing'] ),
+				'enableFunctional' => ! empty( $this->settings['enable_functional'] ),
+				'i18n'             => array(
+					'accept_all'       => __( 'Accepter alle', 'cookiedk' ),
+					'accept_necessary' => __( 'Kun nødvendige', 'cookiedk' ),
+					'settings'         => __( 'Indstillinger', 'cookiedk' ),
+					'save_settings'    => __( 'Gem indstillinger', 'cookiedk' ),
+					'close'            => __( 'Luk', 'cookiedk' ),
 				),
 			)
 		);
@@ -190,7 +191,7 @@ class CookieDK_Frontend {
 		}
 
 		foreach ( $all_cookies as $cookie ) {
-			$cat = isset( $grouped[ $cookie->category ] ) ? $cookie->category : 'functional';
+			$cat                          = isset( $grouped[ $cookie->category ] ) ? $cookie->category : 'functional';
 			$grouped[ $cat ]['cookies'][] = $cookie;
 		}
 

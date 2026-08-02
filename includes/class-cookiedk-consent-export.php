@@ -21,6 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class CookieDK_Consent_Export {
 
+
 	/**
 	 * CookieDK_Cookie_Storage-instans.
 	 *
@@ -38,22 +39,22 @@ class CookieDK_Consent_Export {
 	/**
 	 * Eksporterer samtykke-data for en bruger som JSON.
 	 *
-	 * @param string $fingerprint Bruger-fingerprint.
-	 * @param int    $user_id     WordPress bruger-ID (0 for gæster).
+	 * @param  string $fingerprint Bruger-fingerprint.
+	 * @param  int    $user_id     WordPress bruger-ID (0 for gæster).
 	 * @return array Eksport-data.
 	 */
 	public function export_as_json( $fingerprint, $user_id = 0 ) {
-		$fingerprint  = sanitize_text_field( $fingerprint );
-		$consent_log  = $this->storage->get_consent_log( $fingerprint, 500 );
-		$cookies      = $this->storage->get_all_cookies();
+		$fingerprint = sanitize_text_field( $fingerprint );
+		$consent_log = $this->storage->get_consent_log( $fingerprint, 500 );
+		$cookies     = $this->storage->get_all_cookies();
 
 		$export = array(
-			'generated_at'  => gmdate( 'c' ),
-			'plugin'        => 'CookieDK',
-			'version'       => COOKIEDK_VERSION,
-			'data_subject'  => $this->format_data_subject( $user_id ),
-			'consents'      => $this->format_consents( $consent_log ),
-			'cookies'       => $this->format_cookies( $cookies ),
+			'generated_at' => gmdate( 'c' ),
+			'plugin'       => 'CookieDK',
+			'version'      => COOKIEDK_VERSION,
+			'data_subject' => $this->format_data_subject( $user_id ),
+			'consents'     => $this->format_consents( $consent_log ),
+			'cookies'      => $this->format_cookies( $cookies ),
 		);
 
 		return $export;
@@ -62,7 +63,7 @@ class CookieDK_Consent_Export {
 	/**
 	 * Formaterer data-subject-oplysninger (anonymiseret).
 	 *
-	 * @param int $user_id WordPress bruger-ID.
+	 * @param  int $user_id WordPress bruger-ID.
 	 * @return array
 	 */
 	private function format_data_subject( $user_id ) {
@@ -87,7 +88,7 @@ class CookieDK_Consent_Export {
 	/**
 	 * Formaterer samtykke-log-poster.
 	 *
-	 * @param array $consent_log Liste af samtykke-poster fra databasen.
+	 * @param  array $consent_log Liste af samtykke-poster fra databasen.
 	 * @return array
 	 */
 	private function format_consents( array $consent_log ) {
@@ -104,12 +105,12 @@ class CookieDK_Consent_Export {
 			}
 
 			$formatted[] = array(
-				'id'           => absint( $log->id ),
-				'timestamp'    => sanitize_text_field( $log->consent_timestamp ),
-				'categories'   => $categories,
-				'ip_address'   => $log->ip_anonymized ? __( '[anonymiseret]', 'cookiedk' ) : ( $log->ip_address ? sanitize_text_field( $log->ip_address ) : null ),
+				'id'            => absint( $log->id ),
+				'timestamp'     => sanitize_text_field( $log->consent_timestamp ),
+				'categories'    => $categories,
+				'ip_address'    => $log->ip_anonymized ? __( '[anonymiseret]', 'cookiedk' ) : ( $log->ip_address ? sanitize_text_field( $log->ip_address ) : null ),
 				'ip_anonymized' => (bool) $log->ip_anonymized,
-				'user_agent'   => $log->user_agent ? sanitize_text_field( $log->user_agent ) : null,
+				'user_agent'    => $log->user_agent ? sanitize_text_field( $log->user_agent ) : null,
 			);
 		}
 
@@ -119,7 +120,7 @@ class CookieDK_Consent_Export {
 	/**
 	 * Formaterer liste over registrerede cookies.
 	 *
-	 * @param array $cookies Liste af cookie-objekter fra databasen.
+	 * @param  array $cookies Liste af cookie-objekter fra databasen.
 	 * @return array
 	 */
 	private function format_cookies( array $cookies ) {
@@ -142,7 +143,7 @@ class CookieDK_Consent_Export {
 	/**
 	 * Eksporterer data til WordPress DSAR-format (wp_privacy_personal_data_exporters).
 	 *
-	 * @param array $consent_log Samtykke-log-poster.
+	 * @param  array $consent_log Samtykke-log-poster.
 	 * @return array WordPress-formateret data.
 	 */
 	public function to_wordpress_export_format( array $consent_log ) {
@@ -212,7 +213,7 @@ class CookieDK_Consent_Export {
 	/**
 	 * Returnerer antal samtykker for et fingerprint.
 	 *
-	 * @param string $fingerprint Bruger-fingerprint.
+	 * @param  string $fingerprint Bruger-fingerprint.
 	 * @return int
 	 */
 	public function count_consents( $fingerprint ) {

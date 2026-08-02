@@ -7,10 +7,15 @@
  * @package CookieDK
  * @since   1.0.0
  */
+
 ( function () {
 	'use strict';
 
-	/** @type {string} Nøgle til localStorage. */
+	/**
+	 * Nøgle til localStorage for gemt samtykke.
+	 *
+	 * @type {string}
+	 */
 	var STORAGE_KEY = 'cookiedk_consent';
 
 	/**
@@ -18,10 +23,11 @@
 	 *
 	 * @return {Object|null}
 	 */
-	function getStoredConsent() {
+	function getStoredConsent()
+	{
 		try {
 			var raw = localStorage.getItem( STORAGE_KEY );
-			if ( raw ) {
+			if (raw ) {
 				return JSON.parse( raw );
 			}
 		} catch ( e ) {
@@ -36,7 +42,8 @@
 	 * @param {Object} consent Samtykke-objekt.
 	 * @param {number} expiryDays Antal dage til udløb.
 	 */
-	function storeConsent( consent, expiryDays ) {
+	function storeConsent( consent, expiryDays )
+	{
 		try {
 			var expiry = new Date();
 			expiry.setDate( expiry.getDate() + ( expiryDays || 365 ) );
@@ -55,10 +62,11 @@
 	/**
 	 * Kontrollerer om gemt samtykke er udløbet.
 	 *
-	 * @param {Object} stored Gemt samtykke-data.
+	 * @param  {Object} stored Gemt samtykke-data.
 	 * @return {boolean}
 	 */
-	function isConsentExpired( stored ) {
+	function isConsentExpired( stored )
+	{
 		if ( ! stored || ! stored.expiry ) {
 			return true;
 		}
@@ -70,15 +78,16 @@
 	 *
 	 * @param {Object} consent Samtykke-objekt.
 	 */
-	function logConsentToServer( consent ) {
+	function logConsentToServer( consent )
+	{
 		var data = window.cookieDKData;
 		if ( ! data || ! data.ajaxUrl || ! data.nonce ) {
 			return;
 		}
 
 		var body = 'action=cookiedk_log_consent'
-			+ '&nonce=' + encodeURIComponent( data.nonce )
-			+ '&consent=' + encodeURIComponent( JSON.stringify( consent ) );
+		+ '&nonce=' + encodeURIComponent( data.nonce )
+		+ '&consent=' + encodeURIComponent( JSON.stringify( consent ) );
 
 		var xhr = new XMLHttpRequest();
 		xhr.open( 'POST', data.ajaxUrl, true );
@@ -92,28 +101,37 @@
 	 *
 	 * @param {Object} consent Samtykke-objekt.
 	 */
-	function activateCookies( consent ) {
+	function activateCookies( consent )
+	{
 		var categories = [ 'necessary', 'functional', 'analytics', 'marketing' ];
 
-		categories.forEach( function ( cat ) {
-			var accepted = !! consent[ cat ];
+		categories.forEach(
+			function ( cat ) {
+				var accepted = ! ! consent[ cat ];
 
-			// Trigger event: cookiedk:consent:{kategori}.
-			var evt = new CustomEvent( 'cookiedk:consent:' + cat, {
-				detail: { accepted: accepted },
-				bubbles: true,
-			} );
-			document.dispatchEvent( evt );
+				// Trigger event: cookiedk:consent:{kategori}.
+				var evt = new CustomEvent(
+					'cookiedk:consent:' + cat,
+					{
+						detail: { accepted: accepted },
+						bubbles: true,
+					}
+				);
+				document.dispatchEvent( evt );
 
-			// Sæt data-attribut på body til CSS-targeting.
-			document.body.setAttribute( 'data-cookiedk-' + cat, accepted ? '1' : '0' );
-		} );
+				// Sæt data-attribut på body til CSS-targeting.
+				document.body.setAttribute( 'data-cookiedk-' + cat, accepted ? '1' : '0' );
+			}
+		);
 
 		// Globalt event med fuldt samtykke-objekt.
-		var globalEvt = new CustomEvent( 'cookiedk:consent', {
-			detail: { consent: consent },
-			bubbles: true,
-		} );
+		var globalEvt = new CustomEvent(
+			'cookiedk:consent',
+			{
+				detail: { consent: consent },
+				bubbles: true,
+			}
+		);
 		document.dispatchEvent( globalEvt );
 	}
 
@@ -122,7 +140,8 @@
 	 *
 	 * @return {boolean}
 	 */
-	function consentRequired() {
+	function consentRequired()
+	{
 		var stored = getStoredConsent();
 		if ( ! stored ) {
 			return true;
@@ -136,7 +155,8 @@
 	 * @param {Object} consent         Samtykke-objekt.
 	 * @param {boolean} logToServer    Om der skal logges til server.
 	 */
-	function saveConsent( consent, logToServer ) {
+	function saveConsent( consent, logToServer )
+	{
 		var data       = window.cookieDKData || {};
 		var expiryDays = data.consentExpiry || 365;
 
@@ -146,7 +166,7 @@
 		storeConsent( consent, expiryDays );
 		activateCookies( consent );
 
-		if ( false !== logToServer ) {
+		if (false !== logToServer ) {
 			logConsentToServer( consent );
 		}
 	}
@@ -154,25 +174,31 @@
 	/**
 	 * Accepterer alle cookies.
 	 */
-	function acceptAll() {
-		saveConsent( {
-			necessary:  true,
-			functional: true,
-			analytics:  true,
-			marketing:  true,
-		} );
+	function acceptAll()
+	{
+		saveConsent(
+			{
+				necessary:  true,
+				functional: true,
+				analytics:  true,
+				marketing:  true,
+			}
+		);
 	}
 
 	/**
 	 * Accepterer kun nødvendige cookies.
 	 */
-	function acceptNecessaryOnly() {
-		saveConsent( {
-			necessary:  true,
-			functional: false,
-			analytics:  false,
-			marketing:  false,
-		} );
+	function acceptNecessaryOnly()
+	{
+		saveConsent(
+			{
+				necessary:  true,
+				functional: false,
+				analytics:  false,
+				marketing:  false,
+			}
+		);
 	}
 
 	/**
@@ -180,7 +206,8 @@
 	 *
 	 * @param {Object} consent Samtykke-objekt.
 	 */
-	function saveCustomConsent( consent ) {
+	function saveCustomConsent( consent )
+	{
 		saveConsent( consent );
 	}
 
@@ -189,9 +216,10 @@
 	 *
 	 * @return {Object|null}
 	 */
-	function getCurrentConsent() {
+	function getCurrentConsent()
+	{
 		var stored = getStoredConsent();
-		if ( stored && ! isConsentExpired( stored ) ) {
+		if (stored && ! isConsentExpired( stored ) ) {
 			return stored.consent;
 		}
 		return null;
@@ -200,24 +228,26 @@
 	/**
 	 * Tjekker om en specifik kategori er accepteret.
 	 *
-	 * @param {string} category Kategorinavn.
+	 * @param  {string} category Kategorinavn.
 	 * @return {boolean}
 	 */
-	function isCategoryAccepted( category ) {
+	function isCategoryAccepted( category )
+	{
 		var consent = getCurrentConsent();
 		if ( ! consent ) {
 			return 'necessary' === category;
 		}
-		return !! consent[ category ];
+		return ! ! consent[ category ];
 	}
 
 	/**
 	 * Initialiserer samtykke-logik ved sideindlæsning.
 	 * Aktiverer cookies hvis samtykke allerede er gemt.
 	 */
-	function init() {
+	function init()
+	{
 		var stored = getStoredConsent();
-		if ( stored && ! isConsentExpired( stored ) && stored.consent ) {
+		if (stored && ! isConsentExpired( stored ) && stored.consent ) {
 			activateCookies( stored.consent );
 		}
 	}
@@ -234,7 +264,7 @@
 	};
 
 	// Kør ved DOMContentLoaded.
-	if ( 'loading' === document.readyState ) {
+	if ('loading' === document.readyState ) {
 		document.addEventListener( 'DOMContentLoaded', init );
 	} else {
 		init();

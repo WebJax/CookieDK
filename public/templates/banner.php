@@ -8,6 +8,9 @@
  *   $cookie_policy        (string) – URL til cookiepolitik
  *   $cookies_by_category  (array)  – Cookies grupperet per kategori
  *
+ * @var string $banner_position
+ * @var string $cookie_policy
+ * @var array  $cookies_by_category
  * @package CookieDK
  * @since   1.0.0
  */
@@ -16,9 +19,6 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-
-/** @var string $banner_position */
-/** @var string $cookie_policy */
 ?>
 <div
 	id="cookiedk-banner"

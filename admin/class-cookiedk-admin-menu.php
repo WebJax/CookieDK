@@ -20,6 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class CookieDK_Admin_Menu {
 
+
 	/**
 	 * Admin-side slug.
 	 *
@@ -70,7 +71,7 @@ class CookieDK_Admin_Menu {
 	/**
 	 * Indlæser admin-assets kun på CookieDK-sider.
 	 *
-	 * @param string $hook_suffix Nuværende admin-sides hook.
+	 * @param  string $hook_suffix Nuværende admin-sides hook.
 	 * @return void
 	 */
 	public function enqueue_admin_assets( $hook_suffix ) {

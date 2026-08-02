@@ -21,6 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class CookieDK_Privacy_Policy {
 
+
 	/**
 	 * CookieDK_Cookie_Storage-instans.
 	 *
@@ -68,12 +69,12 @@ class CookieDK_Privacy_Policy {
 	 * @return string HTML-indhold.
 	 */
 	public function generate_policy_content() {
-		$cookies    = $this->storage->get_all_cookies();
-		$site_name  = get_bloginfo( 'name' );
+		$cookies   = $this->storage->get_all_cookies();
+		$site_name = get_bloginfo( 'name' );
 
 		$content  = '<h2>' . esc_html__( 'Cookiepolitik', 'cookiedk' ) . '</h2>';
 		$content .= '<p>' . sprintf(
-			/* translators: %s: Webstedets navn. */
+		/* translators: %s: Webstedets navn. */
 			esc_html__( '%s bruger cookies til at forbedre din oplevelse på vores website. Denne side forklarer, hvilke cookies vi bruger, og hvad de bruges til.', 'cookiedk' ),
 			esc_html( $site_name )
 		) . '</p>';
@@ -137,7 +138,7 @@ class CookieDK_Privacy_Policy {
 		$content .= '<li>' . esc_html__( 'Ret til at trække samtykke tilbage – Du kan til enhver tid trække dit samtykke tilbage uden begrundelse.', 'cookiedk' ) . '</li>';
 		$content .= '</ul>';
 		$content .= '<p>' . sprintf(
-			/* translators: %s: Link til Datatilsynets hjemmeside. */
+		/* translators: %s: Link til Datatilsynets hjemmeside. */
 			esc_html__( 'Du har ret til at klage til Datatilsynet, hvis du mener, at behandlingen af dine personoplysninger er i strid med GDPR. Læs mere på %s.', 'cookiedk' ),
 			'<a href="https://www.datatilsynet.dk" target="_blank" rel="noopener noreferrer">datatilsynet.dk</a>'
 		) . '</p>';
@@ -148,7 +149,7 @@ class CookieDK_Privacy_Policy {
 	/**
 	 * Genererer en HTML-tabel over cookies i en kategori.
 	 *
-	 * @param array $cookies Liste af cookie-objekter.
+	 * @param  array $cookies Liste af cookie-objekter.
 	 * @return string HTML-tabel.
 	 */
 	private function render_cookie_table( array $cookies ) {

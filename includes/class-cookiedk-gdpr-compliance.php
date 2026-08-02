@@ -21,6 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class CookieDK_GDPR_Compliance {
 
+
 	/**
 	 * CookieDK_Cookie_Storage-instans.
 	 *
@@ -290,7 +291,7 @@ class CookieDK_GDPR_Compliance {
 	 *
 	 * Logger at en ny bruger er registreret (ingen persondata gemt).
 	 *
-	 * @param int $user_id WordPress bruger-ID.
+	 * @param  int $user_id WordPress bruger-ID.
 	 * @return void
 	 */
 	public function on_user_register( $user_id ) {
@@ -308,7 +309,7 @@ class CookieDK_GDPR_Compliance {
 	 *
 	 * Sletter alle samtykke-log-poster for den pågældende bruger.
 	 *
-	 * @param int $user_id WordPress bruger-ID.
+	 * @param  int $user_id WordPress bruger-ID.
 	 * @return void
 	 */
 	public function on_delete_user( $user_id ) {
@@ -335,7 +336,7 @@ class CookieDK_GDPR_Compliance {
 	/**
 	 * Registrerer data-exporter til WordPress privacy-tool.
 	 *
-	 * @param array $exporters Eksisterende exporters.
+	 * @param  array $exporters Eksisterende exporters.
 	 * @return array
 	 */
 	public function register_data_exporter( array $exporters ) {
@@ -349,7 +350,7 @@ class CookieDK_GDPR_Compliance {
 	/**
 	 * Registrerer data-eraser til WordPress privacy-tool.
 	 *
-	 * @param array $erasers Eksisterende erasers.
+	 * @param  array $erasers Eksisterende erasers.
 	 * @return array
 	 */
 	public function register_data_eraser( array $erasers ) {
@@ -363,11 +364,11 @@ class CookieDK_GDPR_Compliance {
 	/**
 	 * Eksporterer samtykke-data for en given e-mail.
 	 *
-	 * @param string $email_address Brugerens e-mail.
-	 * @param int    $page          Sidenummer (til paginering).
+	 * @param  string $email_address Brugerens e-mail.
+	 *
 	 * @return array Export-data i WordPress-format.
 	 */
-	public function export_user_data( $email_address, $page = 1 ) {
+	public function export_user_data( $email_address ) {
 		$email_address = sanitize_email( $email_address );
 
 		// Find WordPress-bruger.
@@ -393,14 +394,13 @@ class CookieDK_GDPR_Compliance {
 	/**
 	 * Sletter samtykke-data for en given e-mail (retten til at blive glemt).
 	 *
-	 * @param string $email_address Brugerens e-mail.
-	 * @param int    $page          Sidenummer.
+	 * @param  string $email_address Brugerens e-mail.
 	 * @return array Resultat af sletning.
 	 */
-	public function erase_user_data( $email_address, $page = 1 ) {
-		$email_address  = sanitize_email( $email_address );
-		$items_removed  = false;
-		$messages       = array();
+	public function erase_user_data( $email_address ) {
+		$email_address = sanitize_email( $email_address );
+		$items_removed = false;
+		$messages      = array();
 
 		$user = get_user_by( 'email', $email_address );
 		if ( $user ) {
@@ -426,9 +426,9 @@ class CookieDK_GDPR_Compliance {
 	 * @return void
 	 */
 	public function run_daily_maintenance() {
-		$settings         = get_option( 'cookiedk_settings', array() );
-		$anonymize_ip     = ! empty( $settings['anonymize_ip'] ) ? true : false;
-		$retention_days   = isset( $settings['log_retention_days'] ) ? absint( $settings['log_retention_days'] ) : 365;
+		$settings       = get_option( 'cookiedk_settings', array() );
+		$anonymize_ip   = ! empty( $settings['anonymize_ip'] ) ? true : false;
+		$retention_days = isset( $settings['log_retention_days'] ) ? absint( $settings['log_retention_days'] ) : 365;
 
 		if ( $anonymize_ip ) {
 			$this->storage->anonymize_old_ips( 30 );
@@ -440,7 +440,7 @@ class CookieDK_GDPR_Compliance {
 	/**
 	 * Sletter samtykke-log-poster ældre end et givent antal dage.
 	 *
-	 * @param int $days Antal dage at bevare.
+	 * @param  int $days Antal dage at bevare.
 	 * @return int Antal slettede rækker.
 	 */
 	private function delete_old_consent_logs( $days ) {
@@ -481,7 +481,7 @@ class CookieDK_GDPR_Compliance {
 	/**
 	 * Genererer et deterministisk fingerprint for en WordPress-bruger.
 	 *
-	 * @param int $user_id WordPress bruger-ID.
+	 * @param  int $user_id WordPress bruger-ID.
 	 * @return string SHA-256 fingerprint.
 	 */
 	private function generate_fingerprint_for_user( $user_id ) {
@@ -520,7 +520,7 @@ class CookieDK_GDPR_Compliance {
 	 * Nødvendige cookies er altid aktive (true).
 	 * Kun tilladte kategorier bevares.
 	 *
-	 * @param array $consent_data Rå samtykke-data fra request.
+	 * @param  array $consent_data Rå samtykke-data fra request.
 	 * @return array Saniteret samtykke-array.
 	 */
 	private function sanitize_consent_data( array $consent_data ) {

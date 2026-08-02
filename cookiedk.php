@@ -33,16 +33,16 @@ define( 'COOKIEDK_DB_VERSION', '1.0.0' );
  * Inkluder nødvendige klasser.
  */
 function cookiedk_load_dependencies() {
-	require_once COOKIEDK_PLUGIN_DIR . 'includes/class-cookie-detector.php';
-	require_once COOKIEDK_PLUGIN_DIR . 'includes/class-cookie-storage.php';
-	require_once COOKIEDK_PLUGIN_DIR . 'includes/class-security.php';
-	require_once COOKIEDK_PLUGIN_DIR . 'includes/class-consent-export.php';
-	require_once COOKIEDK_PLUGIN_DIR . 'includes/class-gdpr-compliance.php';
-	require_once COOKIEDK_PLUGIN_DIR . 'includes/class-privacy-policy.php';
-	require_once COOKIEDK_PLUGIN_DIR . 'includes/class-translations.php';
-	require_once COOKIEDK_PLUGIN_DIR . 'public/class-frontend.php';
-	require_once COOKIEDK_PLUGIN_DIR . 'admin/class-admin-menu.php';
-	require_once COOKIEDK_PLUGIN_DIR . 'admin/class-admin-page.php';
+	include_once COOKIEDK_PLUGIN_DIR . 'includes/class-cookiedk-cookie-detector.php';
+	include_once COOKIEDK_PLUGIN_DIR . 'includes/class-cookiedk-cookie-storage.php';
+	include_once COOKIEDK_PLUGIN_DIR . 'includes/class-cookiedk-security.php';
+	include_once COOKIEDK_PLUGIN_DIR . 'includes/class-cookiedk-consent-export.php';
+	include_once COOKIEDK_PLUGIN_DIR . 'includes/class-cookiedk-gdpr-compliance.php';
+	include_once COOKIEDK_PLUGIN_DIR . 'includes/class-cookiedk-privacy-policy.php';
+	include_once COOKIEDK_PLUGIN_DIR . 'includes/class-cookiedk-translations.php';
+	include_once COOKIEDK_PLUGIN_DIR . 'public/class-cookiedk-frontend.php';
+	include_once COOKIEDK_PLUGIN_DIR . 'admin/class-cookiedk-admin-menu.php';
+	include_once COOKIEDK_PLUGIN_DIR . 'admin/class-cookiedk-admin-page.php';
 }
 
 /**
@@ -60,17 +60,17 @@ function cookiedk_activate() {
 
 	// Standard-indstillinger.
 	$default_settings = array(
-		'banner_position'      => 'bottom',
-		'color_theme'          => 'light',
-		'cookie_policy_url'    => '',
-		'consent_expiry_days'  => 365,
-		'enable_analytics'     => true,
-		'enable_marketing'     => true,
-		'enable_functional'    => true,
-		'anonymize_ip'         => true,
-		'log_retention_days'   => 365,
-		'primary_color'        => '#2271b1',
-		'secondary_color'      => '#135e96',
+		'banner_position'     => 'bottom',
+		'color_theme'         => 'light',
+		'cookie_policy_url'   => '',
+		'consent_expiry_days' => 365,
+		'enable_analytics'    => true,
+		'enable_marketing'    => true,
+		'enable_functional'   => true,
+		'anonymize_ip'        => true,
+		'log_retention_days'  => 365,
+		'primary_color'       => '#2271b1',
+		'secondary_color'     => '#135e96',
 	);
 	add_option( 'cookiedk_settings', $default_settings );
 
@@ -103,11 +103,11 @@ function cookiedk_init() {
 	cookiedk_maybe_upgrade();
 
 	// Initialisér klasser.
-	$detector    = new CookieDK_Cookie_Detector();
-	$storage     = new CookieDK_Cookie_Storage();
-	$security    = new CookieDK_Security();
-	$gdpr        = new CookieDK_GDPR_Compliance();
-	$privacy     = new CookieDK_Privacy_Policy();
+	$detector = new CookieDK_Cookie_Detector();
+	$storage  = new CookieDK_Cookie_Storage();
+	$security = new CookieDK_Security();
+	$gdpr     = new CookieDK_GDPR_Compliance();
+	$privacy  = new CookieDK_Privacy_Policy();
 
 	$detector->init();
 	$security->init();

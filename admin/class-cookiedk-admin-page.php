@@ -20,6 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class CookieDK_Admin_Page {
 
+
 	/**
 	 * Tilladte tabs.
 	 *
@@ -86,27 +87,27 @@ class CookieDK_Admin_Page {
 		<div class="wrap cookiedk-admin">
 			<h1 class="cookiedk-admin__heading">
 				<span class="cookiedk-admin__logo">🍪</span>
-				<?php esc_html_e( 'CookieDK', 'cookiedk' ); ?>
+		<?php esc_html_e( 'CookieDK', 'cookiedk' ); ?>
 			</h1>
 
 			<nav class="cookiedk-admin__tabs" aria-label="<?php esc_attr_e( 'CookieDK sektioner', 'cookiedk' ); ?>">
 				<ul>
-					<?php foreach ( $this->tabs as $slug => $label ) : ?>
+		<?php foreach ( $this->tabs as $slug => $label ) : ?>
 						<li>
 							<a
 								href="<?php echo esc_url( admin_url( 'options-general.php?page=cookiedk&tab=' . $slug ) ); ?>"
 								class="cookiedk-admin__tab <?php echo $current_tab === $slug ? 'active' : ''; ?>"
-								<?php echo $current_tab === $slug ? 'aria-current="page"' : ''; ?>
+			<?php echo $current_tab === $slug ? 'aria-current="page"' : ''; ?>
 							>
-								<?php echo esc_html( $label ); ?>
+			<?php echo esc_html( $label ); ?>
 							</a>
 						</li>
-					<?php endforeach; ?>
+		<?php endforeach; ?>
 				</ul>
 			</nav>
 
 			<div class="cookiedk-admin__content">
-				<?php $this->render_tab( $current_tab ); ?>
+		<?php $this->render_tab( $current_tab ); ?>
 			</div>
 		</div>
 		<?php
@@ -115,7 +116,7 @@ class CookieDK_Admin_Page {
 	/**
 	 * Renderer indholdet for den aktive tab.
 	 *
-	 * @param string $tab Tab-slug.
+	 * @param  string $tab Tab-slug.
 	 * @return void
 	 */
 	private function render_tab( $tab ) {
@@ -271,8 +272,7 @@ class CookieDK_Admin_Page {
 			return;
 		}
 
-		if (
-			! isset( $_POST['cookiedk_settings_nonce'] )
+		if ( ! isset( $_POST['cookiedk_settings_nonce'] )
 			|| ! wp_verify_nonce( sanitize_key( $_POST['cookiedk_settings_nonce'] ), 'cookiedk_save_settings' )
 		) {
 			return;
@@ -294,8 +294,7 @@ class CookieDK_Admin_Page {
 			return;
 		}
 
-		if (
-			! isset( $_POST['cookiedk_cookie_nonce'] )
+		if ( ! isset( $_POST['cookiedk_cookie_nonce'] )
 			|| ! wp_verify_nonce( sanitize_key( $_POST['cookiedk_cookie_nonce'] ), 'cookiedk_save_cookie' )
 		) {
 			return;
@@ -325,7 +324,7 @@ class CookieDK_Admin_Page {
 	/**
 	 * Saniterer indstillinger fra POST.
 	 *
-	 * @param array $input Rå POST-data.
+	 * @param  array $input Rå POST-data.
 	 * @return array Saniteret indstillinger.
 	 */
 	private function sanitize_settings( array $input ) {

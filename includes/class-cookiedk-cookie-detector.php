@@ -21,6 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class CookieDK_Cookie_Detector {
 
+
 	/**
 	 * Liste over kendte cookies med metadata.
 	 *
@@ -56,35 +57,35 @@ class CookieDK_Cookie_Detector {
 		$this->known_cookies = array(
 
 			// WordPress core.
-			'wordpress_*'             => array(
+			'wordpress_*'               => array(
 				'category'       => 'necessary',
 				'description_da' => 'WordPress sessions-cookie til at holde dig logget ind.',
 				'duration'       => 'Session',
 				'provider'       => 'WordPress',
 				'necessary'      => true,
 			),
-			'wordpress_logged_in_*'   => array(
+			'wordpress_logged_in_*'     => array(
 				'category'       => 'necessary',
 				'description_da' => 'WordPress login-cookie til at bekræfte din identitet.',
 				'duration'       => '14 dage',
 				'provider'       => 'WordPress',
 				'necessary'      => true,
 			),
-			'wp-settings-*'           => array(
+			'wp-settings-*'             => array(
 				'category'       => 'functional',
 				'description_da' => 'Gemmer dine personlige præferencer i WordPress admin.',
 				'duration'       => '1 år',
 				'provider'       => 'WordPress',
 				'necessary'      => false,
 			),
-			'wordpress_test_cookie'   => array(
+			'wordpress_test_cookie'     => array(
 				'category'       => 'necessary',
 				'description_da' => 'Tester om din browser understøtter cookies.',
 				'duration'       => 'Session',
 				'provider'       => 'WordPress',
 				'necessary'      => true,
 			),
-			'comment_author_*'        => array(
+			'comment_author_*'          => array(
 				'category'       => 'functional',
 				'description_da' => 'Gemmer dit navn og e-mail til fremtidige kommentarer.',
 				'duration'       => '1 år',
@@ -93,7 +94,7 @@ class CookieDK_Cookie_Detector {
 			),
 
 			// WooCommerce.
-			'woocommerce_cart_hash'   => array(
+			'woocommerce_cart_hash'     => array(
 				'category'       => 'necessary',
 				'description_da' => 'Hjælper WooCommerce med at huske indholdet af din indkøbskurv.',
 				'duration'       => 'Session',
@@ -107,7 +108,7 @@ class CookieDK_Cookie_Detector {
 				'provider'       => 'WooCommerce',
 				'necessary'      => true,
 			),
-			'wc_session_cookie'       => array(
+			'wc_session_cookie'         => array(
 				'category'       => 'necessary',
 				'description_da' => 'Gemmer din WooCommerce-session og indkøbskurv.',
 				'duration'       => '2 dage',
@@ -116,28 +117,28 @@ class CookieDK_Cookie_Detector {
 			),
 
 			// Google Analytics (Universal Analytics).
-			'_ga'                     => array(
+			'_ga'                       => array(
 				'category'       => 'analytics',
 				'description_da' => 'Google Analytics bruger-ID til at skelne besøgende fra hinanden.',
 				'duration'       => '2 år',
 				'provider'       => 'Google',
 				'necessary'      => false,
 			),
-			'_gid'                    => array(
+			'_gid'                      => array(
 				'category'       => 'analytics',
 				'description_da' => 'Google Analytics cookie til at skelne brugere. Udløber efter 24 timer.',
 				'duration'       => '24 timer',
 				'provider'       => 'Google',
 				'necessary'      => false,
 			),
-			'_gat'                    => array(
+			'_gat'                      => array(
 				'category'       => 'analytics',
 				'description_da' => 'Google Analytics cookie til at begrænse antallet af forespørgsler.',
 				'duration'       => '1 minut',
 				'provider'       => 'Google',
 				'necessary'      => false,
 			),
-			'_gat_*'                  => array(
+			'_gat_*'                    => array(
 				'category'       => 'analytics',
 				'description_da' => 'Google Analytics cookie til at begrænse forespørgselshastighed.',
 				'duration'       => '1 minut',
@@ -146,7 +147,7 @@ class CookieDK_Cookie_Detector {
 			),
 
 			// Google Analytics 4.
-			'_ga_*'                   => array(
+			'_ga_*'                     => array(
 				'category'       => 'analytics',
 				'description_da' => 'Google Analytics 4 cookie til at gemme og tælle sidevisninger.',
 				'duration'       => '2 år',
@@ -155,14 +156,14 @@ class CookieDK_Cookie_Detector {
 			),
 
 			// Google Ads / DoubleClick.
-			'_gcl_au'                 => array(
+			'_gcl_au'                   => array(
 				'category'       => 'marketing',
 				'description_da' => 'Google Ads cookie til at måle konverteringer fra annoncer.',
 				'duration'       => '90 dage',
 				'provider'       => 'Google Ads',
 				'necessary'      => false,
 			),
-			'IDE'                     => array(
+			'IDE'                       => array(
 				'category'       => 'marketing',
 				'description_da' => 'Google DoubleClick cookie til at vise personlige annoncer.',
 				'duration'       => '1 år',
@@ -171,14 +172,14 @@ class CookieDK_Cookie_Detector {
 			),
 
 			// Facebook Pixel.
-			'_fbp'                    => array(
+			'_fbp'                      => array(
 				'category'       => 'marketing',
 				'description_da' => 'Facebook Pixel cookie til at spore besøg og vise relevante annoncer.',
 				'duration'       => '90 dage',
 				'provider'       => 'Meta (Facebook)',
 				'necessary'      => false,
 			),
-			'_fbc'                    => array(
+			'_fbc'                      => array(
 				'category'       => 'marketing',
 				'description_da' => 'Facebook click ID cookie til at spore annoncekonverteringer.',
 				'duration'       => '90 dage',
@@ -187,14 +188,14 @@ class CookieDK_Cookie_Detector {
 			),
 
 			// Hotjar.
-			'_hjid'                   => array(
+			'_hjid'                     => array(
 				'category'       => 'analytics',
 				'description_da' => 'Hotjar bruger-ID cookie til at analysere brugeradfærd på siden.',
 				'duration'       => '1 år',
 				'provider'       => 'Hotjar',
 				'necessary'      => false,
 			),
-			'_hjSessionUser_*'        => array(
+			'_hjSessionUser_*'          => array(
 				'category'       => 'analytics',
 				'description_da' => 'Hotjar session-cookie til at holde styr på brugerens session.',
 				'duration'       => '1 år',
@@ -203,14 +204,14 @@ class CookieDK_Cookie_Detector {
 			),
 
 			// Matomo (Piwik).
-			'_pk_id*'                 => array(
+			'_pk_id*'                   => array(
 				'category'       => 'analytics',
 				'description_da' => 'Matomo cookie til at identificere unikke besøgende.',
 				'duration'       => '13 måneder',
 				'provider'       => 'Matomo',
 				'necessary'      => false,
 			),
-			'_pk_ses*'                => array(
+			'_pk_ses*'                  => array(
 				'category'       => 'analytics',
 				'description_da' => 'Matomo session-cookie til at spore den aktuelle besøgs-session.',
 				'duration'       => '30 minutter',
@@ -219,14 +220,14 @@ class CookieDK_Cookie_Detector {
 			),
 
 			// LinkedIn Insight.
-			'li_gc'                   => array(
+			'li_gc'                     => array(
 				'category'       => 'marketing',
 				'description_da' => 'LinkedIn cookie til at gemme dit samtykke til ikke-essentielle cookies.',
 				'duration'       => '2 år',
 				'provider'       => 'LinkedIn',
 				'necessary'      => false,
 			),
-			'AnalyticsSyncHistory'    => array(
+			'AnalyticsSyncHistory'      => array(
 				'category'       => 'analytics',
 				'description_da' => 'LinkedIn cookie til at gemme information om synkronisering af analysedata.',
 				'duration'       => '30 dage',
@@ -235,7 +236,7 @@ class CookieDK_Cookie_Detector {
 			),
 
 			// Twitter/X.
-			'personalization_id'      => array(
+			'personalization_id'        => array(
 				'category'       => 'marketing',
 				'description_da' => 'Twitter/X cookie til at tilpasse indhold og annoncer til dig.',
 				'duration'       => '2 år',
@@ -244,14 +245,14 @@ class CookieDK_Cookie_Detector {
 			),
 
 			// Cloudflare.
-			'__cfduid'                => array(
+			'__cfduid'                  => array(
 				'category'       => 'necessary',
 				'description_da' => 'Cloudflare sikkerhedscookie til at beskytte mod ondsindede angreb.',
 				'duration'       => '1 år',
 				'provider'       => 'Cloudflare',
 				'necessary'      => true,
 			),
-			'cf_clearance'            => array(
+			'cf_clearance'              => array(
 				'category'       => 'necessary',
 				'description_da' => 'Cloudflare cookie til at bevise, at besøgende har bestået en sikkerhedskontrol.',
 				'duration'       => '30 minutter',
@@ -260,7 +261,7 @@ class CookieDK_Cookie_Detector {
 			),
 
 			// Cookie-samtykke (egne).
-			'cookiedk_consent'        => array(
+			'cookiedk_consent'          => array(
 				'category'       => 'necessary',
 				'description_da' => 'Gemmer dine cookie-præferencer for dette website.',
 				'duration'       => '1 år',
@@ -269,7 +270,7 @@ class CookieDK_Cookie_Detector {
 			),
 
 			// Generisk session-cookie.
-			'PHPSESSID'               => array(
+			'PHPSESSID'                 => array(
 				'category'       => 'necessary',
 				'description_da' => 'PHP sessions-cookie til at holde din session aktiv under dit besøg.',
 				'duration'       => 'Session',
@@ -303,7 +304,10 @@ class CookieDK_Cookie_Detector {
 			$meta        = $this->classify_cookie( $cookie_name );
 			if ( $meta ) {
 				$detected[ $cookie_name ] = array_merge(
-					array( 'name' => $cookie_name, 'source' => 'server' ),
+					array(
+						'name'   => $cookie_name,
+						'source' => 'server',
+					),
 					$meta
 				);
 			}
@@ -317,7 +321,7 @@ class CookieDK_Cookie_Detector {
 	/**
 	 * Klassificerer en cookie baseret på dens navn.
 	 *
-	 * @param string $cookie_name Cookiens navn.
+	 * @param  string $cookie_name Cookiens navn.
 	 * @return array|false Cookie-metadata eller false hvis ukendt.
 	 */
 	public function classify_cookie( $cookie_name ) {
@@ -340,7 +344,7 @@ class CookieDK_Cookie_Detector {
 		return array(
 			'category'       => 'functional',
 			'description_da' => sprintf(
-				/* translators: %s: Cookie-navn. */
+			/* translators: %s: Cookie-navn. */
 				__( 'Cookie ved navn "%s". Formålet med denne cookie er ikke identificeret.', 'cookiedk' ),
 				esc_html( $cookie_name )
 			),
@@ -353,7 +357,7 @@ class CookieDK_Cookie_Detector {
 	/**
 	 * Gemmer detekterede cookies via CookieDK_Cookie_Storage.
 	 *
-	 * @param array $cookies Array af cookie-data.
+	 * @param  array $cookies Array af cookie-data.
 	 * @return void
 	 */
 	private function save_detected_cookies( array $cookies ) {
@@ -459,7 +463,7 @@ class CookieDK_Cookie_Detector {
 			wp_send_json_error( array( 'message' => __( 'For mange forespørgsler. Prøv igen senere.', 'cookiedk' ) ) );
 		}
 
-		$raw_cookies = isset( $_POST['cookies'] ) ? wp_unslash( $_POST['cookies'] ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		$raw_cookies  = isset( $_POST['cookies'] ) ? wp_unslash( $_POST['cookies'] ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		$cookie_names = json_decode( sanitize_text_field( $raw_cookies ), true );
 
 		if ( ! is_array( $cookie_names ) ) {
@@ -475,7 +479,10 @@ class CookieDK_Cookie_Detector {
 			$meta = $this->classify_cookie( $name );
 			if ( $meta ) {
 				$detected[ $name ] = array_merge(
-					array( 'name' => $name, 'source' => 'client' ),
+					array(
+						'name'   => $name,
+						'source' => 'client',
+					),
 					$meta
 				);
 			}

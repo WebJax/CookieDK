@@ -17,6 +17,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // Behandl formular-indsendelse.
 if ( isset( $_POST['cookiedk_cookie_nonce'] ) ) {
+	if ( ! wp_verify_nonce( wp_unslash( $_POST['cookiedk_cookie_nonce'] ), 'cookiedk_save_cookie' ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		wp_die( esc_html__( 'Ugyldig nonce. Cookie blev ikke gemt.', 'cookiedk' ) );
+	}
 	$this->handle_cookie_form();
 }
 
@@ -65,7 +68,7 @@ $categories = CookieDK_Cookie_Detector::get_categories();
 						<td><code><?php echo esc_html( $cookie->name ); ?></code></td>
 						<td>
 							<span class="cookiedk-badge cookiedk-badge--<?php echo esc_attr( $cookie->category ); ?>">
-								<?php echo esc_html( isset( $categories[ $cookie->category ] ) ? $categories[ $cookie->category ] : $cookie->category ); ?>
+					<?php echo esc_html( isset( $categories[ $cookie->category ] ) ? $categories[ $cookie->category ] : $cookie->category ); ?>
 							</span>
 						</td>
 						<td><?php echo esc_html( $cookie->provider ); ?></td>
@@ -81,14 +84,14 @@ $categories = CookieDK_Cookie_Detector::get_categories();
 								data-duration="<?php echo esc_attr( $cookie->duration ); ?>"
 								data-provider="<?php echo esc_attr( $cookie->provider ); ?>"
 							>
-								<?php esc_html_e( 'Rediger', 'cookiedk' ); ?>
+					<?php esc_html_e( 'Rediger', 'cookiedk' ); ?>
 							</button>
 							<button
 								type="button"
 								class="button button-small cookiedk-delete-cookie"
 								data-id="<?php echo esc_attr( $cookie->id ); ?>"
 							>
-								<?php esc_html_e( 'Slet', 'cookiedk' ); ?>
+					<?php esc_html_e( 'Slet', 'cookiedk' ); ?>
 							</button>
 						</td>
 					</tr>

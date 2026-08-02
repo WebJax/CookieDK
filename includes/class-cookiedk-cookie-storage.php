@@ -21,14 +21,17 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class CookieDK_Cookie_Storage {
 
+
 	/**
-	 * Tabelnavne.
+	 * Cookiestabel.
 	 *
 	 * @var string
 	 */
 	private $cookies_table;
 
 	/**
+	 * Tabelnavn for samtykke-log.
+	 *
 	 * @var string
 	 */
 	private $consent_log_table;
@@ -98,7 +101,7 @@ class CookieDK_Cookie_Storage {
 			KEY consent_timestamp (consent_timestamp)
 		) $charset_collate;";
 
-		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+		include_once ABSPATH . 'wp-admin/includes/upgrade.php';
 		dbDelta( $sql_cookies );
 		dbDelta( $sql_consent_log );
 	}
@@ -106,7 +109,7 @@ class CookieDK_Cookie_Storage {
 	/**
 	 * Gemmer eller opdaterer en detekteret cookie.
 	 *
-	 * @param array $cookie_data Cookie-data med keys: name, category, description_da, duration, provider, source, necessary.
+	 * @param  array $cookie_data Cookie-data med keys: name, category, description_da, duration, provider, source, necessary.
 	 * @return int|false ID på den gemte cookie eller false ved fejl.
 	 */
 	public function save_cookie( array $cookie_data ) {
@@ -175,7 +178,7 @@ class CookieDK_Cookie_Storage {
 	/**
 	 * Henter en cookie fra databasen baseret på navn.
 	 *
-	 * @param string $name Cookiens navn.
+	 * @param  string $name Cookiens navn.
 	 * @return object|null Database-rad eller null.
 	 */
 	public function get_cookie_by_name( $name ) {
@@ -194,7 +197,7 @@ class CookieDK_Cookie_Storage {
 	/**
 	 * Henter en cookie fra databasen baseret på ID.
 	 *
-	 * @param int $id Cookie-ID.
+	 * @param  int $id Cookie-ID.
 	 * @return object|null Database-rad eller null.
 	 */
 	public function get_cookie_by_id( $id ) {
@@ -213,7 +216,7 @@ class CookieDK_Cookie_Storage {
 	/**
 	 * Henter alle cookies fra databasen, eventuelt filtreret på kategori.
 	 *
-	 * @param string|null $category Filtrér på kategori eller null for alle.
+	 * @param  string|null $category Filtrér på kategori eller null for alle.
 	 * @return array Liste af cookie-objekter.
 	 */
 	public function get_all_cookies( $category = null ) {
@@ -239,14 +242,14 @@ class CookieDK_Cookie_Storage {
 	/**
 	 * Opdaterer en eksisterende cookie.
 	 *
-	 * @param int   $id          Cookie-ID.
-	 * @param array $cookie_data Ny cookie-data.
+	 * @param  int   $id          Cookie-ID.
+	 * @param  array $cookie_data Ny cookie-data.
 	 * @return bool True ved succes, false ved fejl.
 	 */
 	public function update_cookie( $id, array $cookie_data ) {
 		global $wpdb;
 
-		$id       = absint( $id );
+		$id        = absint( $id );
 		$sanitized = $this->sanitize_cookie_data( $cookie_data );
 
 		if ( false === $sanitized || ! $id ) {
@@ -273,7 +276,7 @@ class CookieDK_Cookie_Storage {
 	/**
 	 * Sletter en cookie fra databasen.
 	 *
-	 * @param int $id Cookie-ID.
+	 * @param  int $id Cookie-ID.
 	 * @return bool True ved succes, false ved fejl.
 	 */
 	public function delete_cookie( $id ) {
@@ -296,10 +299,10 @@ class CookieDK_Cookie_Storage {
 	/**
 	 * Gemmer en samtykke-hændelse i loggen.
 	 *
-	 * @param string $fingerprint   Bruger-fingerprint (anonymiseret).
-	 * @param array  $consent_data  Array over valgte kategorier.
-	 * @param string $ip_address    Brugerens IP-adresse.
-	 * @param string $user_agent    Brugerens user-agent.
+	 * @param  string $fingerprint  Bruger-fingerprint (anonymiseret).
+	 * @param  array  $consent_data Array over valgte kategorier.
+	 * @param  string $ip_address   Brugerens IP-adresse.
+	 * @param  string $user_agent   Brugerens user-agent.
 	 * @return int|false ID på den gemte log-post eller false ved fejl.
 	 */
 	public function log_consent( $fingerprint, array $consent_data, $ip_address = '', $user_agent = '' ) {
@@ -337,8 +340,8 @@ class CookieDK_Cookie_Storage {
 	/**
 	 * Henter samtykke-log-poster, eventuelt filtreret på fingerprint.
 	 *
-	 * @param string|null $fingerprint Fingerprint at filtrere på, eller null for alle.
-	 * @param int         $limit       Maks antal poster.
+	 * @param  string|null $fingerprint Fingerprint at filtrere på, eller null for alle.
+	 * @param  int         $limit       Maks antal poster.
 	 * @return array Liste af log-poster.
 	 */
 	public function get_consent_log( $fingerprint = null, $limit = 100 ) {
@@ -373,14 +376,14 @@ class CookieDK_Cookie_Storage {
 	/**
 	 * Anonymiserer IP-adresser der er ældre end et givent antal dage.
 	 *
-	 * @param int $days Antal dage før IP anonymiseres.
+	 * @param  int $days Antal dage før IP anonymiseres.
 	 * @return int Antal opdaterede rækker.
 	 */
 	public function anonymize_old_ips( $days = 30 ) {
 		global $wpdb;
 
-		$days    = absint( $days );
-		$cutoff  = gmdate( 'Y-m-d H:i:s', strtotime( "-{$days} days" ) );
+		$days   = absint( $days );
+		$cutoff = gmdate( 'Y-m-d H:i:s', strtotime( "-{$days} days" ) );
 
 		$result = $wpdb->query( // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 			$wpdb->prepare(
@@ -395,7 +398,7 @@ class CookieDK_Cookie_Storage {
 	/**
 	 * Sletter samtykke-log-poster for et givent fingerprint (retten til at blive glemt).
 	 *
-	 * @param string $fingerprint Bruger-fingerprint.
+	 * @param  string $fingerprint Bruger-fingerprint.
 	 * @return bool True ved succes.
 	 */
 	public function delete_consent_log_by_fingerprint( $fingerprint ) {
@@ -415,7 +418,7 @@ class CookieDK_Cookie_Storage {
 	/**
 	 * Saniterer og validerer cookie-data.
 	 *
-	 * @param array $data Rå cookie-data.
+	 * @param  array $data Rå cookie-data.
 	 * @return array|false Saniteret data eller false ved ugyldige data.
 	 */
 	private function sanitize_cookie_data( array $data ) {
