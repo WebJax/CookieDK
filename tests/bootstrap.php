@@ -304,13 +304,13 @@ class FakeWpdb
 
 $GLOBALS['wpdb'] = new FakeWpdb();
 
-require_once dirname(__DIR__) . '/includes/class-cookie-storage.php';
-require_once dirname(__DIR__) . '/includes/class-cookie-detector.php';
-require_once dirname(__DIR__) . '/includes/class-consent-export.php';
-require_once dirname(__DIR__) . '/includes/class-gdpr-compliance.php';
-require_once dirname(__DIR__) . '/includes/class-privacy-policy.php';
-require_once dirname(__DIR__) . '/includes/class-translations.php';
-require_once dirname(__DIR__) . '/includes/class-security.php';
-require_once dirname(__DIR__) . '/public/class-frontend.php';
-require_once dirname(__DIR__) . '/admin/class-admin-page.php';
-require_once dirname(__DIR__) . '/admin/class-admin-menu.php';
+require_once dirname(__DIR__) . '/includes/class-cookiedk-cookie-storage.php';
+require_once dirname(__DIR__) . '/includes/class-cookiedk-cookie-detector.php';
+require_once dirname(__DIR__) . '/includes/class-cookiedk-consent-export.php';
+require_once dirname(__DIR__) . '/includes/class-cookiedk-gdpr-compliance.php';
+require_once dirname(__DIR__) . '/includes/class-cookiedk-privacy-policy.php';
+require_once dirname(__DIR__) . '/includes/class-cookiedk-translations.php';
+require_once dirname(__DIR__) . '/includes/class-cookiedk-security.php';
+require_once dirname(__DIR__) . '/public/class-cookiedk-frontend.php';
+require_once dirname(__DIR__) . '/admin/class-cookiedk-admin-page.php';
+require_once dirname(__DIR__) . '/admin/class-cookiedk-admin-menu.php';
