@@ -8,6 +8,8 @@
  * @since   1.0.0
  */
 
+/* global wp */
+
 ( function ( $, data ) {
 	'use strict';
 
@@ -433,9 +435,10 @@
 			'#policy_owner_postal',
 			'#policy_owner_city',
 		];
-		var ready = true;
+		var ready    = true;
 
-		for ( var i = 0; i < required.length; i++ ) {
+		var len = required.length;
+		for ( var i = 0; i < len; i++ ) {
 			if ( ! $( required[ i ] ).val() || ! String( $( required[ i ] ).val() ).trim() ) {
 				ready = false;
 				break;

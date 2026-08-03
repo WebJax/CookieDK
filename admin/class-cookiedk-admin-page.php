@@ -52,8 +52,22 @@ class CookieDK_Admin_Page {
 	 * Konstruktør.
 	 */
 	public function __construct() {
-		$this->storage  = new CookieDK_Cookie_Storage();
-		$this->settings = get_option( 'cookiedk_settings', array() );
+		$this->storage = new CookieDK_Cookie_Storage();
+		$this->load_settings();
+	}
+
+	/**
+	 * Indlæser aktuelle plugin-indstillinger fra databasen.
+	 *
+	 * @return void
+	 */
+	private function load_settings() {
+		$stored = get_option( 'cookiedk_settings', array() );
+		if ( ! is_array( $stored ) ) {
+			$stored = array();
+		}
+
+		$this->settings = $stored;
 	}
 
 	/**
@@ -275,7 +289,7 @@ class CookieDK_Admin_Page {
 			wp_send_json_error( array( 'message' => $result->get_error_message() ) );
 		}
 
-		$settings = $this->get_settings();
+		$settings                          = $this->get_settings();
 		$settings['cookie_policy_url']     = $result['url'];
 		$settings['cookie_policy_page_id'] = $result['page_id'];
 		$settings['policy_owner_name']     = $owner['name'];
@@ -317,6 +331,7 @@ class CookieDK_Admin_Page {
 		$settings = $this->sanitize_settings( $_POST ); // phpcs:ignore WordPress.Security.NonceVerification.Missing – nonce checked above.
 
 		update_option( 'cookiedk_settings', $settings );
+		$this->settings = $settings;
 
 		wp_send_json_success( array( 'message' => __( 'Indstillinger gemt.', 'cookiedk' ) ) );
 	}
@@ -339,6 +354,7 @@ class CookieDK_Admin_Page {
 
 		$settings = $this->sanitize_settings( $_POST );
 		update_option( 'cookiedk_settings', $settings );
+		$this->settings = $settings;
 
 		add_settings_error( 'cookiedk_settings', 'settings_saved', __( 'Indstillinger gemt.', 'cookiedk' ), 'updated' );
 	}
@@ -409,26 +425,26 @@ class CookieDK_Admin_Page {
 			$theme = 'light';
 		}
 
-		$existing = wp_parse_args( $this->settings, $this->get_default_settings() );
+		$existing = $this->get_settings();
 
 		return array(
-			'banner_position'        => $position,
-			'color_theme'            => $theme,
-			'cookie_policy_url'      => isset( $input['cookie_policy_url'] ) ? esc_url_raw( wp_unslash( $input['cookie_policy_url'] ) ) : '',
-			'cookie_policy_page_id'  => isset( $input['cookie_policy_page_id'] ) ? absint( $input['cookie_policy_page_id'] ) : absint( $existing['cookie_policy_page_id'] ),
-			'policy_owner_name'      => isset( $input['policy_owner_name'] ) ? sanitize_text_field( wp_unslash( $input['policy_owner_name'] ) ) : '',
-			'policy_owner_address'   => isset( $input['policy_owner_address'] ) ? sanitize_text_field( wp_unslash( $input['policy_owner_address'] ) ) : '',
-			'policy_owner_postal'    => isset( $input['policy_owner_postal'] ) ? sanitize_text_field( wp_unslash( $input['policy_owner_postal'] ) ) : '',
-			'policy_owner_city'      => isset( $input['policy_owner_city'] ) ? sanitize_text_field( wp_unslash( $input['policy_owner_city'] ) ) : '',
-			'policy_owner_cvr'       => isset( $input['policy_owner_cvr'] ) ? sanitize_text_field( wp_unslash( $input['policy_owner_cvr'] ) ) : '',
-			'consent_expiry_days'    => isset( $input['consent_expiry_days'] ) ? absint( $input['consent_expiry_days'] ) : 365,
-			'enable_analytics'       => ! empty( $input['enable_analytics'] ),
-			'enable_marketing'       => ! empty( $input['enable_marketing'] ),
-			'enable_functional'      => ! empty( $input['enable_functional'] ),
-			'anonymize_ip'           => ! empty( $input['anonymize_ip'] ),
-			'log_retention_days'     => isset( $input['log_retention_days'] ) ? absint( $input['log_retention_days'] ) : 365,
-			'primary_color'          => isset( $input['primary_color'] ) ? sanitize_hex_color( $input['primary_color'] ) : '#2271b1',
-			'secondary_color'        => isset( $input['secondary_color'] ) ? sanitize_hex_color( $input['secondary_color'] ) : '#135e96',
+			'banner_position'       => $position,
+			'color_theme'           => $theme,
+			'cookie_policy_url'     => isset( $input['cookie_policy_url'] ) ? esc_url_raw( wp_unslash( $input['cookie_policy_url'] ) ) : '',
+			'cookie_policy_page_id' => isset( $input['cookie_policy_page_id'] ) ? absint( $input['cookie_policy_page_id'] ) : absint( $existing['cookie_policy_page_id'] ),
+			'policy_owner_name'     => isset( $input['policy_owner_name'] ) ? sanitize_text_field( wp_unslash( $input['policy_owner_name'] ) ) : '',
+			'policy_owner_address'  => isset( $input['policy_owner_address'] ) ? sanitize_text_field( wp_unslash( $input['policy_owner_address'] ) ) : '',
+			'policy_owner_postal'   => isset( $input['policy_owner_postal'] ) ? sanitize_text_field( wp_unslash( $input['policy_owner_postal'] ) ) : '',
+			'policy_owner_city'     => isset( $input['policy_owner_city'] ) ? sanitize_text_field( wp_unslash( $input['policy_owner_city'] ) ) : '',
+			'policy_owner_cvr'      => isset( $input['policy_owner_cvr'] ) ? sanitize_text_field( wp_unslash( $input['policy_owner_cvr'] ) ) : '',
+			'consent_expiry_days'   => isset( $input['consent_expiry_days'] ) ? absint( $input['consent_expiry_days'] ) : 365,
+			'enable_analytics'      => ! empty( $input['enable_analytics'] ),
+			'enable_marketing'      => ! empty( $input['enable_marketing'] ),
+			'enable_functional'     => ! empty( $input['enable_functional'] ),
+			'anonymize_ip'          => ! empty( $input['anonymize_ip'] ),
+			'log_retention_days'    => isset( $input['log_retention_days'] ) ? absint( $input['log_retention_days'] ) : 365,
+			'primary_color'         => isset( $input['primary_color'] ) ? sanitize_hex_color( $input['primary_color'] ) : '#2271b1',
+			'secondary_color'       => isset( $input['secondary_color'] ) ? sanitize_hex_color( $input['secondary_color'] ) : '#135e96',
 		);
 	}
 
@@ -465,7 +481,8 @@ class CookieDK_Admin_Page {
 	 * @return array
 	 */
 	public function get_settings() {
-		return wp_parse_args( $this->settings, $this->get_default_settings() );
+		$stored = is_array( $this->settings ) ? $this->settings : array();
+		return wp_parse_args( $stored, $this->get_default_settings() );
 	}
 
 	/**

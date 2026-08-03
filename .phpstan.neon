@@ -11,3 +11,4 @@ parameters:
     bootstrapFiles:
         - phpstan-bootstrap.php
         - vendor/php-stubs/wordpress-stubs/wordpress-stubs.php
+    treatPhpDocTypesAsCertain: false
