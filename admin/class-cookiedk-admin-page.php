@@ -317,6 +317,7 @@ class CookieDK_Admin_Page {
 		$settings = $this->sanitize_settings( $_POST ); // phpcs:ignore WordPress.Security.NonceVerification.Missing – nonce checked above.
 
 		update_option( 'cookiedk_settings', $settings );
+		$this->settings = $settings;
 
 		wp_send_json_success( array( 'message' => __( 'Indstillinger gemt.', 'cookiedk' ) ) );
 	}
@@ -339,6 +340,7 @@ class CookieDK_Admin_Page {
 
 		$settings = $this->sanitize_settings( $_POST );
 		update_option( 'cookiedk_settings', $settings );
+		$this->settings = $settings;
 
 		add_settings_error( 'cookiedk_settings', 'settings_saved', __( 'Indstillinger gemt.', 'cookiedk' ), 'updated' );
 	}
@@ -427,8 +429,8 @@ class CookieDK_Admin_Page {
 			'enable_functional'      => ! empty( $input['enable_functional'] ),
 			'anonymize_ip'           => ! empty( $input['anonymize_ip'] ),
 			'log_retention_days'     => isset( $input['log_retention_days'] ) ? absint( $input['log_retention_days'] ) : 365,
-			'primary_color'          => isset( $input['primary_color'] ) ? sanitize_hex_color( $input['primary_color'] ) : '#2271b1',
-			'secondary_color'        => isset( $input['secondary_color'] ) ? sanitize_hex_color( $input['secondary_color'] ) : '#135e96',
+			'primary_color'          => ! empty( $input['primary_color'] ) && sanitize_hex_color( $input['primary_color'] ) ? sanitize_hex_color( $input['primary_color'] ) : $existing['primary_color'],
+			'secondary_color'        => ! empty( $input['secondary_color'] ) && sanitize_hex_color( $input['secondary_color'] ) ? sanitize_hex_color( $input['secondary_color'] ) : $existing['secondary_color'],
 		);
 	}
 

@@ -313,7 +313,7 @@ $settings = $this->get_settings();
 	</table>
 
 	<p class="submit">
-		<button type="submit" class="button button-primary">
+		<button type="submit" class="button button-primary" id="cookiedk-save-settings-ajax">
 			<?php esc_html_e( 'Gem indstillinger', 'cookiedk' ); ?>
 		</button>
 	</p>

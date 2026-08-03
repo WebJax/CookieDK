@@ -134,6 +134,10 @@ function update_user_meta( $user_id, $key, $value )
 {
     return true; 
 }
+function current_user_can( $capability )
+{
+    return true; 
+}
 function wp_verify_nonce( $nonce, $action )
 {
     return true; 

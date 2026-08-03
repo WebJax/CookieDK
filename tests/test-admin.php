@@ -51,4 +51,45 @@ final class CookieDKAdminTest extends TestCase
         $this->assertSame('Test ApS', $corner['policy_owner_name']);
         $this->assertSame('12345678', $corner['policy_owner_cvr']);
     }
+
+    public function test_handle_settings_form_updates_settings(): void
+    {
+        $_POST['cookiedk_settings_nonce'] = 'nonce-cookiedk_save_settings';
+        $_POST['banner_position'] = 'top-right';
+        $_POST['color_theme'] = 'dark';
+        $_POST['consent_expiry_days'] = '180';
+
+        $admin = new CookieDK_Admin_Page();
+        $admin->handle_settings_form();
+
+        $settings = $admin->get_settings();
+        $this->assertSame('top-right', $settings['banner_position']);
+        $this->assertSame('dark', $settings['color_theme']);
+        $this->assertSame(180, $settings['consent_expiry_days']);
+
+        // Clean up
+        unset($_POST['cookiedk_settings_nonce'], $_POST['banner_position'], $_POST['color_theme'], $_POST['consent_expiry_days']);
+    }
+
+    public function test_handle_ajax_save_settings_updates_settings(): void
+    {
+        $_POST['nonce'] = 'nonce-cookiedk_admin_nonce';
+        $_POST['banner_position'] = 'center';
+        $_POST['color_theme'] = 'auto';
+
+        $admin = new CookieDK_Admin_Page();
+        try {
+            $admin->handle_ajax_save_settings();
+            $this->fail('Expected handle_ajax_save_settings to call wp_send_json_success and throw RuntimeException');
+        } catch (RuntimeException $e) {
+            $this->assertStringContainsString('json_success', $e->getMessage());
+        }
+
+        $settings = $admin->get_settings();
+        $this->assertSame('center', $settings['banner_position']);
+        $this->assertSame('auto', $settings['color_theme']);
+
+        // Clean up
+        unset($_POST['nonce'], $_POST['banner_position'], $_POST['color_theme']);
+    }
 }
