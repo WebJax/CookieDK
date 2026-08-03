@@ -41,15 +41,24 @@ if ( $date_from || $date_to ) {
 }
 
 // Statistik.
-$total        = count( $log );
-$accepted_all = 0;
+$total              = count( $log );
+$accepted_all       = 0;
+$accepted_necessary = 0;
 foreach ( $log as $entry ) {
 	$c = json_decode( $entry->consent_data, true );
-	if ( is_array( $c ) ) {
-		$all = ! empty( $c['functional'] ) && ! empty( $c['analytics'] ) && ! empty( $c['marketing'] );
-		if ( $all ) {
-			++$accepted_all;
-		}
+	if ( ! is_array( $c ) ) {
+		continue;
+	}
+
+	$all = ! empty( $c['functional'] ) && ! empty( $c['analytics'] ) && ! empty( $c['marketing'] );
+	if ( $all ) {
+		++$accepted_all;
+		continue;
+	}
+
+	$only_necessary = empty( $c['functional'] ) && empty( $c['analytics'] ) && empty( $c['marketing'] );
+	if ( $only_necessary ) {
+		++$accepted_necessary;
 	}
 }
 
@@ -65,6 +74,10 @@ $categories = CookieDK_Cookie_Detector::get_categories();
 	<div class="cookiedk-stat-card">
 		<span class="cookiedk-stat-card__value"><?php echo esc_html( (string) $accepted_all ); ?></span>
 		<span class="cookiedk-stat-card__label"><?php esc_html_e( 'Accepterede alle', 'cookiedk' ); ?></span>
+	</div>
+	<div class="cookiedk-stat-card">
+		<span class="cookiedk-stat-card__value"><?php echo esc_html( (string) $accepted_necessary ); ?></span>
+		<span class="cookiedk-stat-card__label"><?php esc_html_e( 'Kun nødvendige', 'cookiedk' ); ?></span>
 	</div>
 	<div class="cookiedk-stat-card">
 		<span class="cookiedk-stat-card__value"><?php echo $total > 0 ? esc_html( (string) round( $accepted_all / $total * 100 ) ) . '%' : '0%'; ?></span>
@@ -138,8 +151,8 @@ $categories = CookieDK_Cookie_Detector::get_categories();
 						</td>
 					<?php foreach ( $categories as $cat_slug => $cat_label ) : ?>
 							<td>
-						<?php if ( is_array( $consent ) && isset( $consent[ $cat_slug ] ) ) : ?>
-							<?php if ( $consent[ $cat_slug ] ) : ?>
+						<?php if ( is_array( $consent ) && array_key_exists( $cat_slug, $consent ) ) : ?>
+							<?php if ( ! empty( $consent[ $cat_slug ] ) ) : ?>
 										<span style="color: #00a32a;" aria-label="<?php esc_attr_e( 'Ja', 'cookiedk' ); ?>">✓</span>
 									<?php else : ?>
 										<span style="color: #d63638;" aria-label="<?php esc_attr_e( 'Nej', 'cookiedk' ); ?>">✗</span>

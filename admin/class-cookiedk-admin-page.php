@@ -67,6 +67,7 @@ class CookieDK_Admin_Page {
 			'cookiedk_delete_cookie',
 			'cookiedk_export_cookies',
 			'cookiedk_save_settings',
+			'cookiedk_create_policy_page',
 		);
 		foreach ( $actions as $action ) {
 			add_action( 'wp_ajax_' . $action, array( $this, 'handle_ajax_' . str_replace( 'cookiedk_', '', $action ) ) );
@@ -97,9 +98,9 @@ class CookieDK_Admin_Page {
 							<a
 								href="<?php echo esc_url( admin_url( 'options-general.php?page=cookiedk&tab=' . $slug ) ); ?>"
 								class="cookiedk-admin__tab <?php echo $current_tab === $slug ? 'active' : ''; ?>"
-			<?php echo $current_tab === $slug ? 'aria-current="page"' : ''; ?>
+								<?php echo $current_tab === $slug ? 'aria-current="page"' : ''; ?>
 							>
-			<?php echo esc_html( $label ); ?>
+							<?php echo esc_html( $label ); ?>
 							</a>
 						</li>
 		<?php endforeach; ?>
@@ -240,6 +241,64 @@ class CookieDK_Admin_Page {
 	}
 
 	/**
+	 * AJAX: Opret cookiepolitik-side med standardformulering.
+	 *
+	 * @return void
+	 */
+	public function handle_ajax_create_policy_page() {
+		check_ajax_referer( 'cookiedk_admin_nonce', 'nonce' );
+		if ( class_exists( 'CookieDK_Security' ) && ! CookieDK_Security::check_rate_limit( 'cookiedk_create_policy_page', 10, 60 ) ) {
+			status_header( 429 );
+			wp_send_json_error( array( 'message' => __( 'For mange forespørgsler. Prøv igen senere.', 'cookiedk' ) ) );
+		}
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( array( 'message' => __( 'Utilstrækkelige rettigheder.', 'cookiedk' ) ) );
+		}
+
+		$owner = array(
+			'name'    => isset( $_POST['policy_owner_name'] ) ? sanitize_text_field( wp_unslash( $_POST['policy_owner_name'] ) ) : '',
+			'address' => isset( $_POST['policy_owner_address'] ) ? sanitize_text_field( wp_unslash( $_POST['policy_owner_address'] ) ) : '',
+			'postal'  => isset( $_POST['policy_owner_postal'] ) ? sanitize_text_field( wp_unslash( $_POST['policy_owner_postal'] ) ) : '',
+			'city'    => isset( $_POST['policy_owner_city'] ) ? sanitize_text_field( wp_unslash( $_POST['policy_owner_city'] ) ) : '',
+			'cvr'     => isset( $_POST['policy_owner_cvr'] ) ? sanitize_text_field( wp_unslash( $_POST['policy_owner_cvr'] ) ) : '',
+		);
+
+		if ( '' === $owner['name'] || '' === $owner['address'] || '' === $owner['postal'] || '' === $owner['city'] ) {
+			wp_send_json_error( array( 'message' => __( 'Udfyld ejer, adresse, postnr og by før du opretter siden.', 'cookiedk' ) ) );
+		}
+
+		$privacy = new CookieDK_Privacy_Policy();
+		$result  = $privacy->create_or_update_policy_page( $owner );
+
+		if ( is_wp_error( $result ) ) {
+			wp_send_json_error( array( 'message' => $result->get_error_message() ) );
+		}
+
+		$settings = $this->get_settings();
+		$settings['cookie_policy_url']     = $result['url'];
+		$settings['cookie_policy_page_id'] = $result['page_id'];
+		$settings['policy_owner_name']     = $owner['name'];
+		$settings['policy_owner_address']  = $owner['address'];
+		$settings['policy_owner_postal']   = $owner['postal'];
+		$settings['policy_owner_city']     = $owner['city'];
+		$settings['policy_owner_cvr']      = $owner['cvr'];
+		update_option( 'cookiedk_settings', $settings );
+		$this->settings = $settings;
+
+		wp_send_json_success(
+			array(
+				'message'  => $result['created']
+					? __( 'Cookiepolitik-side oprettet.', 'cookiedk' )
+					: __( 'Cookiepolitik-side opdateret.', 'cookiedk' ),
+				'url'      => $result['url'],
+				'page_id'  => $result['page_id'],
+				'edit_url' => $result['edit_url'],
+			)
+		);
+	}
+
+	/**
 	 * AJAX: Gem indstillinger.
 	 *
 	 * @return void
@@ -328,7 +387,16 @@ class CookieDK_Admin_Page {
 	 * @return array Saniteret indstillinger.
 	 */
 	private function sanitize_settings( array $input ) {
-		$valid_positions = array( 'bottom', 'top', 'side' );
+		$valid_positions = array(
+			'bottom',
+			'top',
+			'side',
+			'top-left',
+			'top-right',
+			'center',
+			'bottom-left',
+			'bottom-right',
+		);
 		$valid_themes    = array( 'light', 'dark', 'auto' );
 
 		$position = isset( $input['banner_position'] ) ? sanitize_key( $input['banner_position'] ) : 'bottom';
@@ -341,18 +409,53 @@ class CookieDK_Admin_Page {
 			$theme = 'light';
 		}
 
+		$existing = wp_parse_args( $this->settings, $this->get_default_settings() );
+
 		return array(
-			'banner_position'     => $position,
-			'color_theme'         => $theme,
-			'cookie_policy_url'   => isset( $input['cookie_policy_url'] ) ? esc_url_raw( wp_unslash( $input['cookie_policy_url'] ) ) : '',
-			'consent_expiry_days' => isset( $input['consent_expiry_days'] ) ? absint( $input['consent_expiry_days'] ) : 365,
-			'enable_analytics'    => ! empty( $input['enable_analytics'] ),
-			'enable_marketing'    => ! empty( $input['enable_marketing'] ),
-			'enable_functional'   => ! empty( $input['enable_functional'] ),
-			'anonymize_ip'        => ! empty( $input['anonymize_ip'] ),
-			'log_retention_days'  => isset( $input['log_retention_days'] ) ? absint( $input['log_retention_days'] ) : 365,
-			'primary_color'       => isset( $input['primary_color'] ) ? sanitize_hex_color( $input['primary_color'] ) : '#2271b1',
-			'secondary_color'     => isset( $input['secondary_color'] ) ? sanitize_hex_color( $input['secondary_color'] ) : '#135e96',
+			'banner_position'        => $position,
+			'color_theme'            => $theme,
+			'cookie_policy_url'      => isset( $input['cookie_policy_url'] ) ? esc_url_raw( wp_unslash( $input['cookie_policy_url'] ) ) : '',
+			'cookie_policy_page_id'  => isset( $input['cookie_policy_page_id'] ) ? absint( $input['cookie_policy_page_id'] ) : absint( $existing['cookie_policy_page_id'] ),
+			'policy_owner_name'      => isset( $input['policy_owner_name'] ) ? sanitize_text_field( wp_unslash( $input['policy_owner_name'] ) ) : '',
+			'policy_owner_address'   => isset( $input['policy_owner_address'] ) ? sanitize_text_field( wp_unslash( $input['policy_owner_address'] ) ) : '',
+			'policy_owner_postal'    => isset( $input['policy_owner_postal'] ) ? sanitize_text_field( wp_unslash( $input['policy_owner_postal'] ) ) : '',
+			'policy_owner_city'      => isset( $input['policy_owner_city'] ) ? sanitize_text_field( wp_unslash( $input['policy_owner_city'] ) ) : '',
+			'policy_owner_cvr'       => isset( $input['policy_owner_cvr'] ) ? sanitize_text_field( wp_unslash( $input['policy_owner_cvr'] ) ) : '',
+			'consent_expiry_days'    => isset( $input['consent_expiry_days'] ) ? absint( $input['consent_expiry_days'] ) : 365,
+			'enable_analytics'       => ! empty( $input['enable_analytics'] ),
+			'enable_marketing'       => ! empty( $input['enable_marketing'] ),
+			'enable_functional'      => ! empty( $input['enable_functional'] ),
+			'anonymize_ip'           => ! empty( $input['anonymize_ip'] ),
+			'log_retention_days'     => isset( $input['log_retention_days'] ) ? absint( $input['log_retention_days'] ) : 365,
+			'primary_color'          => isset( $input['primary_color'] ) ? sanitize_hex_color( $input['primary_color'] ) : '#2271b1',
+			'secondary_color'        => isset( $input['secondary_color'] ) ? sanitize_hex_color( $input['secondary_color'] ) : '#135e96',
+		);
+	}
+
+	/**
+	 * Standardindstillinger for pluginet.
+	 *
+	 * @return array
+	 */
+	private function get_default_settings() {
+		return array(
+			'banner_position'       => 'bottom',
+			'color_theme'           => 'light',
+			'cookie_policy_url'     => '',
+			'cookie_policy_page_id' => 0,
+			'policy_owner_name'     => '',
+			'policy_owner_address'  => '',
+			'policy_owner_postal'   => '',
+			'policy_owner_city'     => '',
+			'policy_owner_cvr'      => '',
+			'consent_expiry_days'   => 365,
+			'enable_analytics'      => true,
+			'enable_marketing'      => true,
+			'enable_functional'     => true,
+			'anonymize_ip'          => true,
+			'log_retention_days'    => 365,
+			'primary_color'         => '#2271b1',
+			'secondary_color'       => '#135e96',
 		);
 	}
 
@@ -362,20 +465,7 @@ class CookieDK_Admin_Page {
 	 * @return array
 	 */
 	public function get_settings() {
-		$defaults = array(
-			'banner_position'     => 'bottom',
-			'color_theme'         => 'light',
-			'cookie_policy_url'   => '',
-			'consent_expiry_days' => 365,
-			'enable_analytics'    => true,
-			'enable_marketing'    => true,
-			'enable_functional'   => true,
-			'anonymize_ip'        => true,
-			'log_retention_days'  => 365,
-			'primary_color'       => '#2271b1',
-			'secondary_color'     => '#135e96',
-		);
-		return wp_parse_args( $this->settings, $defaults );
+		return wp_parse_args( $this->settings, $this->get_default_settings() );
 	}
 
 	/**

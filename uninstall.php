@@ -36,7 +36,7 @@ foreach ( $options_to_delete as $option ) {
 if (is_multisite() ) {
     $sites = get_sites();
     foreach ( $sites as $site ) {
-        switch_to_blog($site->blog_id);
+        switch_to_blog((int) $site->blog_id);
 
         $wpdb->query("DROP TABLE IF EXISTS {$wpdb->prefix}cookiedk_cookies");       // phpcs:ignore WordPress.DB.DirectDatabaseQuery
         $wpdb->query("DROP TABLE IF EXISTS {$wpdb->prefix}cookiedk_consent_log");   // phpcs:ignore WordPress.DB.DirectDatabaseQuery

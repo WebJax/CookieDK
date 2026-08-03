@@ -43,10 +43,15 @@ $settings = $this->get_settings();
 			<td>
 				<select name="banner_position" id="banner_position">
 					<option value="bottom" <?php selected( $settings['banner_position'], 'bottom' ); ?>><?php esc_html_e( 'Bund (standard)', 'cookiedk' ); ?></option>
-					<option value="top"    <?php selected( $settings['banner_position'], 'top' ); ?>><?php esc_html_e( 'Top', 'cookiedk' ); ?></option>
-					<option value="side"   <?php selected( $settings['banner_position'], 'side' ); ?>><?php esc_html_e( 'Side (højre hjørne)', 'cookiedk' ); ?></option>
+					<option value="top" <?php selected( $settings['banner_position'], 'top' ); ?>><?php esc_html_e( 'Top', 'cookiedk' ); ?></option>
+					<option value="side" <?php selected( $settings['banner_position'], 'side' ); ?>><?php esc_html_e( 'Side (højre hjørne)', 'cookiedk' ); ?></option>
+					<option value="top-left" <?php selected( $settings['banner_position'], 'top-left' ); ?>><?php esc_html_e( 'Venstre top', 'cookiedk' ); ?></option>
+					<option value="top-right" <?php selected( $settings['banner_position'], 'top-right' ); ?>><?php esc_html_e( 'Højre top', 'cookiedk' ); ?></option>
+					<option value="center" <?php selected( $settings['banner_position'], 'center' ); ?>><?php esc_html_e( 'Centreret på skærmen', 'cookiedk' ); ?></option>
+					<option value="bottom-left" <?php selected( $settings['banner_position'], 'bottom-left' ); ?>><?php esc_html_e( 'Venstre bund', 'cookiedk' ); ?></option>
+					<option value="bottom-right" <?php selected( $settings['banner_position'], 'bottom-right' ); ?>><?php esc_html_e( 'Højre bund', 'cookiedk' ); ?></option>
 				</select>
-				<p class="description"><?php esc_html_e( 'Angiv, hvor cookie-banneret vises på siden.', 'cookiedk' ); ?></p>
+				<p class="description"><?php esc_html_e( 'Hjørne- og centerpositioner fylder ca. 1/3 af skærmbredden på PC. På mobil vises banneret i bunden i fuld bredde.', 'cookiedk' ); ?></p>
 			</td>
 		</tr>
 
@@ -111,6 +116,101 @@ $settings = $this->get_settings();
 					placeholder="https://eksempel.dk/cookiepolitik"
 				>
 				<p class="description"><?php esc_html_e( 'Link til din cookiepolitik-side (vises i banneret).', 'cookiedk' ); ?></p>
+
+				<div class="cookiedk-policy-builder" id="cookiedk-policy-builder">
+					<p class="cookiedk-policy-builder__intro">
+						<?php esc_html_e( 'Udfyld oplysninger om ejeren af hjemmesiden for at oprette en cookiepolitik-side med standardformulering.', 'cookiedk' ); ?>
+					</p>
+
+					<div class="cookiedk-policy-builder__fields">
+						<p>
+							<label for="policy_owner_name">
+								<?php esc_html_e( 'Ejer af hjemmesiden', 'cookiedk' ); ?>
+								<span class="required">*</span>
+							</label>
+							<input
+								type="text"
+								name="policy_owner_name"
+								id="policy_owner_name"
+								value="<?php echo esc_attr( $settings['policy_owner_name'] ); ?>"
+								class="regular-text cookiedk-policy-required"
+								placeholder="<?php esc_attr_e( 'Virksomhed / forening / navn', 'cookiedk' ); ?>"
+								autocomplete="organization"
+							>
+						</p>
+						<p>
+							<label for="policy_owner_address">
+								<?php esc_html_e( 'Adresse', 'cookiedk' ); ?>
+								<span class="required">*</span>
+							</label>
+							<input
+								type="text"
+								name="policy_owner_address"
+								id="policy_owner_address"
+								value="<?php echo esc_attr( $settings['policy_owner_address'] ); ?>"
+								class="regular-text cookiedk-policy-required"
+								autocomplete="street-address"
+							>
+						</p>
+						<p class="cookiedk-policy-builder__row">
+							<span>
+								<label for="policy_owner_postal">
+									<?php esc_html_e( 'Postnr', 'cookiedk' ); ?>
+									<span class="required">*</span>
+								</label>
+								<input
+									type="text"
+									name="policy_owner_postal"
+									id="policy_owner_postal"
+									value="<?php echo esc_attr( $settings['policy_owner_postal'] ); ?>"
+									class="small-text cookiedk-policy-required"
+									inputmode="numeric"
+									autocomplete="postal-code"
+								>
+							</span>
+							<span>
+								<label for="policy_owner_city">
+									<?php esc_html_e( 'By', 'cookiedk' ); ?>
+									<span class="required">*</span>
+								</label>
+								<input
+									type="text"
+									name="policy_owner_city"
+									id="policy_owner_city"
+									value="<?php echo esc_attr( $settings['policy_owner_city'] ); ?>"
+									class="regular-text cookiedk-policy-required"
+									autocomplete="address-level2"
+								>
+							</span>
+						</p>
+						<p>
+							<label for="policy_owner_cvr"><?php esc_html_e( 'CVR-nr. (valgfrit)', 'cookiedk' ); ?></label>
+							<input
+								type="text"
+								name="policy_owner_cvr"
+								id="policy_owner_cvr"
+								value="<?php echo esc_attr( $settings['policy_owner_cvr'] ); ?>"
+								class="regular-text"
+								inputmode="numeric"
+								placeholder="12345678"
+							>
+						</p>
+					</div>
+
+					<p class="cookiedk-policy-builder__actions">
+						<button
+							type="button"
+							class="button button-secondary"
+							id="cookiedk-create-policy-page"
+							disabled
+						>
+							<?php esc_html_e( 'Opret cookiepolitik-side', 'cookiedk' ); ?>
+						</button>
+						<span class="description" id="cookiedk-create-policy-hint">
+							<?php esc_html_e( 'Knappen aktiveres, når ejer, adresse, postnr og by er udfyldt.', 'cookiedk' ); ?>
+						</span>
+					</p>
+				</div>
 			</td>
 		</tr>
 

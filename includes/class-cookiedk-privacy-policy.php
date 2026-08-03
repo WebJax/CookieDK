@@ -64,13 +64,82 @@ class CookieDK_Privacy_Policy {
 	}
 
 	/**
+	 * Opretter eller opdaterer en WordPress-side med cookiepolitik.
+	 *
+	 * @param  array $owner Ejeroplysninger: name, address, postal, city, cvr.
+	 * @return array|\WP_Error Resultat med page_id, url, edit_url og created.
+	 */
+	public function create_or_update_policy_page( array $owner ) {
+		$settings = get_option( 'cookiedk_settings', array() );
+		$page_id  = isset( $settings['cookie_policy_page_id'] ) ? absint( $settings['cookie_policy_page_id'] ) : 0;
+		$content  = $this->generate_policy_content( $owner );
+		$created  = false;
+
+		$postarr = array(
+			'post_title'   => __( 'Cookiepolitik', 'cookiedk' ),
+			'post_content' => $content,
+			'post_status'  => 'publish',
+			'post_type'    => 'page',
+		);
+
+		if ( $page_id && get_post( $page_id ) ) {
+			$postarr['ID'] = $page_id;
+			$result_id     = wp_update_post( wp_slash( $postarr ), true );
+		} else {
+			$existing = get_posts(
+				array(
+					'name'        => 'cookiepolitik',
+					'post_type'   => 'page',
+					'post_status' => array( 'publish', 'draft', 'private' ),
+					'numberposts' => 1,
+				)
+			);
+
+			if ( ! empty( $existing[0] ) && $existing[0] instanceof WP_Post ) {
+				$postarr['ID'] = $existing[0]->ID;
+				$result_id     = wp_update_post( wp_slash( $postarr ), true );
+			} else {
+				$postarr['post_name'] = 'cookiepolitik';
+				$result_id            = wp_insert_post( wp_slash( $postarr ), true );
+				$created              = true;
+			}
+		}
+
+		if ( is_wp_error( $result_id ) ) {
+			return $result_id;
+		}
+
+		$page_id = (int) $result_id;
+
+		return array(
+			'page_id'  => $page_id,
+			'url'      => get_permalink( $page_id ),
+			'edit_url' => get_edit_post_link( $page_id, 'raw' ),
+			'created'  => $created,
+		);
+	}
+
+	/**
 	 * Genererer HTML-indhold til cookiepolitik-siden.
 	 *
+	 * @param  array $owner Valgfrie ejeroplysninger: name, address, postal, city, cvr.
 	 * @return string HTML-indhold.
 	 */
-	public function generate_policy_content() {
+	public function generate_policy_content( $owner = array() ) {
 		$cookies   = $this->storage->get_all_cookies();
 		$site_name = get_bloginfo( 'name' );
+		$settings  = get_option( 'cookiedk_settings', array() );
+
+		$owner = wp_parse_args(
+			is_array( $owner ) ? $owner : array(),
+			array(
+				'name'    => isset( $settings['policy_owner_name'] ) ? $settings['policy_owner_name'] : '',
+				'address' => isset( $settings['policy_owner_address'] ) ? $settings['policy_owner_address'] : '',
+				'postal'  => isset( $settings['policy_owner_postal'] ) ? $settings['policy_owner_postal'] : '',
+				'city'    => isset( $settings['policy_owner_city'] ) ? $settings['policy_owner_city'] : '',
+				'cvr'     => isset( $settings['policy_owner_cvr'] ) ? $settings['policy_owner_cvr'] : '',
+			)
+		);
 
 		$content  = '<h2>' . esc_html__( 'Cookiepolitik', 'cookiedk' ) . '</h2>';
 		$content .= '<p>' . sprintf(
@@ -78,6 +147,25 @@ class CookieDK_Privacy_Policy {
 			esc_html__( '%s bruger cookies til at forbedre din oplevelse på vores website. Denne side forklarer, hvilke cookies vi bruger, og hvad de bruges til.', 'cookiedk' ),
 			esc_html( $site_name )
 		) . '</p>';
+
+		if ( ! empty( $owner['name'] ) ) {
+			$content .= '<h3>' . esc_html__( 'Dataansvarlig', 'cookiedk' ) . '</h3>';
+			$content .= '<p>' . esc_html__( 'Den dataansvarlige for behandling af personoplysninger via cookies på dette website er:', 'cookiedk' ) . '</p>';
+			$content .= '<p>';
+			$content .= '<strong>' . esc_html( $owner['name'] ) . '</strong><br>';
+			if ( ! empty( $owner['address'] ) ) {
+				$content .= esc_html( $owner['address'] ) . '<br>';
+			}
+			$city_line = trim( $owner['postal'] . ' ' . $owner['city'] );
+			if ( '' !== $city_line ) {
+				$content .= esc_html( $city_line ) . '<br>';
+			}
+			if ( ! empty( $owner['cvr'] ) ) {
+				/* translators: %s: CVR number. */
+				$content .= esc_html( sprintf( __( 'CVR-nr.: %s', 'cookiedk' ), $owner['cvr'] ) );
+			}
+			$content .= '</p>';
+		}
 
 		$content .= '<h3>' . esc_html__( 'Hvad er cookies?', 'cookiedk' ) . '</h3>';
 		$content .= '<p>' . esc_html__( 'Cookies er små tekstfiler, der gemmes på din computer eller enhed, når du besøger et website. De bruges til at huske dine præferencer, holde dig logget ind og indsamle anonyme statistikker om brug af websitet.', 'cookiedk' ) . '</p>';

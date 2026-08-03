@@ -33,5 +33,22 @@ final class CookieDKAdminTest extends TestCase
         $this->assertSame('bottom', $settings['banner_position']);
         $this->assertSame('light', $settings['color_theme']);
         $this->assertSame(10, $settings['consent_expiry_days']);
+
+        $corner = $method->invoke(
+            $admin,
+            array(
+                'banner_position' => 'bottom-left',
+                'color_theme' => 'dark',
+                'policy_owner_name' => 'Test ApS',
+                'policy_owner_address' => 'Testvej 1',
+                'policy_owner_postal' => '2100',
+                'policy_owner_city' => 'København',
+                'policy_owner_cvr' => '12345678',
+            )
+        );
+
+        $this->assertSame('bottom-left', $corner['banner_position']);
+        $this->assertSame('Test ApS', $corner['policy_owner_name']);
+        $this->assertSame('12345678', $corner['policy_owner_cvr']);
     }
 }

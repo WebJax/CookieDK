@@ -413,4 +413,103 @@
 		}
 	);
 
+	// =========================================================
+	// Opret cookiepolitik-side
+	// =========================================================
+
+	/**
+	 * Aktiverer knappen når påkrævede ejerfelter er udfyldt.
+	 */
+	function updateCreatePolicyButton()
+	{
+		var $btn = $( '#cookiedk-create-policy-page' );
+		if ( ! $btn.length ) {
+			return;
+		}
+
+		var required = [
+			'#policy_owner_name',
+			'#policy_owner_address',
+			'#policy_owner_postal',
+			'#policy_owner_city',
+		];
+		var ready = true;
+
+		for ( var i = 0; i < required.length; i++ ) {
+			if ( ! $( required[ i ] ).val() || ! String( $( required[ i ] ).val() ).trim() ) {
+				ready = false;
+				break;
+			}
+		}
+
+		$btn.prop( 'disabled', ! ready );
+	}
+
+	$( document ).on(
+		'input change',
+		'#cookiedk-policy-builder .cookiedk-policy-required',
+		updateCreatePolicyButton
+	);
+
+	$( document ).on(
+		'click',
+		'#cookiedk-create-policy-page',
+		function ( e ) {
+			e.preventDefault();
+
+			var $btn = $( this );
+			if ( $btn.prop( 'disabled' ) ) {
+				return;
+			}
+
+			var label = $btn.text();
+			$btn.prop( 'disabled', true ).text( data.i18n.loading );
+
+			$.post(
+				data.ajaxUrl,
+				{
+					action:               'cookiedk_create_policy_page',
+					nonce:                data.nonce,
+					policy_owner_name:    $( '#policy_owner_name' ).val(),
+					policy_owner_address: $( '#policy_owner_address' ).val(),
+					policy_owner_postal:  $( '#policy_owner_postal' ).val(),
+					policy_owner_city:    $( '#policy_owner_city' ).val(),
+					policy_owner_cvr:     $( '#policy_owner_cvr' ).val(),
+				}
+			)
+			.done(
+				function ( response ) {
+					if ( response.success ) {
+						$( '#cookie_policy_url' ).val( response.data.url );
+						showNotice( response.data.message, 'success' );
+						if ( response.data.edit_url ) {
+							$( '#cookiedk-create-policy-hint' ).html(
+								$( '<a></a>' )
+									.attr( 'href', response.data.edit_url )
+									.attr( 'target', '_blank' )
+									.attr( 'rel', 'noopener noreferrer' )
+									.text( data.i18n.edit_policy || 'Rediger cookiepolitik-siden' )
+							);
+						}
+					} else {
+						showNotice( ( response.data && response.data.message ) || data.i18n.error, 'error' );
+					}
+				}
+			)
+			.fail(
+				function () {
+					showNotice( data.i18n.error, 'error' );
+				}
+			)
+			.always(
+				function () {
+					$btn.text( label );
+					updateCreatePolicyButton();
+				}
+			);
+		}
+	);
+
+	updateCreatePolicyButton();
+
 }( jQuery, window.cookieDKAdmin || {} ) );

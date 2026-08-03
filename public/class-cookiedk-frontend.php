@@ -41,15 +41,21 @@ class CookieDK_Frontend {
 	 */
 	public function __construct() {
 		$defaults = array(
-			'banner_position'     => 'bottom',
-			'color_theme'         => 'light',
-			'cookie_policy_url'   => '',
-			'consent_expiry_days' => 365,
-			'enable_analytics'    => true,
-			'enable_marketing'    => true,
-			'enable_functional'   => true,
-			'primary_color'       => '#2271b1',
-			'secondary_color'     => '#135e96',
+			'banner_position'       => 'bottom',
+			'color_theme'           => 'light',
+			'cookie_policy_url'     => '',
+			'cookie_policy_page_id' => 0,
+			'policy_owner_name'     => '',
+			'policy_owner_address'  => '',
+			'policy_owner_postal'   => '',
+			'policy_owner_city'     => '',
+			'policy_owner_cvr'      => '',
+			'consent_expiry_days'   => 365,
+			'enable_analytics'      => true,
+			'enable_marketing'      => true,
+			'enable_functional'     => true,
+			'primary_color'         => '#2271b1',
+			'secondary_color'       => '#135e96',
 		);
 
 		$saved          = get_option( 'cookiedk_settings', array() );
@@ -73,8 +79,11 @@ class CookieDK_Frontend {
 	 * @return void
 	 */
 	public function enqueue_assets() {
+		// Style/script-handles må ikke genbruge DOM-id'et "cookiedk-banner".
+		// Optimizers (preload/defer CSS) sætter ofte id="{handle}" på <link>,
+		// hvilket ellers stjæler getElementById( 'cookiedk-banner' ) fra banner-div'en.
 		wp_enqueue_style(
-			'cookiedk-banner',
+			'cookiedk-banner-style',
 			COOKIEDK_PLUGIN_URL . 'public/assets/css/banner.css',
 			array(),
 			COOKIEDK_VERSION
@@ -89,7 +98,7 @@ class CookieDK_Frontend {
 		);
 
 		wp_enqueue_script(
-			'cookiedk-banner',
+			'cookiedk-banner-script',
 			COOKIEDK_PLUGIN_URL . 'public/assets/js/banner.js',
 			array( 'cookiedk-consent' ),
 			COOKIEDK_VERSION,
@@ -98,7 +107,7 @@ class CookieDK_Frontend {
 
 		// Videregiv data til JavaScript.
 		wp_localize_script(
-			'cookiedk-banner',
+			'cookiedk-banner-script',
 			'cookieDKData',
 			array(
 				'ajaxUrl'          => admin_url( 'admin-ajax.php' ),
@@ -124,7 +133,7 @@ class CookieDK_Frontend {
 		// Tilføj inline CSS med brugerdefinerede farver.
 		$custom_css = $this->get_custom_css();
 		if ( $custom_css ) {
-			wp_add_inline_style( 'cookiedk-banner', $custom_css );
+			wp_add_inline_style( 'cookiedk-banner-style', $custom_css );
 		}
 	}
 

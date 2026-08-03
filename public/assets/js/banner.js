@@ -51,6 +51,17 @@
 	}
 
 	/**
+	 * Finder banner-div'en (ikke et <link>/<style> med samme id fra asset-optimizers).
+	 *
+	 * @return {HTMLElement|null}
+	 */
+	function getBannerElement()
+	{
+		return document.querySelector( 'div#cookiedk-banner[role="dialog"]' )
+			|| document.querySelector( 'div#cookiedk-banner' );
+	}
+
+	/**
 	 * Viser cookie-banneret.
 	 */
 	function showBanner()
@@ -368,7 +379,7 @@
 	 */
 	function init()
 	{
-		banner        = el( 'cookiedk-banner' );
+		banner        = getBannerElement();
 		settingsPanel = el( 'cookiedk-settings-panel' );
 		overlay       = el( 'cookiedk-overlay' );
 

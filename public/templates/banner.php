@@ -4,7 +4,7 @@
  *
  * Renderer HTML-strukturen for cookie-banneret.
  * Variabler tilgængelige fra class-frontend.php:
- *   $banner_position      (string) – top|bottom|side
+ *   $banner_position      (string) – top|bottom|side|top-left|top-right|center|bottom-left|bottom-right
  *   $cookie_policy        (string) – URL til cookiepolitik
  *   $cookies_by_category  (array)  – Cookies grupperet per kategori
  *

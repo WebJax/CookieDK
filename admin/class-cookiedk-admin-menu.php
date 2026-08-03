@@ -106,6 +106,7 @@ class CookieDK_Admin_Menu {
 					'saved'          => __( 'Indstillinger gemt.', 'cookiedk' ),
 					'error'          => __( 'Der opstod en fejl. Prøv igen.', 'cookiedk' ),
 					'loading'        => __( 'Indlæser…', 'cookiedk' ),
+					'edit_policy'    => __( 'Rediger cookiepolitik-siden', 'cookiedk' ),
 				),
 			)
 		);

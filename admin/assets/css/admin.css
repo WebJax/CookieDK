@@ -221,6 +221,64 @@
 	max-width: 80px;
 }
 
+/* Cookiepolitik-builder */
+.cookiedk-policy-builder {
+	margin-top: 16px;
+	padding: 16px;
+	background: #f6f7f7;
+	border: 1px solid #dcdcde;
+	border-radius: 4px;
+	max-width: 560px;
+}
+
+.cookiedk-policy-builder__intro {
+	margin: 0 0 12px;
+	color: #646970;
+}
+
+.cookiedk-policy-builder__fields p {
+	margin: 0 0 12px;
+}
+
+.cookiedk-policy-builder__fields label {
+	display: block;
+	font-weight: 600;
+	margin-bottom: 4px;
+}
+
+.cookiedk-policy-builder__fields .required {
+	color: #d63638;
+}
+
+.cookiedk-policy-builder__row {
+	display: flex;
+	gap: 12px;
+	flex-wrap: wrap;
+}
+
+.cookiedk-policy-builder__row > span {
+	flex: 1 1 120px;
+}
+
+.cookiedk-policy-builder__fields input.regular-text,
+.cookiedk-policy-builder__fields input.small-text {
+	width: 100%;
+	max-width: none;
+}
+
+.cookiedk-policy-builder__actions {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 10px;
+	margin: 4px 0 0;
+}
+
+.cookiedk-policy-builder__actions .button:disabled {
+	opacity: 0.55;
+	cursor: not-allowed;
+}
+
 /* =========================================================
 	Handlingsknapper
 	========================================================= */

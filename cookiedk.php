@@ -60,17 +60,23 @@ function cookiedk_activate() {
 
 	// Standard-indstillinger.
 	$default_settings = array(
-		'banner_position'     => 'bottom',
-		'color_theme'         => 'light',
-		'cookie_policy_url'   => '',
-		'consent_expiry_days' => 365,
-		'enable_analytics'    => true,
-		'enable_marketing'    => true,
-		'enable_functional'   => true,
-		'anonymize_ip'        => true,
-		'log_retention_days'  => 365,
-		'primary_color'       => '#2271b1',
-		'secondary_color'     => '#135e96',
+		'banner_position'       => 'bottom',
+		'color_theme'           => 'light',
+		'cookie_policy_url'     => '',
+		'cookie_policy_page_id' => 0,
+		'policy_owner_name'     => '',
+		'policy_owner_address'  => '',
+		'policy_owner_postal'   => '',
+		'policy_owner_city'     => '',
+		'policy_owner_cvr'      => '',
+		'consent_expiry_days'   => 365,
+		'enable_analytics'      => true,
+		'enable_marketing'      => true,
+		'enable_functional'     => true,
+		'anonymize_ip'          => true,
+		'log_retention_days'    => 365,
+		'primary_color'         => '#2271b1',
+		'secondary_color'       => '#135e96',
 	);
 	add_option( 'cookiedk_settings', $default_settings );
 

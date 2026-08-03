@@ -54,26 +54,78 @@
 	color: var(--cookiedk-text);
 }
 
-/* Position: bottom */
+/* Position: bottom (fuld bredde) */
 #cookiedk-banner.cookiedk-position-bottom {
 	bottom: 0;
 	border-top: 3px solid var(--cookiedk-primary);
 }
 
-/* Position: top */
+/* Position: top (fuld bredde) */
 #cookiedk-banner.cookiedk-position-top {
 	top: 0;
 	border-bottom: 3px solid var(--cookiedk-primary);
 }
 
-/* Position: side */
-#cookiedk-banner.cookiedk-position-side {
-	bottom: 24px;
-	right: 24px;
+/* Kort-positioner: ca. 1/3 skærmbredde på desktop */
+#cookiedk-banner.cookiedk-position-side,
+#cookiedk-banner.cookiedk-position-top-left,
+#cookiedk-banner.cookiedk-position-top-right,
+#cookiedk-banner.cookiedk-position-center,
+#cookiedk-banner.cookiedk-position-bottom-left,
+#cookiedk-banner.cookiedk-position-bottom-right {
 	left: auto;
-	max-width: 380px;
+	right: auto;
+	width: 33.333vw;
+	max-width: 33.333vw;
 	border-radius: var(--cookiedk-radius);
 	border-top: 3px solid var(--cookiedk-primary);
+}
+
+#cookiedk-banner.cookiedk-position-side,
+#cookiedk-banner.cookiedk-position-bottom-right {
+	bottom: 24px;
+	right: 24px;
+}
+
+#cookiedk-banner.cookiedk-position-bottom-left {
+	bottom: 24px;
+	left: 24px;
+}
+
+#cookiedk-banner.cookiedk-position-top-right {
+	top: 24px;
+	right: 24px;
+}
+
+#cookiedk-banner.cookiedk-position-top-left {
+	top: 24px;
+	left: 24px;
+}
+
+#cookiedk-banner.cookiedk-position-center {
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+#cookiedk-banner.cookiedk-position-side .cookiedk-banner__inner,
+#cookiedk-banner.cookiedk-position-top-left .cookiedk-banner__inner,
+#cookiedk-banner.cookiedk-position-top-right .cookiedk-banner__inner,
+#cookiedk-banner.cookiedk-position-center .cookiedk-banner__inner,
+#cookiedk-banner.cookiedk-position-bottom-left .cookiedk-banner__inner,
+#cookiedk-banner.cookiedk-position-bottom-right .cookiedk-banner__inner {
+	flex-direction: column;
+	align-items: stretch;
+	max-width: none;
+}
+
+#cookiedk-banner.cookiedk-position-side .cookiedk-banner__actions,
+#cookiedk-banner.cookiedk-position-top-left .cookiedk-banner__actions,
+#cookiedk-banner.cookiedk-position-top-right .cookiedk-banner__actions,
+#cookiedk-banner.cookiedk-position-center .cookiedk-banner__actions,
+#cookiedk-banner.cookiedk-position-bottom-left .cookiedk-banner__actions,
+#cookiedk-banner.cookiedk-position-bottom-right .cookiedk-banner__actions {
+	width: 100%;
 }
 
 /* Skjult */
@@ -505,12 +557,21 @@
 		padding: 16px;
 	}
 
-	#cookiedk-banner.cookiedk-position-side {
+	/* Kort-positioner bliver bundbanner på mobil med 1% sidemargin */
+	#cookiedk-banner.cookiedk-position-side,
+	#cookiedk-banner.cookiedk-position-top-left,
+	#cookiedk-banner.cookiedk-position-top-right,
+	#cookiedk-banner.cookiedk-position-center,
+	#cookiedk-banner.cookiedk-position-bottom-left,
+	#cookiedk-banner.cookiedk-position-bottom-right {
+		top: auto;
 		bottom: 0;
-		right: 0;
-		left: 0;
-		max-width: 100%;
-		border-radius: 0;
+		left: 1%;
+		right: 1%;
+		width: auto;
+		max-width: none;
+		transform: none;
+		border-radius: var(--cookiedk-radius);
 	}
 
 	.cookiedk-banner__inner {
