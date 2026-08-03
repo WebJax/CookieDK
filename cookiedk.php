@@ -30,6 +30,75 @@ define( 'COOKIEDK_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 define( 'COOKIEDK_DB_VERSION', '1.0.0' );
 
 /**
+ * Returnerer temats primærfarve fra globale styles.
+ *
+ * @return string
+ */
+function cookiedk_get_theme_primary_color() {
+	$css = wp_get_global_stylesheet();
+	if ( ! empty( $css ) ) {
+		preg_match( '/--wp--preset--color--primary:\s*([^;]+);/i', $css, $matches );
+		if ( ! empty( $matches[1] ) ) {
+			$color = trim( $matches[1] );
+			if ( $color ) {
+				$sanitized = sanitize_hex_color( $color );
+				if ( $sanitized ) {
+					return $sanitized;
+				}
+			}
+		}
+	}
+
+	$settings = wp_get_global_settings();
+	if ( ! empty( $settings['color']['palette'] ) ) {
+		foreach ( $settings['color']['palette'] as $palette_color ) {
+			if ( ! empty( $palette_color['slug'] ) && 'primary' === $palette_color['slug'] && ! empty( $palette_color['color'] ) ) {
+				$sanitized = sanitize_hex_color( $palette_color['color'] );
+				if ( $sanitized ) {
+					return $sanitized;
+				}
+			}
+		}
+	}
+
+	return '#2271b1';
+}
+
+/**
+ * Returnerer en lidt mørkere variant af en hex-farve.
+ *
+ * @param string $hex   Hex-farve.
+ * @param float  $amount Mørkningsgrad mellem 0 og 1.
+ * @return string
+ */
+function cookiedk_make_darker_color( $hex, $amount = 0.14 ) {
+	$hex = ltrim( (string) $hex, '#' );
+	if ( 3 === strlen( $hex ) ) {
+		$hex = $hex[0] . $hex[0] . $hex[1] . $hex[1] . $hex[2] . $hex[2];
+	}
+
+	if ( 6 !== strlen( $hex ) ) {
+		return '#135e96';
+	}
+
+	$r = max( 0, min( 255, (int) hexdec( substr( $hex, 0, 2 ) ) * ( 1 - $amount ) ) );
+	$g = max( 0, min( 255, (int) hexdec( substr( $hex, 2, 2 ) ) * ( 1 - $amount ) ) );
+	$b = max( 0, min( 255, (int) hexdec( substr( $hex, 4, 2 ) ) * ( 1 - $amount ) ) );
+
+	return sprintf( '#%02x%02x%02x', (int) $r, (int) $g, (int) $b );
+}
+
+/**
+ * Returnerer temats sekundærfarve som en mørkere variant af primary.
+ *
+ * @return string
+ */
+function cookiedk_get_theme_secondary_color() {
+	$primary = cookiedk_get_theme_primary_color();
+	return cookiedk_make_darker_color( $primary );
+}
+
+/**
  * Inkluder nødvendige klasser.
  */
 function cookiedk_load_dependencies() {
@@ -75,8 +144,8 @@ function cookiedk_activate() {
 		'enable_functional'     => true,
 		'anonymize_ip'          => true,
 		'log_retention_days'    => 365,
-		'primary_color'         => '#2271b1',
-		'secondary_color'       => '#135e96',
+		'primary_color'         => cookiedk_get_theme_primary_color(),
+		'secondary_color'       => cookiedk_get_theme_secondary_color(),
 	);
 	add_option( 'cookiedk_settings', $default_settings );
 
@@ -135,7 +204,7 @@ function cookiedk_init() {
 		$admin_page->register_ajax_handlers();
 	}
 }
-add_action( 'plugins_loaded', 'cookiedk_init' );
+add_action( 'init', 'cookiedk_init', 20 );
 
 /**
  * Kør database-migrationer hvis DB-version er forældet.

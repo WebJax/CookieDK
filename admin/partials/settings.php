@@ -81,6 +81,9 @@ $settings = $this->get_settings();
 					id="primary_color"
 					value="<?php echo esc_attr( $settings['primary_color'] ); ?>"
 				>
+				<button type="button" class="button button-secondary" id="cookiedk-use-theme-colors">
+					<?php esc_html_e( 'Brug tema-farver', 'cookiedk' ); ?>
+				</button>
 				<p class="description"><?php esc_html_e( 'Baggrundsfarve for "Accepter alle"-knappen.', 'cookiedk' ); ?></p>
 			</td>
 		</tr>

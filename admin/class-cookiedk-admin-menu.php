@@ -101,12 +101,17 @@ class CookieDK_Admin_Menu {
 			array(
 				'ajaxUrl' => admin_url( 'admin-ajax.php' ),
 				'nonce'   => wp_create_nonce( 'cookiedk_admin_nonce' ),
+				'themeColors' => array(
+					'primary'   => cookiedk_get_theme_primary_color(),
+					'secondary' => cookiedk_get_theme_secondary_color(),
+				),
 				'i18n'    => array(
-					'confirm_delete' => __( 'Er du sikker på, at du vil slette denne cookie?', 'cookiedk' ),
-					'saved'          => __( 'Indstillinger gemt.', 'cookiedk' ),
-					'error'          => __( 'Der opstod en fejl. Prøv igen.', 'cookiedk' ),
-					'loading'        => __( 'Indlæser…', 'cookiedk' ),
-					'edit_policy'    => __( 'Rediger cookiepolitik-siden', 'cookiedk' ),
+					'confirm_delete'       => __( 'Er du sikker på, at du vil slette denne cookie?', 'cookiedk' ),
+					'saved'                => __( 'Indstillinger gemt.', 'cookiedk' ),
+					'error'                => __( 'Der opstod en fejl. Prøv igen.', 'cookiedk' ),
+					'loading'              => __( 'Indlæser…', 'cookiedk' ),
+					'edit_policy'          => __( 'Rediger cookiepolitik-siden', 'cookiedk' ),
+					'theme_colors_applied' => __( 'Tema-farver indlæst.', 'cookiedk' ),
 				),
 			)
 		);

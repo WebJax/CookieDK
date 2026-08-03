@@ -470,8 +470,8 @@ class CookieDK_Admin_Page {
 			'enable_functional'     => true,
 			'anonymize_ip'          => true,
 			'log_retention_days'    => 365,
-			'primary_color'         => '#2271b1',
-			'secondary_color'       => '#135e96',
+			'primary_color'         => cookiedk_get_theme_primary_color(),
+			'secondary_color'       => cookiedk_get_theme_secondary_color(),
 		);
 	}
 

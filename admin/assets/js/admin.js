@@ -13,6 +13,8 @@
 ( function ( $, data ) {
 	'use strict';
 
+	var wp = window.wp || {};
+
 	// =========================================================
 	// Notifikationer
 	// =========================================================
@@ -24,6 +26,24 @@
 	 * @param {string}  type     'success' eller 'error'.
 	 * @param {jQuery}  $target  Mål-element (valgfrit).
 	 */
+	function applyThemeColors() {
+		if ( ! window.cookieDKAdmin || ! window.cookieDKAdmin.themeColors ) {
+			return;
+		}
+
+		var colors = window.cookieDKAdmin.themeColors || {};
+		var $primary = $( '#primary_color' );
+		var $secondary = $( '#secondary_color' );
+
+		if ( $primary.length && colors.primary && ! $primary.val() ) {
+			$primary.val( colors.primary );
+		}
+
+		if ( $secondary.length && colors.secondary && ! $secondary.val() ) {
+			$secondary.val( colors.secondary );
+		}
+	}
+
 	function showNotice( message, type, $target )
 	{
 		var $notice;
@@ -57,6 +77,20 @@
 			5000
 		);
 	}
+
+	$( function () {
+		applyThemeColors();
+	} );
+
+	$( document ).on(
+		'click',
+		'#cookiedk-use-theme-colors',
+		function ( e ) {
+			e.preventDefault();
+			applyThemeColors();
+			showNotice( data.i18n.theme_colors_applied || 'Tema-farver indlæst.', 'success' );
+		}
+	);
 
 	// =========================================================
 	// Modal-dialog
