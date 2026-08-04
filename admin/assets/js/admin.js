@@ -31,8 +31,8 @@
 			return;
 		}
 
-		var colors = window.cookieDKAdmin.themeColors || {};
-		var $primary = $( '#primary_color' );
+		var colors     = window.cookieDKAdmin.themeColors || {};
+		var $primary   = $( '#primary_color' );
 		var $secondary = $( '#secondary_color' );
 
 		if ( $primary.length && colors.primary && ! $primary.val() ) {
@@ -78,9 +78,11 @@
 		);
 	}
 
-	$( function () {
-		applyThemeColors();
-	} );
+	$(
+		function () {
+			applyThemeColors();
+		}
+	);
 
 	$( document ).on(
 		'click',

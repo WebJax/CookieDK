@@ -75,8 +75,8 @@
 #cookiedk-banner.cookiedk-position-bottom-right {
 	left: auto;
 	right: auto;
-	width: 33.333vw;
-	max-width: 33.333vw;
+	width: 40vw;
+	max-width: 37vw;
 	border-radius: var(--cookiedk-radius);
 	border-top: 3px solid var(--cookiedk-primary);
 }
@@ -146,7 +146,7 @@
 }
 
 .cookiedk-banner__content {
-	flex: 1 1 300px;
+	flex: 1 1;
 }
 
 .cookiedk-banner__title {

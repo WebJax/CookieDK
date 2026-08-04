@@ -45,12 +45,14 @@ class CookieDK_Admin_Menu {
 	 */
 	public function register_menus() {
 		// Toplevel-side under Indstillinger.
-		add_options_page(
+		add_menu_page(
 			__( 'CookieDK', 'cookiedk' ),
 			__( 'CookieDK', 'cookiedk' ),
 			'manage_options',
 			self::MENU_SLUG,
-			array( $this, 'render_page' )
+			array( $this, 'render_page' ),
+			'dashicons-admin-generic',
+			6
 		);
 	}
 
@@ -76,7 +78,7 @@ class CookieDK_Admin_Menu {
 	 */
 	public function enqueue_admin_assets( $hook_suffix ) {
 		// Kun på vores indstillingsside.
-		if ( 'settings_page_' . self::MENU_SLUG !== $hook_suffix ) {
+		if ( 'toplevel_page_' . self::MENU_SLUG !== $hook_suffix ) {
 			return;
 		}
 
@@ -99,13 +101,13 @@ class CookieDK_Admin_Menu {
 			'cookiedk-admin',
 			'cookieDKAdmin',
 			array(
-				'ajaxUrl' => admin_url( 'admin-ajax.php' ),
-				'nonce'   => wp_create_nonce( 'cookiedk_admin_nonce' ),
+				'ajaxUrl'     => admin_url( 'admin-ajax.php' ),
+				'nonce'       => wp_create_nonce( 'cookiedk_admin_nonce' ),
 				'themeColors' => array(
 					'primary'   => cookiedk_get_theme_primary_color(),
 					'secondary' => cookiedk_get_theme_secondary_color(),
 				),
-				'i18n'    => array(
+				'i18n'        => array(
 					'confirm_delete'       => __( 'Er du sikker på, at du vil slette denne cookie?', 'cookiedk' ),
 					'saved'                => __( 'Indstillinger gemt.', 'cookiedk' ),
 					'error'                => __( 'Der opstod en fejl. Prøv igen.', 'cookiedk' ),
