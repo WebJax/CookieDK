@@ -146,6 +146,14 @@ function wp_parse_args( $args, $defaults )
 {
     return array_merge($defaults, $args); 
 }
+function cookiedk_get_theme_primary_color()
+{
+    return '#2271b1';
+}
+function cookiedk_get_theme_secondary_color()
+{
+    return '#135e96';
+}
 function wp_enqueue_style()
 {
     return true; 
@@ -305,6 +313,7 @@ class FakeWpdb
 $GLOBALS['wpdb'] = new FakeWpdb();
 
 require_once dirname(__DIR__) . '/includes/class-cookiedk-cookie-storage.php';
+require_once dirname(__DIR__) . '/includes/class-cookiedk-cookie-database.php';
 require_once dirname(__DIR__) . '/includes/class-cookiedk-cookie-detector.php';
 require_once dirname(__DIR__) . '/includes/class-cookiedk-consent-export.php';
 require_once dirname(__DIR__) . '/includes/class-cookiedk-gdpr-compliance.php';

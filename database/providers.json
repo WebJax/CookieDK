@@ -1,0 +1,1877 @@
+{
+  "google": {
+    "name": "Google",
+    "website": "https://google.com",
+    "category": "third_party",
+    "description_da": "Google tilbyder analyse-, annoncerings-, video- og sikkerhedstjenester, herunder Analytics, Ads, YouTube, Tag Manager og reCAPTCHA.",
+    "description_en": "Google provides analytics, advertising, video and security services, including Analytics, Ads, YouTube, Tag Manager and reCAPTCHA.",
+    "services": [
+      "Google Analytics",
+      "Google Analytics 4",
+      "Google Tag Manager",
+      "Google Ads",
+      "YouTube",
+      "Google reCAPTCHA",
+      "DoubleClick",
+      "Google Optimize",
+      "Google Fonts",
+      "Firebase"
+    ],
+    "privacy_url": "https://policies.google.com/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "meta": {
+    "name": "Meta",
+    "website": "https://www.facebook.com",
+    "category": "third_party",
+    "description_da": "Meta (Facebook, Instagram og WhatsApp) leverer sociale plugins, embeds og annoncesporing via Meta Pixel.",
+    "description_en": "Meta (Facebook, Instagram and WhatsApp) provides social plugins, embeds and advertising tracking via Meta Pixel.",
+    "services": [
+      "Meta Pixel",
+      "Facebook",
+      "Instagram",
+      "WhatsApp",
+      "Facebook Login",
+      "Facebook Comments"
+    ],
+    "privacy_url": "https://www.facebook.com/privacy/policy",
+    "last_verified": "2026-08-03"
+  },
+  "microsoft": {
+    "name": "Microsoft",
+    "website": "https://www.microsoft.com",
+    "category": "third_party",
+    "description_da": "Microsoft leverer analyse, annoncering og sessionoptagelse via Clarity, Microsoft Advertising og Bing.",
+    "description_en": "Microsoft provides analytics, advertising and session recording via Clarity, Microsoft Advertising and Bing.",
+    "services": [
+      "Microsoft Clarity",
+      "Microsoft Advertising",
+      "Bing Ads",
+      "Microsoft Teams embeds",
+      "LinkedIn (Microsoft-ejet)"
+    ],
+    "privacy_url": "https://privacy.microsoft.com/privacystatement",
+    "last_verified": "2026-08-03"
+  },
+  "linkedin": {
+    "name": "LinkedIn",
+    "website": "https://www.linkedin.com",
+    "category": "third_party",
+    "description_da": "LinkedIn, ejet af Microsoft, tilbyder Insight Tag, jobs-widgets og B2B-annoncering.",
+    "description_en": "LinkedIn, owned by Microsoft, provides Insight Tag, job widgets and B2B advertising.",
+    "services": [
+      "LinkedIn Insight Tag",
+      "LinkedIn Ads",
+      "LinkedIn widgets"
+    ],
+    "privacy_url": "https://www.linkedin.com/legal/privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "tiktok": {
+    "name": "TikTok",
+    "website": "https://www.tiktok.com",
+    "category": "third_party",
+    "description_da": "TikTok leverer indholdsembeds og annoncesporing via TikTok Pixel.",
+    "description_en": "TikTok provides content embeds and advertising tracking via TikTok Pixel.",
+    "services": [
+      "TikTok Pixel",
+      "TikTok Ads",
+      "TikTok embeds"
+    ],
+    "privacy_url": "https://www.tiktok.com/legal/privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "pinterest": {
+    "name": "Pinterest",
+    "website": "https://www.pinterest.com",
+    "category": "third_party",
+    "description_da": "Pinterest tilbyder Pin It-knapper, indholdsembeds og konverteringssporing via Pinterest Tag.",
+    "description_en": "Pinterest provides Pin It buttons, content embeds and conversion tracking via Pinterest Tag.",
+    "services": [
+      "Pinterest Tag",
+      "Pinterest Ads",
+      "Pinterest widgets"
+    ],
+    "privacy_url": "https://policy.pinterest.com/privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "snapchat": {
+    "name": "Snapchat",
+    "website": "https://www.snapchat.com",
+    "category": "third_party",
+    "description_da": "Snapchat (Snap Inc.) leverer annoncesporing via Snapchat Pixel.",
+    "description_en": "Snapchat (Snap Inc.) provides advertising tracking via Snapchat Pixel.",
+    "services": [
+      "Snapchat Pixel",
+      "Snapchat Ads"
+    ],
+    "privacy_url": "https://values.snap.com/privacy/privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "reddit": {
+    "name": "Reddit",
+    "website": "https://www.reddit.com",
+    "category": "third_party",
+    "description_da": "Reddit tilbyder indholdsembeds og konverteringssporing via Reddit Pixel.",
+    "description_en": "Reddit provides content embeds and conversion tracking via Reddit Pixel.",
+    "services": [
+      "Reddit Pixel",
+      "Reddit Ads",
+      "Reddit embeds"
+    ],
+    "privacy_url": "https://www.reddit.com/policies/privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "hotjar": {
+    "name": "Hotjar",
+    "website": "https://www.hotjar.com",
+    "category": "third_party",
+    "description_da": "Hotjar leverer heatmaps, sessionoptagelser og brugerfeedback til analyse af adfærd på websites.",
+    "description_en": "Hotjar provides heatmaps, session recordings and user feedback to analyse website behaviour.",
+    "services": [
+      "Hotjar Heatmaps",
+      "Hotjar Recordings",
+      "Hotjar Surveys"
+    ],
+    "privacy_url": "https://www.hotjar.com/legal/policies/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "hubspot": {
+    "name": "HubSpot",
+    "website": "https://www.hubspot.com",
+    "category": "third_party",
+    "description_da": "HubSpot er en CRM- og marketingplatform med tracking, chat, formularer og e-mailautomatisering.",
+    "description_en": "HubSpot is a CRM and marketing platform with tracking, chat, forms and email automation.",
+    "services": [
+      "HubSpot Tracking",
+      "HubSpot Chat",
+      "HubSpot Forms",
+      "HubSpot CRM"
+    ],
+    "privacy_url": "https://legal.hubspot.com/privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "mailchimp": {
+    "name": "Mailchimp",
+    "website": "https://mailchimp.com",
+    "category": "third_party",
+    "description_da": "Mailchimp (Intuit) tilbyder e-mailmarketing, pop-ups og e-handelssporing på websites.",
+    "description_en": "Mailchimp (Intuit) provides email marketing, pop-ups and ecommerce tracking on websites.",
+    "services": [
+      "Mailchimp Email",
+      "Mailchimp Connected Sites",
+      "Mailchimp Pop-ups"
+    ],
+    "privacy_url": "https://mailchimp.com/legal/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "klaviyo": {
+    "name": "Klaviyo",
+    "website": "https://www.klaviyo.com",
+    "category": "third_party",
+    "description_da": "Klaviyo er en e-mail- og SMS-marketingplatform med on-site tracking og formularer.",
+    "description_en": "Klaviyo is an email and SMS marketing platform with on-site tracking and forms.",
+    "services": [
+      "Klaviyo Onsite",
+      "Klaviyo Email",
+      "Klaviyo SMS"
+    ],
+    "privacy_url": "https://www.klaviyo.com/legal/privacy-notice",
+    "last_verified": "2026-08-03"
+  },
+  "stripe": {
+    "name": "Stripe",
+    "website": "https://stripe.com",
+    "category": "third_party",
+    "description_da": "Stripe er en betalingsudbyder, der håndterer kortbetalinger, abonnementer og svindelbeskyttelse.",
+    "description_en": "Stripe is a payment provider that handles card payments, subscriptions and fraud prevention.",
+    "services": [
+      "Stripe Checkout",
+      "Stripe Elements",
+      "Stripe Billing",
+      "Stripe Radar"
+    ],
+    "privacy_url": "https://stripe.com/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "paypal": {
+    "name": "PayPal",
+    "website": "https://www.paypal.com",
+    "category": "third_party",
+    "description_da": "PayPal tilbyder onlinebetalinger, Express Checkout og relaterede svindel- og sessionscookies.",
+    "description_en": "PayPal provides online payments, Express Checkout and related fraud and session cookies.",
+    "services": [
+      "PayPal Checkout",
+      "PayPal Express",
+      "Braintree"
+    ],
+    "privacy_url": "https://www.paypal.com/legalhub/privacy-full",
+    "last_verified": "2026-08-03"
+  },
+  "klarna": {
+    "name": "Klarna",
+    "website": "https://www.klarna.com",
+    "category": "third_party",
+    "description_da": "Klarna tilbyder køb nu, betal senere og checkout-løsninger i webshops.",
+    "description_en": "Klarna provides buy now, pay later and checkout solutions in online stores.",
+    "services": [
+      "Klarna Checkout",
+      "Klarna Payments",
+      "Klarna On-Site Messaging"
+    ],
+    "privacy_url": "https://www.klarna.com/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "mobilepay": {
+    "name": "MobilePay",
+    "website": "https://www.mobilepay.dk",
+    "category": "third_party",
+    "description_da": "MobilePay (Vipps MobilePay) er en dansk/nordisk betalingsløsning til webshops og apps.",
+    "description_en": "MobilePay (Vipps MobilePay) is a Danish/Nordic payment solution for webshops and apps.",
+    "services": [
+      "MobilePay Checkout",
+      "MobilePay Subscriptions",
+      "Vipps MobilePay"
+    ],
+    "privacy_url": "https://www.mobilepay.dk/privatlivspolitik",
+    "last_verified": "2026-08-03"
+  },
+  "quickpay": {
+    "name": "QuickPay",
+    "website": "https://quickpay.net",
+    "category": "third_party",
+    "description_da": "QuickPay er en dansk betalingsgateway, der formidler kortbetalinger til webshops.",
+    "description_en": "QuickPay is a Danish payment gateway that processes card payments for webshops.",
+    "services": [
+      "QuickPay Gateway",
+      "QuickPay Checkout"
+    ],
+    "privacy_url": "https://quickpay.net/privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "pensopay": {
+    "name": "Pensopay",
+    "website": "https://pensopay.com",
+    "category": "third_party",
+    "description_da": "Pensopay er en dansk betalingsudbyder og gateway til WooCommerce og andre webshops.",
+    "description_en": "Pensopay is a Danish payment provider and gateway for WooCommerce and other webshops.",
+    "services": [
+      "Pensopay Gateway",
+      "Pensopay Checkout"
+    ],
+    "privacy_url": "https://pensopay.com/privatlivspolitik",
+    "last_verified": "2026-08-03"
+  },
+  "cloudflare": {
+    "name": "Cloudflare",
+    "website": "https://www.cloudflare.com",
+    "category": "third_party",
+    "description_da": "Cloudflare leverer CDN, DDoS-beskyttelse, bot-håndtering og Turnstile-captcha.",
+    "description_en": "Cloudflare provides CDN, DDoS protection, bot management and Turnstile captcha.",
+    "services": [
+      "Cloudflare CDN",
+      "Cloudflare Bot Management",
+      "Cloudflare Turnstile",
+      "Cloudflare Waiting Room"
+    ],
+    "privacy_url": "https://www.cloudflare.com/privacypolicy",
+    "last_verified": "2026-08-03"
+  },
+  "wordpress": {
+    "name": "WordPress",
+    "website": "https://wordpress.org",
+    "category": "first_party",
+    "description_da": "WordPress er CMS-platformen, der sætter kernecookies til login, kommentarer, sessions og brugerindstillinger.",
+    "description_en": "WordPress is the CMS platform that sets core cookies for login, comments, sessions and user settings.",
+    "services": [
+      "WordPress Core",
+      "WordPress Comments",
+      "WordPress Login",
+      "WordPress Multisite"
+    ],
+    "privacy_url": "https://wordpress.org/about/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "woocommerce": {
+    "name": "WooCommerce",
+    "website": "https://woocommerce.com",
+    "category": "first_party",
+    "description_da": "WooCommerce er e-handelsudvidelsen til WordPress og sætter cookies til kurv, session og checkout.",
+    "description_en": "WooCommerce is the ecommerce extension for WordPress and sets cookies for cart, session and checkout.",
+    "services": [
+      "WooCommerce Cart",
+      "WooCommerce Checkout",
+      "WooCommerce Session",
+      "WooCommerce Blocks"
+    ],
+    "privacy_url": "https://automattic.com/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "cookiebot": {
+    "name": "Cookiebot",
+    "website": "https://www.cookiebot.com",
+    "category": "third_party",
+    "description_da": "Cookiebot (Usercentrics) er en samtykkeplatform, der scanner cookies og gemmer brugerens cookievalg.",
+    "description_en": "Cookiebot (Usercentrics) is a consent platform that scans cookies and stores the visitor's cookie choices.",
+    "services": [
+      "Cookiebot CMP",
+      "Cookiebot Scanner"
+    ],
+    "privacy_url": "https://www.cookiebot.com/privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "complianz": {
+    "name": "Complianz",
+    "website": "https://complianz.io",
+    "category": "first_party",
+    "description_da": "Complianz er et WordPress-plugin til cookie-samtykke, cookiepolitik og GDPR-dokumentation.",
+    "description_en": "Complianz is a WordPress plugin for cookie consent, cookie policy and GDPR documentation.",
+    "services": [
+      "Complianz Cookie Consent",
+      "Complianz Cookie Policy",
+      "Complianz Privacy Suite"
+    ],
+    "privacy_url": "https://complianz.io/privacy-statement",
+    "last_verified": "2026-08-03"
+  },
+  "cookieyes": {
+    "name": "CookieYes",
+    "website": "https://www.cookieyes.com",
+    "category": "third_party",
+    "description_da": "CookieYes er en samtykkeplatform og WordPress-plugin til cookie-banner og samtykkelogning.",
+    "description_en": "CookieYes is a consent platform and WordPress plugin for cookie banners and consent logging.",
+    "services": [
+      "CookieYes CMP",
+      "CookieYes Scanner"
+    ],
+    "privacy_url": "https://www.cookieyes.com/privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "onetrust": {
+    "name": "OneTrust",
+    "website": "https://www.onetrust.com",
+    "category": "third_party",
+    "description_da": "OneTrust er en enterprise-samtykke- og privacy-platform, der sætter Optanon-cookies.",
+    "description_en": "OneTrust is an enterprise consent and privacy platform that sets Optanon cookies.",
+    "services": [
+      "OneTrust CMP",
+      "OneTrust Cookie Compliance",
+      "CookiePro"
+    ],
+    "privacy_url": "https://www.onetrust.com/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "matomo": {
+    "name": "Matomo",
+    "website": "https://matomo.org",
+    "category": "third_party",
+    "description_da": "Matomo er en privacy-orienteret webanalyseplatform, der kan hostes first-party eller i skyen.",
+    "description_en": "Matomo is a privacy-oriented web analytics platform that can be self-hosted or cloud-hosted.",
+    "services": [
+      "Matomo Analytics",
+      "Matomo Tag Manager",
+      "Matomo Cloud"
+    ],
+    "privacy_url": "https://matomo.org/privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "vimeo": {
+    "name": "Vimeo",
+    "website": "https://vimeo.com",
+    "category": "third_party",
+    "description_da": "Vimeo leverer videoembeds og afspilningsstatistik, når videoer indlejres på websites.",
+    "description_en": "Vimeo provides video embeds and playback statistics when videos are embedded on websites.",
+    "services": [
+      "Vimeo Player",
+      "Vimeo Analytics",
+      "Vimeo Embeds"
+    ],
+    "privacy_url": "https://vimeo.com/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "easydigitaldownloads": {
+    "name": "Easy Digital Downloads",
+    "website": "https://easydigitaldownloads.com",
+    "category": "first_party",
+    "description_da": "Easy Digital Downloads er et WordPress-plugin til salg af digitale produkter og sætter kurve- og sessionscookies.",
+    "description_en": "Easy Digital Downloads is a WordPress plugin for selling digital products and sets cart and session cookies.",
+    "services": [
+      "EDD Cart",
+      "EDD Checkout",
+      "EDD Sessions"
+    ],
+    "privacy_url": "https://easydigitaldownloads.com/privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "cookiedk": {
+    "name": "CookieDK",
+    "website": "https://github.com/WebJax/CookieDK",
+    "category": "first_party",
+    "description_da": "CookieDK er dette websites eget cookie-samtykkeplugin og gemmer brugerens cookievalg.",
+    "description_en": "CookieDK is this website's own cookie consent plugin and stores the visitor's cookie choices.",
+    "services": [
+      "CookieDK Consent",
+      "CookieDK Banner"
+    ],
+    "privacy_url": "",
+    "last_verified": "2026-08-03"
+  },
+  "jetpack": {
+    "name": "Jetpack",
+    "website": "https://jetpack.com",
+    "category": "third_party",
+    "description_da": "Jetpack (Automattic) tilbyder statistik, SSO, sikkerhed og relaterede WordPress-tjenester.",
+    "description_en": "Jetpack (Automattic) provides stats, SSO, security and related WordPress services.",
+    "services": [
+      "Jetpack Stats",
+      "Jetpack SSO",
+      "Jetpack Protect",
+      "WordPress.com Stats"
+    ],
+    "privacy_url": "https://automattic.com/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "wordfence": {
+    "name": "Wordfence",
+    "website": "https://www.wordfence.com",
+    "category": "first_party",
+    "description_da": "Wordfence er et WordPress-sikkerhedsplugin, der sætter cookies til firewall, login og 2FA.",
+    "description_en": "Wordfence is a WordPress security plugin that sets cookies for firewall, login and 2FA.",
+    "services": [
+      "Wordfence Firewall",
+      "Wordfence Login Security",
+      "Wordfence 2FA"
+    ],
+    "privacy_url": "https://www.wordfence.com/privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "wpml": {
+    "name": "WPML",
+    "website": "https://wpml.org",
+    "category": "first_party",
+    "description_da": "WPML er et flersprogsplugin til WordPress og gemmer sprogvalg i cookies.",
+    "description_en": "WPML is a multilingual plugin for WordPress and stores language choice in cookies.",
+    "services": [
+      "WPML Language",
+      "WPML Browser Redirect"
+    ],
+    "privacy_url": "https://wpml.org/privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "polylang": {
+    "name": "Polylang",
+    "website": "https://polylang.pro",
+    "category": "first_party",
+    "description_da": "Polylang er et flersprogsplugin til WordPress og gemmer det valgte sprog.",
+    "description_en": "Polylang is a multilingual plugin for WordPress and stores the selected language.",
+    "services": [
+      "Polylang Language"
+    ],
+    "privacy_url": "https://polylang.pro/privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "elementor": {
+    "name": "Elementor",
+    "website": "https://elementor.com",
+    "category": "first_party",
+    "description_da": "Elementor er en page builder til WordPress og kan sætte cookies til editor, pop-ups og A/B-tests.",
+    "description_en": "Elementor is a WordPress page builder and may set cookies for the editor, pop-ups and A/B tests.",
+    "services": [
+      "Elementor Editor",
+      "Elementor Popup Builder",
+      "Elementor Experiments"
+    ],
+    "privacy_url": "https://elementor.com/about/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "gravityforms": {
+    "name": "Gravity Forms",
+    "website": "https://www.gravityforms.com",
+    "category": "first_party",
+    "description_da": "Gravity Forms er et formularplugin til WordPress og kan sætte sessionscookies til flersidede formularer.",
+    "description_en": "Gravity Forms is a WordPress form plugin and may set session cookies for multi-page forms.",
+    "services": [
+      "Gravity Forms",
+      "Gravity Forms Pages"
+    ],
+    "privacy_url": "https://www.gravityforms.com/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "contactform7": {
+    "name": "Contact Form 7",
+    "website": "https://contactform7.com",
+    "category": "first_party",
+    "description_da": "Contact Form 7 er et WordPress-formularplugin. Egne cookies er sjældne, men reCAPTCHA kan tilføjes.",
+    "description_en": "Contact Form 7 is a WordPress form plugin. First-party cookies are rare, but reCAPTCHA may be added.",
+    "services": [
+      "Contact Form 7"
+    ],
+    "privacy_url": "https://contactform7.com/privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "wpforms": {
+    "name": "WPForms",
+    "website": "https://wpforms.com",
+    "category": "first_party",
+    "description_da": "WPForms er et formularplugin til WordPress og kan sætte UUID-cookies til konverteringssporing.",
+    "description_en": "WPForms is a WordPress form plugin and may set UUID cookies for conversion tracking.",
+    "services": [
+      "WPForms",
+      "WPForms Conversational Forms"
+    ],
+    "privacy_url": "https://wpforms.com/privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "ninjaforms": {
+    "name": "Ninja Forms",
+    "website": "https://ninjaforms.com",
+    "category": "first_party",
+    "description_da": "Ninja Forms er et WordPress-formularplugin, der kan gemme sessionsdata i cookies.",
+    "description_en": "Ninja Forms is a WordPress form plugin that may store session data in cookies.",
+    "services": [
+      "Ninja Forms"
+    ],
+    "privacy_url": "https://ninjaforms.com/privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "yoast": {
+    "name": "Yoast",
+    "website": "https://yoast.com",
+    "category": "first_party",
+    "description_da": "Yoast SEO er et WordPress-SEO-plugin. Ældre integrationer kan sætte Analytics-relaterede cookies.",
+    "description_en": "Yoast SEO is a WordPress SEO plugin. Older integrations may set analytics-related cookies.",
+    "services": [
+      "Yoast SEO",
+      "Yoast Google Analytics"
+    ],
+    "privacy_url": "https://yoast.com/privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "litespeed": {
+    "name": "LiteSpeed",
+    "website": "https://www.litespeedtech.com",
+    "category": "first_party",
+    "description_da": "LiteSpeed Cache er et WordPress-cacheplugin, der kan sætte vary-cookies til cache-variationer.",
+    "description_en": "LiteSpeed Cache is a WordPress caching plugin that may set vary cookies for cache variations.",
+    "services": [
+      "LiteSpeed Cache"
+    ],
+    "privacy_url": "https://www.litespeedtech.com/privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "sucuri": {
+    "name": "Sucuri",
+    "website": "https://sucuri.net",
+    "category": "third_party",
+    "description_da": "Sucuri leverer WAF og CDN foran WordPress og kan sætte sikkerhedscookies.",
+    "description_en": "Sucuri provides WAF and CDN in front of WordPress and may set security cookies.",
+    "services": [
+      "Sucuri Firewall",
+      "Sucuri CDN"
+    ],
+    "privacy_url": "https://sucuri.net/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "siteground": {
+    "name": "SiteGround",
+    "website": "https://www.siteground.com",
+    "category": "first_party",
+    "description_da": "SiteGround Speed Optimizer kan sætte cache-relaterede cookies på WordPress-sites.",
+    "description_en": "SiteGround Speed Optimizer may set cache-related cookies on WordPress sites.",
+    "services": [
+      "SiteGround Speed Optimizer",
+      "SG CachePress"
+    ],
+    "privacy_url": "https://www.siteground.com/privacy.htm",
+    "last_verified": "2026-08-03"
+  },
+  "intercom": {
+    "name": "Intercom",
+    "website": "https://www.intercom.com",
+    "category": "third_party",
+    "description_da": "Intercom leverer livechat, messenger og produktbeskeder med tilhørende identifikationscookies.",
+    "description_en": "Intercom provides live chat, messenger and product messages with related identification cookies.",
+    "services": [
+      "Intercom Messenger",
+      "Intercom Chat"
+    ],
+    "privacy_url": "https://www.intercom.com/legal/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "crisp": {
+    "name": "Crisp",
+    "website": "https://crisp.chat",
+    "category": "third_party",
+    "description_da": "Crisp er en livechat- og inbox-platform, der sætter sessionscookies til chatwidgetten.",
+    "description_en": "Crisp is a live chat and inbox platform that sets session cookies for the chat widget.",
+    "services": [
+      "Crisp Chat"
+    ],
+    "privacy_url": "https://crisp.chat/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "tawkto": {
+    "name": "tawk.to",
+    "website": "https://www.tawk.to",
+    "category": "third_party",
+    "description_da": "tawk.to er en gratis livechat-widget, der sætter cookies til at genkende besøgende i chatten.",
+    "description_en": "tawk.to is a free live chat widget that sets cookies to recognise visitors in chat.",
+    "services": [
+      "tawk.to Chat"
+    ],
+    "privacy_url": "https://www.tawk.to/privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "zendesk": {
+    "name": "Zendesk",
+    "website": "https://www.zendesk.com",
+    "category": "third_party",
+    "description_da": "Zendesk leverer kundeservice, helpdesk og chat (herunder Zopim) med tilhørende cookies.",
+    "description_en": "Zendesk provides customer service, helpdesk and chat (including Zopim) with related cookies.",
+    "services": [
+      "Zendesk Chat",
+      "Zendesk Widget",
+      "Zopim"
+    ],
+    "privacy_url": "https://www.zendesk.com/company/agreements-and-terms/privacy-notice",
+    "last_verified": "2026-08-03"
+  },
+  "vwo": {
+    "name": "VWO",
+    "website": "https://vwo.com",
+    "category": "third_party",
+    "description_da": "VWO (Visual Website Optimizer) er en A/B-test- og personaliseringsplatform.",
+    "description_en": "VWO (Visual Website Optimizer) is an A/B testing and personalisation platform.",
+    "services": [
+      "VWO Testing",
+      "VWO Insights"
+    ],
+    "privacy_url": "https://vwo.com/privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "optimizely": {
+    "name": "Optimizely",
+    "website": "https://www.optimizely.com",
+    "category": "third_party",
+    "description_da": "Optimizely er en experiment- og personaliseringsplatform, der sætter testcookies.",
+    "description_en": "Optimizely is an experimentation and personalisation platform that sets test cookies.",
+    "services": [
+      "Optimizely Web Experimentation",
+      "Optimizely Feature Experimentation"
+    ],
+    "privacy_url": "https://www.optimizely.com/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "crazyegg": {
+    "name": "Crazy Egg",
+    "website": "https://www.crazyegg.com",
+    "category": "third_party",
+    "description_da": "Crazy Egg leverer heatmaps, scrollmaps og sessionoptagelser til adfærdsanalyse.",
+    "description_en": "Crazy Egg provides heatmaps, scrollmaps and session recordings for behaviour analysis.",
+    "services": [
+      "Crazy Egg Heatmaps",
+      "Crazy Egg Recordings"
+    ],
+    "privacy_url": "https://www.crazyegg.com/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "mixpanel": {
+    "name": "Mixpanel",
+    "website": "https://mixpanel.com",
+    "category": "third_party",
+    "description_da": "Mixpanel er en produktanalyseplatform, der identificerer brugere og hændelser.",
+    "description_en": "Mixpanel is a product analytics platform that identifies users and events.",
+    "services": [
+      "Mixpanel Analytics"
+    ],
+    "privacy_url": "https://mixpanel.com/legal/privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "amplitude": {
+    "name": "Amplitude",
+    "website": "https://amplitude.com",
+    "category": "third_party",
+    "description_da": "Amplitude er en produktanalyseplatform, der sporer brugerrejser og hændelser.",
+    "description_en": "Amplitude is a product analytics platform that tracks user journeys and events.",
+    "services": [
+      "Amplitude Analytics"
+    ],
+    "privacy_url": "https://amplitude.com/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "segment": {
+    "name": "Segment",
+    "website": "https://segment.com",
+    "category": "third_party",
+    "description_da": "Segment (Twilio) er et customer data platform, der sætter analytics.js-cookies til brugeridentifikation.",
+    "description_en": "Segment (Twilio) is a customer data platform that sets analytics.js cookies for user identification.",
+    "services": [
+      "Segment Analytics.js",
+      "Twilio Segment"
+    ],
+    "privacy_url": "https://www.twilio.com/legal/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "snowplow": {
+    "name": "Snowplow",
+    "website": "https://snowplow.io",
+    "category": "third_party",
+    "description_da": "Snowplow er en first-party data pipeline til hændelsessporing og kan sætte _sp-cookies.",
+    "description_en": "Snowplow is a first-party data pipeline for event tracking and may set _sp cookies.",
+    "services": [
+      "Snowplow JavaScript Tracker"
+    ],
+    "privacy_url": "https://snowplow.io/privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "adobe": {
+    "name": "Adobe",
+    "website": "https://www.adobe.com",
+    "category": "third_party",
+    "description_da": "Adobe Experience Cloud omfatter Analytics, Target, Audience Manager og Fonts.",
+    "description_en": "Adobe Experience Cloud includes Analytics, Target, Audience Manager and Fonts.",
+    "services": [
+      "Adobe Analytics",
+      "Adobe Target",
+      "Adobe Audience Manager",
+      "Adobe Experience Cloud ID",
+      "Adobe Fonts"
+    ],
+    "privacy_url": "https://www.adobe.com/privacy/policy.html",
+    "last_verified": "2026-08-03"
+  },
+  "salesforce": {
+    "name": "Salesforce",
+    "website": "https://www.salesforce.com",
+    "category": "third_party",
+    "description_da": "Salesforce leverer CRM, Marketing Cloud, Pardot og Audience Studio (Krux) med trackingcookies.",
+    "description_en": "Salesforce provides CRM, Marketing Cloud, Pardot and Audience Studio (Krux) with tracking cookies.",
+    "services": [
+      "Salesforce Marketing Cloud",
+      "Pardot",
+      "Salesforce DMP / Krux"
+    ],
+    "privacy_url": "https://www.salesforce.com/company/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "marketo": {
+    "name": "Marketo",
+    "website": "https://www.marketo.com",
+    "category": "third_party",
+    "description_da": "Marketo (Adobe) er en B2B-marketingautomationplatform, der sætter Munchkin-cookies.",
+    "description_en": "Marketo (Adobe) is a B2B marketing automation platform that sets Munchkin cookies.",
+    "services": [
+      "Marketo Munchkin",
+      "Adobe Marketo Engage"
+    ],
+    "privacy_url": "https://www.adobe.com/privacy/policy.html",
+    "last_verified": "2026-08-03"
+  },
+  "criteo": {
+    "name": "Criteo",
+    "website": "https://www.criteo.com",
+    "category": "third_party",
+    "description_da": "Criteo er et retargeting- og retail media-netværk, der sætter annoncecookies.",
+    "description_en": "Criteo is a retargeting and retail media network that sets advertising cookies.",
+    "services": [
+      "Criteo Retargeting",
+      "Criteo Retail Media"
+    ],
+    "privacy_url": "https://www.criteo.com/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "adroll": {
+    "name": "AdRoll",
+    "website": "https://www.adroll.com",
+    "category": "third_party",
+    "description_da": "AdRoll er en retargeting- og annonceplatform til e-handel og B2B.",
+    "description_en": "AdRoll is a retargeting and advertising platform for ecommerce and B2B.",
+    "services": [
+      "AdRoll Pixel",
+      "AdRoll Retargeting"
+    ],
+    "privacy_url": "https://www.nextroll.com/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "taboola": {
+    "name": "Taboola",
+    "website": "https://www.taboola.com",
+    "category": "third_party",
+    "description_da": "Taboola er et native advertising-netværk, der viser anbefalet indhold og annoncer.",
+    "description_en": "Taboola is a native advertising network that shows recommended content and ads.",
+    "services": [
+      "Taboola Newsroom",
+      "Taboola Ads"
+    ],
+    "privacy_url": "https://www.taboola.com/privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "outbrain": {
+    "name": "Outbrain",
+    "website": "https://www.outbrain.com",
+    "category": "third_party",
+    "description_da": "Outbrain er et native advertising-netværk til indholdsanbefalinger og annoncer.",
+    "description_en": "Outbrain is a native advertising network for content recommendations and ads.",
+    "services": [
+      "Outbrain Amplify",
+      "Outbrain Engage"
+    ],
+    "privacy_url": "https://www.outbrain.com/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "thetradedesk": {
+    "name": "The Trade Desk",
+    "website": "https://www.thetradedesk.com",
+    "category": "third_party",
+    "description_da": "The Trade Desk er en demand-side platform (DSP) til programmatisk annoncering.",
+    "description_en": "The Trade Desk is a demand-side platform (DSP) for programmatic advertising.",
+    "services": [
+      "The Trade Desk DSP",
+      "UID2"
+    ],
+    "privacy_url": "https://www.thetradedesk.com/general/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "xandr": {
+    "name": "Xandr",
+    "website": "https://www.xandr.com",
+    "category": "third_party",
+    "description_da": "Xandr (tidligere AppNexus, nu Microsoft) er en programmatisk annonceplatform.",
+    "description_en": "Xandr (formerly AppNexus, now Microsoft) is a programmatic advertising platform.",
+    "services": [
+      "Xandr Invest",
+      "AppNexus"
+    ],
+    "privacy_url": "https://www.microsoft.com/en-us/privacy/privacystatement",
+    "last_verified": "2026-08-03"
+  },
+  "twitter": {
+    "name": "X (Twitter)",
+    "website": "https://x.com",
+    "category": "third_party",
+    "description_da": "X (tidligere Twitter) leverer embeds, deleknapper og annoncesporing.",
+    "description_en": "X (formerly Twitter) provides embeds, share buttons and advertising tracking.",
+    "services": [
+      "X Pixel",
+      "Twitter Ads",
+      "X embeds"
+    ],
+    "privacy_url": "https://x.com/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "amazon": {
+    "name": "Amazon",
+    "website": "https://www.amazon.com",
+    "category": "third_party",
+    "description_da": "Amazon leverer AWS load balancer-cookies, CloudFront, Amazon Pay og Amazon Ads.",
+    "description_en": "Amazon provides AWS load balancer cookies, CloudFront, Amazon Pay and Amazon Ads.",
+    "services": [
+      "Amazon ALB",
+      "Amazon CloudFront",
+      "Amazon Pay",
+      "Amazon Advertising"
+    ],
+    "privacy_url": "https://www.amazon.com/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "php": {
+    "name": "PHP",
+    "website": "https://www.php.net",
+    "category": "first_party",
+    "description_da": "PHP er serversproget bag WordPress og sætter typisk PHPSESSID til at holde sessionen.",
+    "description_en": "PHP is the server language behind WordPress and typically sets PHPSESSID to keep the session.",
+    "services": [
+      "PHP Sessions"
+    ],
+    "privacy_url": "",
+    "last_verified": "2026-08-03"
+  },
+  "cookieinformation": {
+    "name": "Cookie Information",
+    "website": "https://cookieinformation.com",
+    "category": "third_party",
+    "description_da": "Cookie Information er en dansk samtykkeplatform, der bruges af mange offentlige og private sites.",
+    "description_en": "Cookie Information is a Danish consent platform used by many public and private sites.",
+    "services": [
+      "Cookie Information CMP"
+    ],
+    "privacy_url": "https://cookieinformation.com/privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "borlabs": {
+    "name": "Borlabs",
+    "website": "https://borlabs.io",
+    "category": "first_party",
+    "description_da": "Borlabs Cookie er et WordPress-samtykkeplugin, der gemmer cookievalg first-party.",
+    "description_en": "Borlabs Cookie is a WordPress consent plugin that stores cookie choices first-party.",
+    "services": [
+      "Borlabs Cookie"
+    ],
+    "privacy_url": "https://borlabs.io/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "usercentrics": {
+    "name": "Usercentrics",
+    "website": "https://usercentrics.com",
+    "category": "third_party",
+    "description_da": "Usercentrics er en samtykkeplatform (CMP) og ejer også Cookiebot.",
+    "description_en": "Usercentrics is a consent management platform (CMP) and also owns Cookiebot.",
+    "services": [
+      "Usercentrics CMP",
+      "Cookiebot"
+    ],
+    "privacy_url": "https://usercentrics.com/privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "didomi": {
+    "name": "Didomi",
+    "website": "https://www.didomi.io",
+    "category": "third_party",
+    "description_da": "Didomi er en samtykke- og preference management-platform.",
+    "description_en": "Didomi is a consent and preference management platform.",
+    "services": [
+      "Didomi CMP"
+    ],
+    "privacy_url": "https://www.didomi.io/privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "iubenda": {
+    "name": "iubenda",
+    "website": "https://www.iubenda.com",
+    "category": "third_party",
+    "description_da": "iubenda leverer cookie-banner, privatlivspolitik og samtykkelogning.",
+    "description_en": "iubenda provides cookie banners, privacy policies and consent logging.",
+    "services": [
+      "iubenda Cookie Solution",
+      "iubenda Privacy Policy"
+    ],
+    "privacy_url": "https://www.iubenda.com/privacy-policy/803194",
+    "last_verified": "2026-08-03"
+  },
+  "osano": {
+    "name": "Osano",
+    "website": "https://www.osano.com",
+    "category": "third_party",
+    "description_da": "Osano er en samtykke- og vendor risk-platform med cookie-banner.",
+    "description_en": "Osano is a consent and vendor risk platform with a cookie banner.",
+    "services": [
+      "Osano Consent Management"
+    ],
+    "privacy_url": "https://www.osano.com/legal/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "siteimprove": {
+    "name": "Siteimprove",
+    "website": "https://www.siteimprove.com",
+    "category": "third_party",
+    "description_da": "Siteimprove er en analyse- og tilgængelighedsplatform, der er udbredt i den offentlige sektor.",
+    "description_en": "Siteimprove is an analytics and accessibility platform widely used in the public sector.",
+    "services": [
+      "Siteimprove Analytics",
+      "Siteimprove Accessibility"
+    ],
+    "privacy_url": "https://www.siteimprove.com/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "nets": {
+    "name": "Nets",
+    "website": "https://www.nets.eu",
+    "category": "third_party",
+    "description_da": "Nets (Nexi) er en nordisk betalingsudbyder til kortbetalinger og checkout.",
+    "description_en": "Nets (Nexi) is a Nordic payment provider for card payments and checkout.",
+    "services": [
+      "Nets Easy",
+      "Nets Checkout"
+    ],
+    "privacy_url": "https://www.nets.eu/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "viabill": {
+    "name": "ViaBill",
+    "website": "https://viabill.com",
+    "category": "third_party",
+    "description_da": "ViaBill er en dansk betalingsløsning med delbetaling i webshops.",
+    "description_en": "ViaBill is a Danish payment solution with instalments in webshops.",
+    "services": [
+      "ViaBill Checkout"
+    ],
+    "privacy_url": "https://viabill.com/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "walley": {
+    "name": "Walley",
+    "website": "https://www.walley.dk",
+    "category": "third_party",
+    "description_da": "Walley (Collector Bank) tilbyder faktura og delbetaling i nordiske webshops.",
+    "description_en": "Walley (Collector Bank) provides invoice and instalment payments in Nordic webshops.",
+    "services": [
+      "Walley Checkout"
+    ],
+    "privacy_url": "https://www.walley.dk/privatlivspolitik",
+    "last_verified": "2026-08-03"
+  },
+  "trustpilot": {
+    "name": "Trustpilot",
+    "website": "https://www.trustpilot.com",
+    "category": "third_party",
+    "description_da": "Trustpilot viser anmeldelser og widgets og kan sætte cookies ved indlejring.",
+    "description_en": "Trustpilot displays reviews and widgets and may set cookies when embedded.",
+    "services": [
+      "Trustpilot Widgets",
+      "Trustpilot Reviews"
+    ],
+    "privacy_url": "https://legal.trustpilot.com/end-user-privacy-terms",
+    "last_verified": "2026-08-03"
+  },
+  "mailpoet": {
+    "name": "MailPoet",
+    "website": "https://www.mailpoet.com",
+    "category": "first_party",
+    "description_da": "MailPoet er et WordPress-nyhedsbrevsplugin, der kan sætte cookies til tracking og pop-ups.",
+    "description_en": "MailPoet is a WordPress newsletter plugin that may set cookies for tracking and pop-ups.",
+    "services": [
+      "MailPoet Newsletters",
+      "MailPoet Pop-ups"
+    ],
+    "privacy_url": "https://www.mailpoet.com/privacy-notice",
+    "last_verified": "2026-08-03"
+  },
+  "brevo": {
+    "name": "Brevo",
+    "website": "https://www.brevo.com",
+    "category": "third_party",
+    "description_da": "Brevo (tidligere Sendinblue) tilbyder e-mailmarketing, chat og on-site tracking.",
+    "description_en": "Brevo (formerly Sendinblue) provides email marketing, chat and on-site tracking.",
+    "services": [
+      "Brevo Tracker",
+      "Brevo Conversations",
+      "Brevo Email"
+    ],
+    "privacy_url": "https://www.brevo.com/legal/privacypolicy",
+    "last_verified": "2026-08-03"
+  },
+  "convertkit": {
+    "name": "ConvertKit",
+    "website": "https://convertkit.com",
+    "category": "third_party",
+    "description_da": "ConvertKit (Kit) er en e-mailmarketingplatform til creators med on-site formularer.",
+    "description_en": "ConvertKit (Kit) is an email marketing platform for creators with on-site forms.",
+    "services": [
+      "ConvertKit Forms",
+      "Kit"
+    ],
+    "privacy_url": "https://convertkit.com/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "activecampaign": {
+    "name": "ActiveCampaign",
+    "website": "https://www.activecampaign.com",
+    "category": "third_party",
+    "description_da": "ActiveCampaign er en marketingautomationplatform med site-tracking og formularer.",
+    "description_en": "ActiveCampaign is a marketing automation platform with site tracking and forms.",
+    "services": [
+      "ActiveCampaign Site Tracking",
+      "ActiveCampaign Forms"
+    ],
+    "privacy_url": "https://www.activecampaign.com/legal/privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "drift": {
+    "name": "Drift",
+    "website": "https://www.drift.com",
+    "category": "third_party",
+    "description_da": "Drift er en conversational marketing- og chatplatform.",
+    "description_en": "Drift is a conversational marketing and chat platform.",
+    "services": [
+      "Drift Chat",
+      "Drift Conversational Marketing"
+    ],
+    "privacy_url": "https://www.drift.com/privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "customerio": {
+    "name": "Customer.io",
+    "website": "https://customer.io",
+    "category": "third_party",
+    "description_da": "Customer.io er en messaging-platform, der kan identificere anonyme og kendte brugere via cookies.",
+    "description_en": "Customer.io is a messaging platform that can identify anonymous and known users via cookies.",
+    "services": [
+      "Customer.io In-App",
+      "Customer.io Journeys"
+    ],
+    "privacy_url": "https://customer.io/legal/privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "luckyorange": {
+    "name": "Lucky Orange",
+    "website": "https://www.luckyorange.com",
+    "category": "third_party",
+    "description_da": "Lucky Orange leverer heatmaps, sessionoptagelser og konverteringstragt-analyse.",
+    "description_en": "Lucky Orange provides heatmaps, session recordings and conversion funnel analysis.",
+    "services": [
+      "Lucky Orange Recordings",
+      "Lucky Orange Heatmaps"
+    ],
+    "privacy_url": "https://www.luckyorange.com/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "leadfeeder": {
+    "name": "Leadfeeder",
+    "website": "https://www.leadfeeder.com",
+    "category": "third_party",
+    "description_da": "Leadfeeder (Dealfront) identificerer virksomheder bag websitebesøg til B2B-salg.",
+    "description_en": "Leadfeeder (Dealfront) identifies companies behind website visits for B2B sales.",
+    "services": [
+      "Leadfeeder Tracker",
+      "Dealfront"
+    ],
+    "privacy_url": "https://www.dealfront.com/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "yith": {
+    "name": "YITH",
+    "website": "https://yithemes.com",
+    "category": "first_party",
+    "description_da": "YITH udvikler WooCommerce-udvidelser, herunder ønskeliste, som kan sætte sessionscookies.",
+    "description_en": "YITH builds WooCommerce extensions, including wishlist, which may set session cookies.",
+    "services": [
+      "YITH WooCommerce Wishlist"
+    ],
+    "privacy_url": "https://yithemes.com/privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "memberpress": {
+    "name": "MemberPress",
+    "website": "https://memberpress.com",
+    "category": "first_party",
+    "description_da": "MemberPress er et WordPress-medlemskabsplugin, der sætter login- og sessionscookies.",
+    "description_en": "MemberPress is a WordPress membership plugin that sets login and session cookies.",
+    "services": [
+      "MemberPress Memberships"
+    ],
+    "privacy_url": "https://memberpress.com/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "buddypress": {
+    "name": "BuddyPress",
+    "website": "https://buddypress.org",
+    "category": "first_party",
+    "description_da": "BuddyPress er et community-plugin til WordPress og kan gemme UI-præferencer i cookies.",
+    "description_en": "BuddyPress is a community plugin for WordPress and may store UI preferences in cookies.",
+    "services": [
+      "BuddyPress"
+    ],
+    "privacy_url": "https://buddypress.org/about/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "learndash": {
+    "name": "LearnDash",
+    "website": "https://www.learndash.com",
+    "category": "first_party",
+    "description_da": "LearnDash er et LMS-plugin til WordPress og kan sætte cookies til kursusfremdrift og session.",
+    "description_en": "LearnDash is a WordPress LMS plugin and may set cookies for course progress and session.",
+    "services": [
+      "LearnDash LMS"
+    ],
+    "privacy_url": "https://www.learndash.com/privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "wprocket": {
+    "name": "WP Rocket",
+    "website": "https://wp-rocket.me",
+    "category": "first_party",
+    "description_da": "WP Rocket er et cache- og performanceplugin. Cookies bruges primært til cache-undtagelser.",
+    "description_en": "WP Rocket is a cache and performance plugin. Cookies are mainly used for cache exclusions.",
+    "services": [
+      "WP Rocket Cache"
+    ],
+    "privacy_url": "https://wp-rocket.me/privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "mouseflow": {
+    "name": "Mouseflow",
+    "website": "https://mouseflow.com",
+    "category": "third_party",
+    "description_da": "Mouseflow er en session replay- og heatmap-platform, der er udbredt i Norden.",
+    "description_en": "Mouseflow is a session replay and heatmap platform widely used in the Nordics.",
+    "services": [
+      "Mouseflow Recordings",
+      "Mouseflow Heatmaps"
+    ],
+    "privacy_url": "https://mouseflow.com/legal/gdpr",
+    "last_verified": "2026-08-03"
+  },
+  "fullstory": {
+    "name": "FullStory",
+    "website": "https://www.fullstory.com",
+    "category": "third_party",
+    "description_da": "FullStory leverer session replay og digitale oplelsesdata.",
+    "description_en": "FullStory provides session replay and digital experience data.",
+    "services": [
+      "FullStory Session Replay"
+    ],
+    "privacy_url": "https://www.fullstory.com/legal/privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "heap": {
+    "name": "Heap",
+    "website": "https://www.heap.io",
+    "category": "third_party",
+    "description_da": "Heap er en produktanalyseplatform med automatisk hændelsessporing.",
+    "description_en": "Heap is a product analytics platform with automatic event tracking.",
+    "services": [
+      "Heap Analytics"
+    ],
+    "privacy_url": "https://www.heap.io/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "newrelic": {
+    "name": "New Relic",
+    "website": "https://newrelic.com",
+    "category": "third_party",
+    "description_da": "New Relic er en observability-platform, der kan sætte browser-overvågningscookies.",
+    "description_en": "New Relic is an observability platform that may set browser monitoring cookies.",
+    "services": [
+      "New Relic Browser"
+    ],
+    "privacy_url": "https://newrelic.com/termsandconditions/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "sentry": {
+    "name": "Sentry",
+    "website": "https://sentry.io",
+    "category": "third_party",
+    "description_da": "Sentry er en fejl- og performanceovervågningsplatform. Cookies er typisk begrænsede.",
+    "description_en": "Sentry is an error and performance monitoring platform. Cookies are typically limited.",
+    "services": [
+      "Sentry Browser SDK"
+    ],
+    "privacy_url": "https://sentry.io/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "disqus": {
+    "name": "Disqus",
+    "website": "https://disqus.com",
+    "category": "third_party",
+    "description_da": "Disqus er et kommentarsystem, der sætter tracking- og præferencecookies ved embeds.",
+    "description_en": "Disqus is a commenting system that sets tracking and preference cookies when embedded.",
+    "services": [
+      "Disqus Comments"
+    ],
+    "privacy_url": "https://help.disqus.com/en/articles/1717103-disqus-privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "addthis": {
+    "name": "AddThis",
+    "website": "https://www.addthis.com",
+    "category": "third_party",
+    "description_da": "AddThis (Oracle) er en deleknap- og audience-platform med trackingcookies.",
+    "description_en": "AddThis (Oracle) is a share-button and audience platform with tracking cookies.",
+    "services": [
+      "AddThis Share Buttons",
+      "AddThis Audience"
+    ],
+    "privacy_url": "https://www.oracle.com/legal/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "sharethis": {
+    "name": "ShareThis",
+    "website": "https://sharethis.com",
+    "category": "third_party",
+    "description_da": "ShareThis leverer deleknapper og indsamler samtidig data til annoncering.",
+    "description_en": "ShareThis provides share buttons and also collects data for advertising.",
+    "services": [
+      "ShareThis Buttons",
+      "ShareThis Insight"
+    ],
+    "privacy_url": "https://sharethis.com/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "tidio": {
+    "name": "Tidio",
+    "website": "https://www.tidio.com",
+    "category": "third_party",
+    "description_da": "Tidio er en livechat- og chatbot-platform til webshops og websites.",
+    "description_en": "Tidio is a live chat and chatbot platform for webshops and websites.",
+    "services": [
+      "Tidio Chat",
+      "Tidio Chatbots"
+    ],
+    "privacy_url": "https://www.tidio.com/privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "livechat": {
+    "name": "LiveChat",
+    "website": "https://www.livechat.com",
+    "category": "third_party",
+    "description_da": "LiveChat (Text) er en kundeservice-chatwidget med identifikationscookies.",
+    "description_en": "LiveChat (Text) is a customer service chat widget with identification cookies.",
+    "services": [
+      "LiveChat Widget"
+    ],
+    "privacy_url": "https://www.livechat.com/legal/privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "freshworks": {
+    "name": "Freshworks",
+    "website": "https://www.freshworks.com",
+    "category": "third_party",
+    "description_da": "Freshworks leverer Freshdesk og Freshchat til kundeservice og chat.",
+    "description_en": "Freshworks provides Freshdesk and Freshchat for customer service and chat.",
+    "services": [
+      "Freshchat",
+      "Freshdesk"
+    ],
+    "privacy_url": "https://www.freshworks.com/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "helpscout": {
+    "name": "Help Scout",
+    "website": "https://www.helpscout.com",
+    "category": "third_party",
+    "description_da": "Help Scout er en helpdesk med Beacon-widget til beskeder og docs.",
+    "description_en": "Help Scout is a helpdesk with a Beacon widget for messages and docs.",
+    "services": [
+      "Help Scout Beacon"
+    ],
+    "privacy_url": "https://www.helpscout.com/company/legal/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "olark": {
+    "name": "Olark",
+    "website": "https://www.olark.com",
+    "category": "third_party",
+    "description_da": "Olark er en livechat-platform, der sætter cookies til at genkende chatbesøgende.",
+    "description_en": "Olark is a live chat platform that sets cookies to recognise chat visitors.",
+    "services": [
+      "Olark Chat"
+    ],
+    "privacy_url": "https://www.olark.com/privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "apple": {
+    "name": "Apple",
+    "website": "https://www.apple.com",
+    "category": "third_party",
+    "description_da": "Apple leverer Apple Pay og kan sætte cookies i betalingsflowet.",
+    "description_en": "Apple provides Apple Pay and may set cookies in the payment flow.",
+    "services": [
+      "Apple Pay"
+    ],
+    "privacy_url": "https://www.apple.com/legal/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "adyen": {
+    "name": "Adyen",
+    "website": "https://www.adyen.com",
+    "category": "third_party",
+    "description_da": "Adyen er en global betalingsplatform, der bruges af større webshops til checkout.",
+    "description_en": "Adyen is a global payment platform used by larger webshops for checkout.",
+    "services": [
+      "Adyen Checkout",
+      "Adyen Drop-in"
+    ],
+    "privacy_url": "https://www.adyen.com/privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "square": {
+    "name": "Square",
+    "website": "https://squareup.com",
+    "category": "third_party",
+    "description_da": "Square (Block) tilbyder betalinger og kan sætte cookies i checkout.",
+    "description_en": "Square (Block) provides payments and may set cookies during checkout.",
+    "services": [
+      "Square Payments",
+      "Square Online Checkout"
+    ],
+    "privacy_url": "https://squareup.com/legal/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "mollie": {
+    "name": "Mollie",
+    "website": "https://www.mollie.com",
+    "category": "third_party",
+    "description_da": "Mollie er en europæisk betalingsudbyder, der ofte bruges sammen med WooCommerce.",
+    "description_en": "Mollie is a European payment provider often used together with WooCommerce.",
+    "services": [
+      "Mollie Payments",
+      "Mollie Components"
+    ],
+    "privacy_url": "https://www.mollie.com/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "quantcast": {
+    "name": "Quantcast",
+    "website": "https://www.quantcast.com",
+    "category": "third_party",
+    "description_da": "Quantcast leverer måling, annoncering og Quantcast Choice til samtykke (TCF).",
+    "description_en": "Quantcast provides measurement, advertising and Quantcast Choice for consent (TCF).",
+    "services": [
+      "Quantcast Measure",
+      "Quantcast Advertise",
+      "Quantcast Choice"
+    ],
+    "privacy_url": "https://www.quantcast.com/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "liveintent": {
+    "name": "LiveIntent",
+    "website": "https://www.liveintent.com",
+    "category": "third_party",
+    "description_da": "LiveIntent er en identity- og e-mailannonceringsplatform.",
+    "description_en": "LiveIntent is an identity and email advertising platform.",
+    "services": [
+      "LiveIntent Identity"
+    ],
+    "privacy_url": "https://www.liveintent.com/privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "lotame": {
+    "name": "Lotame",
+    "website": "https://www.lotame.com",
+    "category": "third_party",
+    "description_da": "Lotame er en data management platform (DMP) til målgrupper og annoncering.",
+    "description_en": "Lotame is a data management platform (DMP) for audiences and advertising.",
+    "services": [
+      "Lotame DMP",
+      "Panorama ID"
+    ],
+    "privacy_url": "https://www.lotame.com/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "pubmatic": {
+    "name": "PubMatic",
+    "website": "https://pubmatic.com",
+    "category": "third_party",
+    "description_da": "PubMatic er en supply-side platform til programmatisk annoncesalg.",
+    "description_en": "PubMatic is a supply-side platform for programmatic ad sales.",
+    "services": [
+      "PubMatic SSP"
+    ],
+    "privacy_url": "https://pubmatic.com/legal/privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "rubicon": {
+    "name": "Magnite",
+    "website": "https://www.magnite.com",
+    "category": "third_party",
+    "description_da": "Magnite (tidligere Rubicon Project) er en SSP til programmatisk annoncering.",
+    "description_en": "Magnite (formerly Rubicon Project) is an SSP for programmatic advertising.",
+    "services": [
+      "Magnite DV+",
+      "Rubicon Project"
+    ],
+    "privacy_url": "https://www.magnite.com/legal/privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "id5": {
+    "name": "ID5",
+    "website": "https://id5.io",
+    "category": "third_party",
+    "description_da": "ID5 er en universal ID-løsning til programmatisk annoncering.",
+    "description_en": "ID5 is a universal ID solution for programmatic advertising.",
+    "services": [
+      "ID5 Universal ID"
+    ],
+    "privacy_url": "https://id5.io/privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "indexexchange": {
+    "name": "Index Exchange",
+    "website": "https://www.indexexchange.com",
+    "category": "third_party",
+    "description_da": "Index Exchange er en global advertising exchange til programmatiske auktioner.",
+    "description_en": "Index Exchange is a global advertising exchange for programmatic auctions.",
+    "services": [
+      "Index Exchange"
+    ],
+    "privacy_url": "https://www.indexexchange.com/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "openx": {
+    "name": "OpenX",
+    "website": "https://www.openx.com",
+    "category": "third_party",
+    "description_da": "OpenX er en ad exchange til display- og videoannoncering.",
+    "description_en": "OpenX is an ad exchange for display and video advertising.",
+    "services": [
+      "OpenX Ad Exchange"
+    ],
+    "privacy_url": "https://www.openx.com/privacy-center/privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "teads": {
+    "name": "Teads",
+    "website": "https://www.teads.com",
+    "category": "third_party",
+    "description_da": "Teads er et video- og native advertising-netværk.",
+    "description_en": "Teads is a video and native advertising network.",
+    "services": [
+      "Teads Ads"
+    ],
+    "privacy_url": "https://www.teads.com/privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "medianet": {
+    "name": "Media.net",
+    "website": "https://www.media.net",
+    "category": "third_party",
+    "description_da": "Media.net er et kontekstbaseret annoncenetværk, ofte brugt som AdSense-alternativ.",
+    "description_en": "Media.net is a contextual advertising network, often used as an AdSense alternative.",
+    "services": [
+      "Media.net Ads"
+    ],
+    "privacy_url": "https://www.media.net/privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "webtoffee": {
+    "name": "WebToffee",
+    "website": "https://www.webtoffee.com",
+    "category": "first_party",
+    "description_da": "WebToffee udvikler GDPR Cookie Consent (Cookie Law Info), et udbredt WordPress-samtykkeplugin.",
+    "description_en": "WebToffee develops GDPR Cookie Consent (Cookie Law Info), a widely used WordPress consent plugin.",
+    "services": [
+      "GDPR Cookie Consent",
+      "Cookie Law Info"
+    ],
+    "privacy_url": "https://www.webtoffee.com/privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "moove": {
+    "name": "Moove Agency",
+    "website": "https://www.mooveagency.com",
+    "category": "first_party",
+    "description_da": "Moove Agency udvikler GDPR Cookie Compliance, et WordPress-plugin til cookie-samtykke.",
+    "description_en": "Moove Agency develops GDPR Cookie Compliance, a WordPress plugin for cookie consent.",
+    "services": [
+      "GDPR Cookie Compliance"
+    ],
+    "privacy_url": "https://www.mooveagency.com/privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "hu-manity": {
+    "name": "Hu-manity",
+    "website": "https://hu-manity.co",
+    "category": "first_party",
+    "description_da": "Cookie Notice til GDPR er et WordPress-plugin, der gemmer om brugeren har accepteret cookies.",
+    "description_en": "Cookie Notice for GDPR is a WordPress plugin that stores whether the visitor accepted cookies.",
+    "services": [
+      "Cookie Notice"
+    ],
+    "privacy_url": "",
+    "last_verified": "2026-08-03"
+  },
+  "termly": {
+    "name": "Termly",
+    "website": "https://termly.io",
+    "category": "third_party",
+    "description_da": "Termly er en samtykke- og policy-generator til websites, herunder WordPress.",
+    "description_en": "Termly is a consent and policy generator for websites, including WordPress.",
+    "services": [
+      "Termly CMP",
+      "Termly Policy Generator"
+    ],
+    "privacy_url": "https://termly.io/our-privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "sourcepoint": {
+    "name": "Sourcepoint",
+    "website": "https://www.sourcepoint.com",
+    "category": "third_party",
+    "description_da": "Sourcepoint er en enterprise-CMP, der bruges af medier til TCF-samtykke.",
+    "description_en": "Sourcepoint is an enterprise CMP used by publishers for TCF consent.",
+    "services": [
+      "Sourcepoint CMP"
+    ],
+    "privacy_url": "https://www.sourcepoint.com/privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "hcaptcha": {
+    "name": "hCaptcha",
+    "website": "https://www.hcaptcha.com",
+    "category": "third_party",
+    "description_da": "hCaptcha er en captcha-tjeneste, der bruges som alternativ til Google reCAPTCHA.",
+    "description_en": "hCaptcha is a captcha service used as an alternative to Google reCAPTCHA.",
+    "services": [
+      "hCaptcha"
+    ],
+    "privacy_url": "https://www.hcaptcha.com/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "calendly": {
+    "name": "Calendly",
+    "website": "https://calendly.com",
+    "category": "third_party",
+    "description_da": "Calendly er en bookingwidget, der kan sætte cookies, når den indlejres.",
+    "description_en": "Calendly is a booking widget that may set cookies when embedded.",
+    "services": [
+      "Calendly Embed"
+    ],
+    "privacy_url": "https://calendly.com/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "typeform": {
+    "name": "Typeform",
+    "website": "https://www.typeform.com",
+    "category": "third_party",
+    "description_da": "Typeform leverer formularer og quizzes, der kan sætte cookies ved indlejring.",
+    "description_en": "Typeform provides forms and quizzes that may set cookies when embedded.",
+    "services": [
+      "Typeform Embeds"
+    ],
+    "privacy_url": "https://www.typeform.com/help/a/typeform-privacy-policy-360029498631",
+    "last_verified": "2026-08-03"
+  },
+  "algolia": {
+    "name": "Algolia",
+    "website": "https://www.algolia.com",
+    "category": "third_party",
+    "description_da": "Algolia er en søgeplatform, der kan sætte cookies til analytics på søgninger.",
+    "description_en": "Algolia is a search platform that may set cookies for search analytics.",
+    "services": [
+      "Algolia Search",
+      "Algolia Insights"
+    ],
+    "privacy_url": "https://www.algolia.com/policies/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "mapbox": {
+    "name": "Mapbox",
+    "website": "https://www.mapbox.com",
+    "category": "third_party",
+    "description_da": "Mapbox leverer kortembeds og kan sætte cookies til kortvisning og statistik.",
+    "description_en": "Mapbox provides map embeds and may set cookies for map display and analytics.",
+    "services": [
+      "Mapbox Maps"
+    ],
+    "privacy_url": "https://www.mapbox.com/legal/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "omnisend": {
+    "name": "Omnisend",
+    "website": "https://www.omnisend.com",
+    "category": "third_party",
+    "description_da": "Omnisend er en e-mail- og SMS-marketingplatform til e-handel med on-site tracking.",
+    "description_en": "Omnisend is an ecommerce email and SMS marketing platform with on-site tracking.",
+    "services": [
+      "Omnisend Tracking",
+      "Omnisend Forms"
+    ],
+    "privacy_url": "https://www.omnisend.com/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "mailerlite": {
+    "name": "MailerLite",
+    "website": "https://www.mailerlite.com",
+    "category": "third_party",
+    "description_da": "MailerLite er en e-mailmarketingplatform med embeds, pop-ups og tracking.",
+    "description_en": "MailerLite is an email marketing platform with embeds, pop-ups and tracking.",
+    "services": [
+      "MailerLite Forms",
+      "MailerLite Pop-ups"
+    ],
+    "privacy_url": "https://www.mailerlite.com/legal/privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "getresponse": {
+    "name": "GetResponse",
+    "website": "https://www.getresponse.com",
+    "category": "third_party",
+    "description_da": "GetResponse er en e-mailmarketingplatform med web tracking og formularer.",
+    "description_en": "GetResponse is an email marketing platform with web tracking and forms.",
+    "services": [
+      "GetResponse Tracking",
+      "GetResponse Forms"
+    ],
+    "privacy_url": "https://www.getresponse.com/legal/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "yotpo": {
+    "name": "Yotpo",
+    "website": "https://www.yotpo.com",
+    "category": "third_party",
+    "description_da": "Yotpo leverer anmeldelser, UGC og loyalitet til e-handel.",
+    "description_en": "Yotpo provides reviews, UGC and loyalty for ecommerce.",
+    "services": [
+      "Yotpo Reviews",
+      "Yotpo Loyalty"
+    ],
+    "privacy_url": "https://www.yotpo.com/privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "judge": {
+    "name": "Judge.me",
+    "website": "https://judge.me",
+    "category": "third_party",
+    "description_da": "Judge.me er et anmeldelsesplugin til WooCommerce og kan sætte cookies i widgets.",
+    "description_en": "Judge.me is a reviews plugin for WooCommerce and may set cookies in widgets.",
+    "services": [
+      "Judge.me Reviews"
+    ],
+    "privacy_url": "https://judge.me/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "contentsquare": {
+    "name": "Contentsquare",
+    "website": "https://contentsquare.com",
+    "category": "third_party",
+    "description_da": "Contentsquare er en digital experience analytics-platform med session- og heatmap-data.",
+    "description_en": "Contentsquare is a digital experience analytics platform with session and heatmap data.",
+    "services": [
+      "Contentsquare Experience Analytics"
+    ],
+    "privacy_url": "https://contentsquare.com/privacy-center/privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "logrocket": {
+    "name": "LogRocket",
+    "website": "https://logrocket.com",
+    "category": "third_party",
+    "description_da": "LogRocket leverer session replay og frontend-overvågning til produktteams.",
+    "description_en": "LogRocket provides session replay and frontend monitoring for product teams.",
+    "services": [
+      "LogRocket Session Replay"
+    ],
+    "privacy_url": "https://logrocket.com/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "ithemes": {
+    "name": "SolidWP",
+    "website": "https://solidwp.com",
+    "category": "first_party",
+    "description_da": "SolidWP (tidligere iThemes Security) sætter cookies til login-skjuling og sikkerhed.",
+    "description_en": "SolidWP (formerly iThemes Security) sets cookies for login hiding and security.",
+    "services": [
+      "iThemes Security",
+      "Solid Security"
+    ],
+    "privacy_url": "https://solidwp.com/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "translatepress": {
+    "name": "TranslatePress",
+    "website": "https://translatepress.com",
+    "category": "first_party",
+    "description_da": "TranslatePress er et WordPress-oversættelsesplugin, der kan gemme sprogvalg i cookies.",
+    "description_en": "TranslatePress is a WordPress translation plugin that may store language choice in cookies.",
+    "services": [
+      "TranslatePress"
+    ],
+    "privacy_url": "https://translatepress.com/privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "divi": {
+    "name": "Elegant Themes",
+    "website": "https://www.elegantthemes.com",
+    "category": "first_party",
+    "description_da": "Divi (Elegant Themes) er et WordPress-tema og builder, der kan sætte A/B-test- og editorcookies.",
+    "description_en": "Divi (Elegant Themes) is a WordPress theme and builder that may set A/B test and editor cookies.",
+    "services": [
+      "Divi Builder",
+      "Divi A/B Testing"
+    ],
+    "privacy_url": "https://www.elegantthemes.com/policy/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "thrive": {
+    "name": "Thrive Themes",
+    "website": "https://thrivethemes.com",
+    "category": "first_party",
+    "description_da": "Thrive Leads og relaterede plugins kan sætte cookies til leads, A/B-tests og konverteringer.",
+    "description_en": "Thrive Leads and related plugins may set cookies for leads, A/B tests and conversions.",
+    "services": [
+      "Thrive Leads",
+      "Thrive Architect"
+    ],
+    "privacy_url": "https://thrivethemes.com/privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "prebid": {
+    "name": "Prebid",
+    "website": "https://prebid.org",
+    "category": "third_party",
+    "description_da": "Prebid.js er et header bidding-bibliotek, der kan sætte unified ID- og partnercookies.",
+    "description_en": "Prebid.js is a header bidding library that may set unified ID and partner cookies.",
+    "services": [
+      "Prebid.js",
+      "SharedID"
+    ],
+    "privacy_url": "https://prebid.org/privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "scorecardresearch": {
+    "name": "ScorecardResearch",
+    "website": "https://www.scorecardresearch.com",
+    "category": "third_party",
+    "description_da": "ScorecardResearch (comScore) måler trafik og medieforbrug til markedsanalyse.",
+    "description_en": "ScorecardResearch (comScore) measures traffic and media consumption for market research.",
+    "services": [
+      "comScore",
+      "ScorecardResearch"
+    ],
+    "privacy_url": "https://www.scorecardresearch.com/privacy.aspx",
+    "last_verified": "2026-08-03"
+  },
+  "chartbeat": {
+    "name": "Chartbeat",
+    "website": "https://chartbeat.com",
+    "category": "third_party",
+    "description_da": "Chartbeat leverer realtidsanalyse til medier og forlag.",
+    "description_en": "Chartbeat provides real-time analytics for publishers and media sites.",
+    "services": [
+      "Chartbeat Analytics"
+    ],
+    "privacy_url": "https://chartbeat.com/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "parsely": {
+    "name": "Parse.ly",
+    "website": "https://www.parse.ly",
+    "category": "third_party",
+    "description_da": "Parse.ly (WordPress.com VIP/Automattic) er en indholdsanalyseplatform til medier.",
+    "description_en": "Parse.ly (WordPress.com VIP/Automattic) is a content analytics platform for publishers.",
+    "services": [
+      "Parse.ly Analytics"
+    ],
+    "privacy_url": "https://www.parse.ly/privacy-policy",
+    "last_verified": "2026-08-03"
+  },
+  "anyday": {
+    "name": "Anyday",
+    "website": "https://anyday.io",
+    "category": "third_party",
+    "description_da": "Anyday er en dansk delbetalingsløsning til webshops.",
+    "description_en": "Anyday is a Danish instalment payment solution for webshops.",
+    "services": [
+      "Anyday Checkout"
+    ],
+    "privacy_url": "https://anyday.io/privatlivspolitik",
+    "last_verified": "2026-08-03"
+  },
+  "imperva": {
+    "name": "Imperva",
+    "website": "https://www.imperva.com",
+    "category": "third_party",
+    "description_da": "Imperva (Incapsula) er en WAF/CDN, der sætter sikkerheds- og load balancing-cookies.",
+    "description_en": "Imperva (Incapsula) is a WAF/CDN that sets security and load balancing cookies.",
+    "services": [
+      "Imperva WAF",
+      "Incapsula"
+    ],
+    "privacy_url": "https://www.imperva.com/trust-center/privacy",
+    "last_verified": "2026-08-03"
+  },
+  "akamai": {
+    "name": "Akamai",
+    "website": "https://www.akamai.com",
+    "category": "third_party",
+    "description_da": "Akamai leverer CDN, bot-beskyttelse og kan sætte cookies til routing og sikkerhed.",
+    "description_en": "Akamai provides CDN and bot protection and may set cookies for routing and security.",
+    "services": [
+      "Akamai CDN",
+      "Akamai Bot Manager"
+    ],
+    "privacy_url": "https://www.akamai.com/privacy",
+    "last_verified": "2026-08-03"
+  }
+}
