@@ -21,6 +21,24 @@ final class CookieDKCookieDetectorTest extends TestCase
         $this->assertSame('necessary', $meta['category']);
     }
 
+    public function test_classify_cookie_maps_preferences_to_functional(): void
+    {
+        $detector = new CookieDK_Cookie_Detector();
+        $meta = $detector->classify_cookie('wp-settings-1');
+
+        $this->assertSame('functional', $meta['category']);
+        $this->assertSame('WordPress', $meta['provider']);
+    }
+
+    public function test_classify_cookie_maps_ga4_wildcard_to_analytics(): void
+    {
+        $detector = new CookieDK_Cookie_Detector();
+        $meta = $detector->classify_cookie('_ga_XXXXXXXXXX');
+
+        $this->assertSame('analytics', $meta['category']);
+        $this->assertFalse($meta['necessary']);
+    }
+
     public function test_classify_cookie_with_unknown_cookie(): void
     {
         $detector = new CookieDK_Cookie_Detector();

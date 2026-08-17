@@ -11,4 +11,4 @@
 - `cookiedk_delete_user_cookies`
 
 ## Filters
-- `cookiedk_known_cookies`
+- `cookiedk_known_cookies` — modify the JSON-loaded cookie library after category mapping.

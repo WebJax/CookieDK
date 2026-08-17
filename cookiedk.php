@@ -102,6 +102,7 @@ function cookiedk_get_theme_secondary_color() {
  * Inkluder nødvendige klasser.
  */
 function cookiedk_load_dependencies() {
+	include_once COOKIEDK_PLUGIN_DIR . 'includes/class-cookiedk-cookie-database.php';
 	include_once COOKIEDK_PLUGIN_DIR . 'includes/class-cookiedk-cookie-detector.php';
 	include_once COOKIEDK_PLUGIN_DIR . 'includes/class-cookiedk-cookie-storage.php';
 	include_once COOKIEDK_PLUGIN_DIR . 'includes/class-cookiedk-security.php';

@@ -2,6 +2,7 @@
 <phpunit bootstrap="bootstrap.php" colors="true" verbose="true">
     <testsuites>
         <testsuite name="CookieDK Test Suite">
+            <file>test-cookie-database.php</file>
             <file>test-cookie-detector.php</file>
             <file>test-cookie-storage.php</file>
             <file>test-gdpr-compliance.php</file>

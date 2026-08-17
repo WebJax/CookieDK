@@ -313,6 +313,7 @@ class FakeWpdb
 $GLOBALS['wpdb'] = new FakeWpdb();
 
 require_once dirname(__DIR__) . '/includes/class-cookiedk-cookie-storage.php';
+require_once dirname(__DIR__) . '/includes/class-cookiedk-cookie-database.php';
 require_once dirname(__DIR__) . '/includes/class-cookiedk-cookie-detector.php';
 require_once dirname(__DIR__) . '/includes/class-cookiedk-consent-export.php';
 require_once dirname(__DIR__) . '/includes/class-cookiedk-gdpr-compliance.php';
