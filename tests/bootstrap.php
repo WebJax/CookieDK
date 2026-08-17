@@ -146,6 +146,14 @@ function wp_parse_args( $args, $defaults )
 {
     return array_merge($defaults, $args); 
 }
+function cookiedk_get_theme_primary_color()
+{
+    return '#2271b1';
+}
+function cookiedk_get_theme_secondary_color()
+{
+    return '#135e96';
+}
 function wp_enqueue_style()
 {
     return true; 
