@@ -135,6 +135,22 @@ class CookieDK_Frontend {
 		if ( $custom_css ) {
 			wp_add_inline_style( 'cookiedk-banner-style', $custom_css );
 		}
+
+		// Tilføj inline CSS til cookie-tabellen når vi er på cookiepolitik-siden.
+		if ( is_page( $this->settings['cookie_policy_page_id'] ) ) {
+			$inline_css = '
+			.cookiedk-cookie-table th {
+				background-color: #f2f2f2;
+				padding: 5px;
+			}
+			.cookiedk-cookie-table td {
+				padding: 3px 10px;
+				font-size: small;
+				border: 1px solid #f2f2f2;
+				vertical-align: top;
+			}';
+			wp_add_inline_style( 'cookiedk-banner-style', $inline_css );
+		}
 	}
 
 	/**
