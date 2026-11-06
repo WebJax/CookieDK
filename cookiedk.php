@@ -131,6 +131,7 @@ function cookiedk_activate() {
 	// Standard-indstillinger.
 	$default_settings = array(
 		'banner_position'       => 'bottom',
+		'reopen_position'       => 'bottom-left',
 		'color_theme'           => 'light',
 		'cookie_policy_url'     => '',
 		'cookie_policy_page_id' => 0,

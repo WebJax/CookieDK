@@ -134,6 +134,87 @@
 }
 
 /* =========================================================
+	Genkalds-ikon
+	========================================================= */
+.cookiedk-reopen {
+	position: fixed;
+	z-index: var(--cookiedk-z-banner);
+	bottom: 1rem;
+	left: 1rem;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 2.75rem;
+	height: 2.75rem;
+	padding: 0;
+	border: 0;
+	border-radius: 999px;
+	background: var(--cookiedk-primary);
+	color: #fff;
+	box-shadow: var(--cookiedk-shadow);
+	cursor: pointer;
+}
+
+.cookiedk-reopen svg {
+	width: 1.35rem;
+	height: 1.35rem;
+}
+
+.cookiedk-reopen:hover {
+	background: var(--cookiedk-secondary);
+}
+
+.cookiedk-reopen:focus-visible {
+	outline: 3px solid var(--cookiedk-primary);
+	outline-offset: 2px;
+	background: var(--cookiedk-secondary);
+}
+
+.cookiedk-reopen.cookiedk-hidden {
+	display: none;
+}
+
+.cookiedk-reopen--top,
+.cookiedk-reopen--top-left,
+.cookiedk-reopen--top-right,
+.cookiedk-reopen--center {
+	bottom: auto;
+}
+
+.cookiedk-reopen--top-right,
+.cookiedk-reopen--bottom-right,
+.cookiedk-reopen--side {
+	left: auto;
+	right: 1rem;
+}
+
+.cookiedk-reopen--top,
+.cookiedk-reopen--bottom {
+	right: auto;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.cookiedk-reopen--top,
+.cookiedk-reopen--top-left,
+.cookiedk-reopen--top-right {
+	top: 1rem;
+}
+
+.cookiedk-reopen--center {
+	top: 50%;
+	left: 50%;
+	right: auto;
+	transform: translate(-50%, -50%);
+}
+
+body.admin-bar .cookiedk-reopen--top,
+body.admin-bar .cookiedk-reopen--top-left,
+body.admin-bar .cookiedk-reopen--top-right {
+	top: calc(1rem + 32px);
+}
+
+/* =========================================================
 	Banner – layout
 	========================================================= */
 .cookiedk-banner__inner {
@@ -553,6 +634,12 @@
 	Responsive
 	========================================================= */
 @media screen and (max-width: 782px) {
+	body.admin-bar .cookiedk-reopen--top,
+	body.admin-bar .cookiedk-reopen--top-left,
+	body.admin-bar .cookiedk-reopen--top-right {
+		top: calc(1rem + 46px);
+	}
+
 	#cookiedk-banner {
 		padding: 16px;
 	}

@@ -420,6 +420,11 @@ class CookieDK_Admin_Page {
 			$position = 'bottom';
 		}
 
+		$reopen_position = isset( $input['reopen_position'] ) ? sanitize_key( $input['reopen_position'] ) : 'bottom-left';
+		if ( ! in_array( $reopen_position, $valid_positions, true ) ) {
+			$reopen_position = 'bottom-left';
+		}
+
 		$theme = isset( $input['color_theme'] ) ? sanitize_key( $input['color_theme'] ) : 'light';
 		if ( ! in_array( $theme, $valid_themes, true ) ) {
 			$theme = 'light';
@@ -429,6 +434,7 @@ class CookieDK_Admin_Page {
 
 		return array(
 			'banner_position'       => $position,
+			'reopen_position'       => $reopen_position,
 			'color_theme'           => $theme,
 			'cookie_policy_url'     => isset( $input['cookie_policy_url'] ) ? esc_url_raw( wp_unslash( $input['cookie_policy_url'] ) ) : '',
 			'cookie_policy_page_id' => isset( $input['cookie_policy_page_id'] ) ? absint( $input['cookie_policy_page_id'] ) : absint( $existing['cookie_policy_page_id'] ),
@@ -456,6 +462,7 @@ class CookieDK_Admin_Page {
 	private function get_default_settings() {
 		return array(
 			'banner_position'       => 'bottom',
+			'reopen_position'       => 'bottom-left',
 			'color_theme'           => 'light',
 			'cookie_policy_url'     => '',
 			'cookie_policy_page_id' => 0,

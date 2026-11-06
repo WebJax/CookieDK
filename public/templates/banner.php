@@ -5,10 +5,12 @@
  * Renderer HTML-strukturen for cookie-banneret.
  * Variabler tilgængelige fra class-frontend.php:
  *   $banner_position      (string) – top|bottom|side|top-left|top-right|center|bottom-left|bottom-right
+ *   $reopen_position      (string) – samme værdier som banner-position
  *   $cookie_policy        (string) – URL til cookiepolitik
  *   $cookies_by_category  (array)  – Cookies grupperet per kategori
  *
  * @var string $banner_position
+ * @var string $reopen_position
  * @var string $cookie_policy
  * @var array  $cookies_by_category
  * @package CookieDK
@@ -75,6 +77,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 	</div>
 </div>
+
+<button
+	id="cookiedk-reopen"
+	type="button"
+	class="cookiedk-reopen cookiedk-reopen--<?php echo esc_attr( $reopen_position ); ?> cookiedk-hidden"
+	aria-controls="cookiedk-banner"
+	aria-hidden="true"
+	aria-label="<?php esc_attr_e( 'Åbn cookie-banner', 'cookiedk' ); ?>"
+>
+	<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+		<circle cx="12" cy="12" r="8.2" fill="none" stroke="currentColor" stroke-width="1.8"></circle>
+		<circle cx="9" cy="10" r="1.25" fill="currentColor"></circle>
+		<circle cx="14.2" cy="8.6" r="1.05" fill="currentColor"></circle>
+		<circle cx="13.6" cy="14.2" r="1.35" fill="currentColor"></circle>
+		<circle cx="8.7" cy="14.8" r="0.95" fill="currentColor"></circle>
+	</svg>
+</button>
 
 <!-- Live region til skærmlæsere -->
 <div

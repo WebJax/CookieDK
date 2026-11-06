@@ -31,6 +31,7 @@ final class CookieDKAdminTest extends TestCase
         );
 
         $this->assertSame('bottom', $settings['banner_position']);
+        $this->assertSame('bottom-left', $settings['reopen_position']);
         $this->assertSame('light', $settings['color_theme']);
         $this->assertSame(10, $settings['consent_expiry_days']);
 
@@ -38,6 +39,7 @@ final class CookieDKAdminTest extends TestCase
             $admin,
             array(
                 'banner_position' => 'bottom-left',
+                'reopen_position' => 'top-right',
                 'color_theme' => 'dark',
                 'policy_owner_name' => 'Test ApS',
                 'policy_owner_address' => 'Testvej 1',
@@ -48,6 +50,7 @@ final class CookieDKAdminTest extends TestCase
         );
 
         $this->assertSame('bottom-left', $corner['banner_position']);
+        $this->assertSame('top-right', $corner['reopen_position']);
         $this->assertSame('Test ApS', $corner['policy_owner_name']);
         $this->assertSame('12345678', $corner['policy_owner_cvr']);
     }

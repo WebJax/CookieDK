@@ -33,6 +33,13 @@
 	var overlay = null;
 
 	/**
+	 * Knap, der åbner banneret igen efter samtykke.
+	 *
+	 * @type {HTMLElement|null}
+	 */
+	var reopenBtn = null;
+
+	/**
 	 * Sidst fokuserede element.
 	 *
 	 * @type {HTMLElement|null}
@@ -72,6 +79,7 @@
 		banner.classList.remove( 'cookiedk-hidden' );
 		banner.removeAttribute( 'hidden' );
 		banner.setAttribute( 'aria-hidden', 'false' );
+		hideReopen();
 
 		// Sæt fokus på "Accepter alle"-knap.
 		var firstBtn = banner.querySelector( '.cookiedk-btn--primary' );
@@ -90,6 +98,41 @@
 		}
 		banner.classList.add( 'cookiedk-hidden' );
 		banner.setAttribute( 'aria-hidden', 'true' );
+		showReopen();
+	}
+
+	/**
+	 * Viser genkalds-ikonet.
+	 */
+	function showReopen()
+	{
+		if ( ! reopenBtn ) {
+			return;
+		}
+		reopenBtn.classList.remove( 'cookiedk-hidden' );
+		reopenBtn.setAttribute( 'aria-hidden', 'false' );
+	}
+
+	/**
+	 * Skjuler genkalds-ikonet.
+	 */
+	function hideReopen()
+	{
+		if ( ! reopenBtn ) {
+			return;
+		}
+		reopenBtn.classList.add( 'cookiedk-hidden' );
+		reopenBtn.setAttribute( 'aria-hidden', 'true' );
+	}
+
+	/**
+	 * Flytter fokus til genkalds-ikonet, når banneret er lukket.
+	 */
+	function focusReopen()
+	{
+		if ( reopenBtn ) {
+			reopenBtn.focus();
+		}
 	}
 
 	/**
@@ -242,6 +285,7 @@
 						window.CookieDKConsent.acceptAll();
 					}
 					hideBanner();
+					focusReopen();
 					announceToScreenReader( 'Alle cookies er accepteret.' );
 				}
 			);
@@ -257,6 +301,7 @@
 						window.CookieDKConsent.acceptNecessaryOnly();
 					}
 					hideBanner();
+					focusReopen();
 					announceToScreenReader( 'Kun nødvendige cookies er accepteret.' );
 				}
 			);
@@ -296,6 +341,7 @@
 					}
 					closeSettingsPanel();
 					hideBanner();
+					focusReopen();
 					announceToScreenReader( 'Cookie-indstillinger er gemt.' );
 				}
 			);
@@ -312,6 +358,7 @@
 					}
 					closeSettingsPanel();
 					hideBanner();
+					focusReopen();
 					announceToScreenReader( 'Alle cookies er accepteret.' );
 				}
 			);
@@ -330,6 +377,15 @@
 					}
 				);
 			}( expanders[ i ] ) );
+		}
+
+		if ( reopenBtn ) {
+			reopenBtn.addEventListener(
+				'click',
+				function () {
+					showBanner();
+				}
+			);
 		}
 
 		// Luk ved klik på overlay.
@@ -382,6 +438,7 @@
 		banner        = getBannerElement();
 		settingsPanel = el( 'cookiedk-settings-panel' );
 		overlay       = el( 'cookiedk-overlay' );
+		reopenBtn     = el( 'cookiedk-reopen' );
 
 		if ( ! banner ) {
 			return;
@@ -401,6 +458,9 @@
 		var data = window.cookieDKData;
 		if (data && data.bannerPosition ) {
 			banner.classList.add( 'cookiedk-position-' + data.bannerPosition );
+		}
+		if ( data && data.reopenPosition && reopenBtn ) {
+			reopenBtn.classList.add( 'cookiedk-reopen--' + data.reopenPosition );
 		}
 	}
 

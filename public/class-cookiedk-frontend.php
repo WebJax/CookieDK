@@ -42,6 +42,7 @@ class CookieDK_Frontend {
 	public function __construct() {
 		$defaults = array(
 			'banner_position'       => 'bottom',
+			'reopen_position'       => 'bottom-left',
 			'color_theme'           => 'light',
 			'cookie_policy_url'     => '',
 			'cookie_policy_page_id' => 0,
@@ -114,6 +115,7 @@ class CookieDK_Frontend {
 				'nonce'            => wp_create_nonce( 'cookiedk_log_consent' ),
 				'consentExpiry'    => absint( $this->settings['consent_expiry_days'] ),
 				'bannerPosition'   => sanitize_key( $this->settings['banner_position'] ),
+				'reopenPosition'   => $this->get_reopen_position(),
 				'primaryColor'     => sanitize_hex_color( $this->settings['primary_color'] ),
 				'secondaryColor'   => sanitize_hex_color( $this->settings['secondary_color'] ),
 				'cookiePolicyUrl'  => esc_url( $this->settings['cookie_policy_url'] ),
@@ -188,6 +190,7 @@ class CookieDK_Frontend {
 		$cookies_by_category = $this->get_cookies_by_category();
 
 		$banner_position = sanitize_key( $this->settings['banner_position'] );
+		$reopen_position = $this->get_reopen_position();
 		$cookie_policy   = esc_url( $this->settings['cookie_policy_url'] );
 
 		// Indlæs banner-template.
@@ -195,6 +198,31 @@ class CookieDK_Frontend {
 
 		// Indlæs indstillingspanel-template.
 		include COOKIEDK_PLUGIN_DIR . 'public/templates/settings-panel.php';
+	}
+
+	/**
+	 * Placering af genkalds-ikonet. Samme værdier som banner-position.
+	 *
+	 * @return string
+	 */
+	private function get_reopen_position() {
+		$valid = array(
+			'bottom',
+			'top',
+			'side',
+			'top-left',
+			'top-right',
+			'center',
+			'bottom-left',
+			'bottom-right',
+		);
+
+		$position = isset( $this->settings['reopen_position'] ) ? sanitize_key( $this->settings['reopen_position'] ) : 'bottom-left';
+		if ( ! in_array( $position, $valid, true ) ) {
+			return 'bottom-left';
+		}
+
+		return $position;
 	}
 
 	/**

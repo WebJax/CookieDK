@@ -55,6 +55,26 @@ $settings = $this->get_settings();
 			</td>
 		</tr>
 
+		<!-- Genkalds-ikon -->
+		<tr>
+			<th scope="row">
+				<label for="reopen_position"><?php esc_html_e( 'Genkalds-ikon', 'cookiedk' ); ?></label>
+			</th>
+			<td>
+				<select name="reopen_position" id="reopen_position">
+					<option value="bottom" <?php selected( $settings['reopen_position'], 'bottom' ); ?>><?php esc_html_e( 'Bund (standard)', 'cookiedk' ); ?></option>
+					<option value="top" <?php selected( $settings['reopen_position'], 'top' ); ?>><?php esc_html_e( 'Top', 'cookiedk' ); ?></option>
+					<option value="side" <?php selected( $settings['reopen_position'], 'side' ); ?>><?php esc_html_e( 'Side (højre hjørne)', 'cookiedk' ); ?></option>
+					<option value="top-left" <?php selected( $settings['reopen_position'], 'top-left' ); ?>><?php esc_html_e( 'Venstre top', 'cookiedk' ); ?></option>
+					<option value="top-right" <?php selected( $settings['reopen_position'], 'top-right' ); ?>><?php esc_html_e( 'Højre top', 'cookiedk' ); ?></option>
+					<option value="center" <?php selected( $settings['reopen_position'], 'center' ); ?>><?php esc_html_e( 'Centreret på skærmen', 'cookiedk' ); ?></option>
+					<option value="bottom-left" <?php selected( $settings['reopen_position'], 'bottom-left' ); ?>><?php esc_html_e( 'Venstre bund', 'cookiedk' ); ?></option>
+					<option value="bottom-right" <?php selected( $settings['reopen_position'], 'bottom-right' ); ?>><?php esc_html_e( 'Højre bund', 'cookiedk' ); ?></option>
+				</select>
+				<p class="description"><?php esc_html_e( 'Lille ikon, der vises efter samtykke, så banneret kan åbnes igen. Samme placeringer som banneret.', 'cookiedk' ); ?></p>
+			</td>
+		</tr>
+
 		<!-- Farvetema -->
 		<tr>
 			<th scope="row">
