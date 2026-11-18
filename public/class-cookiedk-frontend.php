@@ -74,6 +74,11 @@ class CookieDK_Frontend {
 		// CookieDK skal i kø bagefter, så dependency-handle findes.
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_assets' ), PHP_INT_MAX - 50 );
 		add_action( 'wp_footer', array( $this, 'render_banner' ) );
+
+		// Før Google-tags. Prioritet 0 når vi selv sætter default. Prioritet 2
+		// når Site Kit allerede har sat default på prioritet 1 — et nyt
+		// default bagefter kan nulstille et update for EØS.
+		add_action( 'wp_head', array( $this, 'render_google_consent_mode' ), $this->google_consent_mode_priority() );
 	}
 
 	/**
@@ -118,18 +123,19 @@ class CookieDK_Frontend {
 			'cookiedk-banner-script',
 			'cookieDKData',
 			array(
-				'ajaxUrl'          => admin_url( 'admin-ajax.php' ),
-				'nonce'            => wp_create_nonce( 'cookiedk_log_consent' ),
-				'consentExpiry'    => absint( $this->settings['consent_expiry_days'] ),
-				'bannerPosition'   => sanitize_key( $this->settings['banner_position'] ),
-				'reopenPosition'   => $this->get_reopen_position(),
-				'primaryColor'     => sanitize_hex_color( $this->settings['primary_color'] ),
-				'secondaryColor'   => sanitize_hex_color( $this->settings['secondary_color'] ),
-				'cookiePolicyUrl'  => esc_url( $this->settings['cookie_policy_url'] ),
-				'enableAnalytics'  => ! empty( $this->settings['enable_analytics'] ),
-				'enableMarketing'  => ! empty( $this->settings['enable_marketing'] ),
-				'enableFunctional' => ! empty( $this->settings['enable_functional'] ),
-				'i18n'             => array(
+				'ajaxUrl'           => admin_url( 'admin-ajax.php' ),
+				'nonce'             => wp_create_nonce( 'cookiedk_log_consent' ),
+				'consentExpiry'     => absint( $this->settings['consent_expiry_days'] ),
+				'bannerPosition'    => sanitize_key( $this->settings['banner_position'] ),
+				'reopenPosition'    => $this->get_reopen_position(),
+				'primaryColor'      => sanitize_hex_color( $this->settings['primary_color'] ),
+				'secondaryColor'    => sanitize_hex_color( $this->settings['secondary_color'] ),
+				'cookiePolicyUrl'   => esc_url( $this->settings['cookie_policy_url'] ),
+				'enableAnalytics'   => ! empty( $this->settings['enable_analytics'] ),
+				'enableMarketing'   => ! empty( $this->settings['enable_marketing'] ),
+				'enableFunctional'  => ! empty( $this->settings['enable_functional'] ),
+				'googleConsentMode' => $this->is_google_consent_mode_enabled(),
+				'i18n'              => array(
 					'accept_all'       => __( 'Accepter alle', 'cookiedk' ),
 					'accept_necessary' => __( 'Kun nødvendige', 'cookiedk' ),
 					'settings'         => __( 'Indstillinger', 'cookiedk' ),
@@ -160,6 +166,119 @@ class CookieDK_Frontend {
 			}';
 			wp_add_inline_style( 'cookiedk-banner-style', $inline_css );
 		}
+	}
+
+	/**
+	 * Om Google Consent Mode v2 skal udskrives.
+	 *
+	 * @return bool
+	 */
+	private function is_google_consent_mode_enabled() {
+		return (bool) apply_filters( 'cookiedk_enable_google_consent_mode', true );
+	}
+
+	/**
+	 * Om Site Kit allerede sætter consent default.
+	 *
+	 * @return bool
+	 */
+	private function site_kit_consent_mode_enabled() {
+		return 'enabled' === apply_filters( 'googlesitekit_consent_mode_status', '' );
+	}
+
+	/**
+	 * Prioritet på wp_head for consent-scriptet.
+	 *
+	 * @return int
+	 */
+	private function google_consent_mode_priority() {
+		return $this->site_kit_consent_mode_enabled() ? 2 : 0;
+	}
+
+	/**
+	 * Udskriver Consent Mode, før Google-tags læser dataLayer.
+	 *
+	 * Uden gemt samtykke forbliver de fire signaler denied. Med gyldigt
+	 * samtykke i localStorage opdateres de i samme synkrone script.
+	 *
+	 * @return void
+	 */
+	public function render_google_consent_mode() {
+		if ( ! $this->is_google_consent_mode_enabled() ) {
+			return;
+		}
+
+		$script = $this->get_google_consent_mode_script( ! $this->site_kit_consent_mode_enabled() );
+
+		if ( function_exists( 'wp_print_inline_script_tag' ) ) {
+			wp_print_inline_script_tag(
+				$script,
+				array(
+					'id' => 'cookiedk-google-consent-mode',
+				)
+			);
+			return;
+		}
+
+		echo "<script id=\"cookiedk-google-consent-mode\">\n" . $script . "\n</script>\n"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Statisk script uden brugerinput.
+	}
+
+	/**
+	 * Bygger det tidlige Consent Mode-script.
+	 *
+	 * Analytics mapper til analytics_storage. Marketing mapper til
+	 * ad_storage, ad_user_data og ad_personalization.
+	 *
+	 * @param bool $set_default Om scriptet selv skal sende consent default.
+	 * @return string
+	 */
+	private function get_google_consent_mode_script( $set_default ) {
+		$default = '';
+
+		if ( $set_default ) {
+			$default = <<<'JS'
+	window.gtag( 'consent', 'default', {
+		'ad_storage': 'denied',
+		'ad_user_data': 'denied',
+		'ad_personalization': 'denied',
+		'analytics_storage': 'denied'
+	} );
+JS;
+		}
+
+		return <<<JS
+( function () {
+	'use strict';
+
+	window.dataLayer = window.dataLayer || [];
+	window.gtag = window.gtag || function () {
+		window.dataLayer.push( arguments );
+	};
+
+{$default}
+	window.gtag( 'set', 'ads_data_redaction', true );
+
+	try {
+		var raw = localStorage.getItem( 'cookiedk_consent' );
+		if ( ! raw ) {
+			return;
+		}
+
+		var stored = JSON.parse( raw );
+		if ( ! stored || ! stored.consent || ! stored.expiry || new Date( stored.expiry ) < new Date() ) {
+			return;
+		}
+
+		var marketing = stored.consent.marketing ? 'granted' : 'denied';
+		window.gtag( 'consent', 'update', {
+			'analytics_storage': stored.consent.analytics ? 'granted' : 'denied',
+			'ad_storage': marketing,
+			'ad_user_data': marketing,
+			'ad_personalization': marketing
+		} );
+	} catch ( ignore ) {}
+}() );
+JS;
 	}
 
 	/**

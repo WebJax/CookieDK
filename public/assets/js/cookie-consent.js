@@ -133,6 +133,42 @@
 			}
 		);
 		document.dispatchEvent( globalEvt );
+		updateGoogleConsent( consent );
+	}
+
+	/**
+	 * Sender samtykket til Google Consent Mode v2.
+	 *
+	 * analytics → analytics_storage.
+	 * marketing → ad_storage, ad_user_data og ad_personalization.
+	 * Samme mapping ligger i det tidlige head-script.
+	 *
+	 * @param {Object} consent Samtykke-objekt.
+	 */
+	function updateGoogleConsent( consent )
+	{
+		var data = window.cookieDKData;
+		if ( data && false === data.googleConsentMode ) {
+			return;
+		}
+
+		window.dataLayer = window.dataLayer || [];
+		window.gtag      = window.gtag || function () {
+			window.dataLayer.push( arguments );
+		};
+
+		var marketing = consent.marketing ? 'granted' : 'denied';
+
+		window.gtag(
+			'consent',
+			'update',
+			{
+				analytics_storage:   consent.analytics ? 'granted' : 'denied',
+				ad_storage:          marketing,
+				ad_user_data:        marketing,
+				ad_personalization:  marketing,
+			}
+		);
 	}
 
 	/**

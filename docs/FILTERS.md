@@ -12,6 +12,7 @@
 
 ## Filters
 - `cookiedk_known_cookies` — modify the JSON-loaded cookie library after category mapping.
+- `cookiedk_enable_google_consent_mode` — return false to skip the Consent Mode v2 snippet and later `gtag('consent', 'update')` calls. Default true.
 
 ## WP Consent API
 

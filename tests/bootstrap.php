@@ -86,8 +86,9 @@ function admin_url( $path = '' )
 }
 function add_action( $hook, $callback, $priority = 10, $accepted_args = 1 )
 {
-    unset($priority, $accepted_args);
-    $GLOBALS['__cookiedk_hooks']['actions'][ $hook ][] = $callback; 
+    unset($accepted_args);
+    $GLOBALS['__cookiedk_hooks']['actions'][ $hook ][] = $callback;
+    $GLOBALS['__cookiedk_hooks']['action_priorities'][ $hook ][] = $priority;
 }
 function add_filter( $hook, $callback, $priority = 10, $accepted_args = 1 )
 {
@@ -96,7 +97,15 @@ function add_filter( $hook, $callback, $priority = 10, $accepted_args = 1 )
 }
 function apply_filters( $hook, $value )
 {
-    return $value; 
+    if ( empty($GLOBALS['__cookiedk_hooks']['filters'][ $hook ]) ) {
+        return $value;
+    }
+
+    foreach ( $GLOBALS['__cookiedk_hooks']['filters'][ $hook ] as $callback ) {
+        $value = call_user_func($callback, $value);
+    }
+
+    return $value;
 }
 function is_admin()
 {

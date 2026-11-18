@@ -11,6 +11,13 @@ og dette projekt følger [Semantisk Versionering](https://semver.org/lang/da/).
 
 ### Tilføjet
 
+#### Google Consent Mode v2
+- Tidligt head-script sætter `ad_storage`, `ad_user_data`, `ad_personalization` og `analytics_storage` til `denied`, før Google-tags kører
+- `analytics` opdaterer `analytics_storage`. `marketing` opdaterer `ad_storage`, `ad_user_data` og `ad_personalization`
+- Gemt samtykke læses synkront fra `cookiedk_consent`, og samme mapping køres igen, når besøgende vælger i banneret
+- Site Kit beholder sit eget default. CookieDK sender kun `update` bagefter
+- Filter: `cookiedk_enable_google_consent_mode`
+
 #### WP Consent API
 - CookieDK registrerer sig som samtykke-banner, når pluginet WP Consent API er aktivt
 - Samtykketype `optin`, samme udløb som `consent_expiry_days`, og kategori-mapping til API'ets kategorier
