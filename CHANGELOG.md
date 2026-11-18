@@ -11,6 +11,13 @@ og dette projekt følger [Semantisk Versionering](https://semver.org/lang/da/).
 
 ### Tilføjet
 
+#### WP Consent API
+- CookieDK registrerer sig som samtykke-banner, når pluginet WP Consent API er aktivt
+- Samtykketype `optin`, samme udløb som `consent_expiry_days`, og kategori-mapping til API'ets kategorier
+- Frontend kalder `wp_set_consent()`, når besøgende vælger, og igen ved senere sidevisninger
+- Kendte cookies og `cookiedk_consent` registreres med `wp_add_cookie_info()`
+- Admin-note på CookieDK-siden, hvis WP Consent API ikke er installeret
+
 #### Fase 6 – GDPR-compliance
 - Udvidet `includes/class-gdpr-compliance.php` med:
   - Fire nye AJAX-endpoints: `cookiedk_save_consent`, `cookiedk_export_user_data`, `cookiedk_revoke_consent`, `cookiedk_delete_user_cookies`

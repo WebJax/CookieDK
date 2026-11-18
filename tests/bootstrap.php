@@ -4,6 +4,8 @@ define('ABSPATH', __DIR__ . '/');
 define('COOKIEDK_VERSION', '1.0.0');
 define('COOKIEDK_PLUGIN_DIR', dirname(__DIR__) . '/');
 define('COOKIEDK_PLUGIN_URL', 'https://example.org/wp-content/plugins/cookiedk/');
+define('COOKIEDK_PLUGIN_FILE', dirname(__DIR__) . '/cookiedk.php');
+define('COOKIEDK_PLUGIN_BASENAME', 'CookieDK/cookiedk.php');
 
 $GLOBALS['__cookiedk_hooks'] = array( 'actions' => array(), 'filters' => array() );
 $GLOBALS['__cookiedk_options'] = array();
@@ -82,12 +84,14 @@ function admin_url( $path = '' )
 {
     return 'https://example.org/wp-admin/' . ltrim($path, '/'); 
 }
-function add_action( $hook, $callback )
+function add_action( $hook, $callback, $priority = 10, $accepted_args = 1 )
 {
+    unset($priority, $accepted_args);
     $GLOBALS['__cookiedk_hooks']['actions'][ $hook ][] = $callback; 
 }
-function add_filter( $hook, $callback )
+function add_filter( $hook, $callback, $priority = 10, $accepted_args = 1 )
 {
+    unset($priority, $accepted_args);
     $GLOBALS['__cookiedk_hooks']['filters'][ $hook ][] = $callback; 
 }
 function apply_filters( $hook, $value )
@@ -158,9 +162,18 @@ function wp_enqueue_style()
 {
     return true; 
 }
-function wp_enqueue_script()
+function wp_enqueue_script( $handle = '', $src = '', $deps = array() )
 {
-    return true; 
+    $GLOBALS['__cookiedk_scripts'][] = array(
+        'handle' => $handle,
+        'src'    => $src,
+        'deps'   => $deps,
+    );
+    return true;
+}
+function current_user_can( $capability )
+{
+    return ! empty($GLOBALS['__cookiedk_caps'][ $capability ]);
 }
 function wp_localize_script()
 {
@@ -316,6 +329,7 @@ require_once dirname(__DIR__) . '/includes/class-cookiedk-cookie-storage.php';
 require_once dirname(__DIR__) . '/includes/class-cookiedk-cookie-database.php';
 require_once dirname(__DIR__) . '/includes/class-cookiedk-cookie-detector.php';
 require_once dirname(__DIR__) . '/includes/class-cookiedk-consent-export.php';
+require_once dirname(__DIR__) . '/includes/class-cookiedk-consent-api.php';
 require_once dirname(__DIR__) . '/includes/class-cookiedk-gdpr-compliance.php';
 require_once dirname(__DIR__) . '/includes/class-cookiedk-privacy-policy.php';
 require_once dirname(__DIR__) . '/includes/class-cookiedk-translations.php';

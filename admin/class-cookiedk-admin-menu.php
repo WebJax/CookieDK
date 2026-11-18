@@ -101,13 +101,14 @@ class CookieDK_Admin_Menu {
 			'cookiedk-admin',
 			'cookieDKAdmin',
 			array(
-				'ajaxUrl'     => admin_url( 'admin-ajax.php' ),
-				'nonce'       => wp_create_nonce( 'cookiedk_admin_nonce' ),
-				'themeColors' => array(
+				'ajaxUrl'             => admin_url( 'admin-ajax.php' ),
+				'nonce'               => wp_create_nonce( 'cookiedk_admin_nonce' ),
+				'consentCookiePrefix' => apply_filters( 'wp_consent_cookie_prefix', 'wp_consent' ),
+				'themeColors'         => array(
 					'primary'   => cookiedk_get_theme_primary_color(),
 					'secondary' => cookiedk_get_theme_secondary_color(),
 				),
-				'i18n'        => array(
+				'i18n'                => array(
 					'confirm_delete'       => __( 'Er du sikker på, at du vil slette denne cookie?', 'cookiedk' ),
 					'saved'                => __( 'Indstillinger gemt.', 'cookiedk' ),
 					'error'                => __( 'Der opstod en fejl. Prøv igen.', 'cookiedk' ),

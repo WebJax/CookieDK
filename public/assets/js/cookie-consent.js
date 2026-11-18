@@ -165,10 +165,37 @@
 
 		storeConsent( consent, expiryDays );
 		activateCookies( consent );
+		syncWpConsentApi( consent );
 
 		if (false !== logToServer ) {
 			logConsentToServer( consent );
 		}
+	}
+
+	/**
+	 * Skriver valget til WP Consent API, når det plugin er indlæst.
+	 *
+	 * Uden et valg sættes kun functional (nødvendige cookies). De øvrige
+	 * kategorier forbliver usat, hvilket under opt-in betyder nej.
+	 *
+	 * @param {Object|null} consent Samtykke-objekt eller null før første valg.
+	 */
+	function syncWpConsentApi( consent )
+	{
+		if ('function' !== typeof wp_set_consent ) {
+			return;
+		}
+
+		wp_set_consent( 'functional', 'allow' );
+
+		if ( ! consent ) {
+			return;
+		}
+
+		wp_set_consent( 'preferences', consent.functional ? 'allow' : 'deny' );
+		wp_set_consent( 'statistics', consent.analytics ? 'allow' : 'deny' );
+		wp_set_consent( 'statistics-anonymous', consent.analytics ? 'allow' : 'deny' );
+		wp_set_consent( 'marketing', consent.marketing ? 'allow' : 'deny' );
 	}
 
 	/**
@@ -246,10 +273,15 @@
 	 */
 	function init()
 	{
-		var stored = getStoredConsent();
+		var stored  = getStoredConsent();
+		var consent = null;
+
 		if (stored && ! isConsentExpired( stored ) && stored.consent ) {
-			activateCookies( stored.consent );
+			consent = stored.consent;
+			activateCookies( consent );
 		}
+
+		syncWpConsentApi( consent );
 	}
 
 	// Eksponér public API.

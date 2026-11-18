@@ -12,3 +12,11 @@
 
 ## Filters
 - `cookiedk_known_cookies` — modify the JSON-loaded cookie library after category mapping.
+
+## WP Consent API
+
+When that plugin is active, CookieDK hooks:
+
+- `wp_consent_api_registered_{plugin_basename}`
+- `wp_get_consent_type` — returns `optin`
+- `wp_consent_api_cookie_expiration` — returns `consent_expiry_days`

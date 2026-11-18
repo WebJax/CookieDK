@@ -107,6 +107,7 @@ function cookiedk_load_dependencies() {
 	include_once COOKIEDK_PLUGIN_DIR . 'includes/class-cookiedk-cookie-storage.php';
 	include_once COOKIEDK_PLUGIN_DIR . 'includes/class-cookiedk-security.php';
 	include_once COOKIEDK_PLUGIN_DIR . 'includes/class-cookiedk-consent-export.php';
+	include_once COOKIEDK_PLUGIN_DIR . 'includes/class-cookiedk-consent-api.php';
 	include_once COOKIEDK_PLUGIN_DIR . 'includes/class-cookiedk-gdpr-compliance.php';
 	include_once COOKIEDK_PLUGIN_DIR . 'includes/class-cookiedk-privacy-policy.php';
 	include_once COOKIEDK_PLUGIN_DIR . 'includes/class-cookiedk-translations.php';
@@ -162,6 +163,19 @@ function cookiedk_deactivate() {
 	flush_rewrite_rules();
 }
 register_deactivation_hook( __FILE__, 'cookiedk_deactivate' );
+
+/**
+ * Kobler CookieDK på WP Consent API, når det plugin er indlæst.
+ *
+ * API-pluginet registrerer sig selv på plugins_loaded prioritet 9.
+ */
+function cookiedk_bootstrap_consent_api() {
+	include_once COOKIEDK_PLUGIN_DIR . 'includes/class-cookiedk-consent-api.php';
+
+	$consent_api = new CookieDK_Consent_API();
+	$consent_api->init();
+}
+add_action( 'plugins_loaded', 'cookiedk_bootstrap_consent_api', 10 );
 
 /**
  * Initialisér pluginen.

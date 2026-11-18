@@ -434,6 +434,21 @@
 		);
 	}
 
+	/**
+	 * Sletter de cookies, WP Consent API bruger til det aktuelle valg.
+	 */
+	function clearWpConsentCookies() {
+		var prefix     = ( window.cookieDKAdmin && window.cookieDKAdmin.consentCookiePrefix ) || 'wp_consent';
+		var categories = [ 'functional', 'preferences', 'statistics', 'statistics-anonymous', 'marketing', 'consented_services' ];
+		var expired    = ';expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/';
+
+		categories.forEach(
+			function ( category ) {
+				document.cookie = prefix + '_' + category + '=' + expired;
+			}
+		);
+	}
+
 	// =========================================================
 	// Test-side: Nulstil samtykke
 	// =========================================================
@@ -444,6 +459,7 @@
 		function () {
 			try {
 				localStorage.removeItem( 'cookiedk_consent' );
+				clearWpConsentCookies();
 				showNotice( 'Samtykke nulstillet. Genindlæs siden for at se banneret.', 'success' );
 			} catch ( e ) {
 				showNotice( data.i18n.error, 'error' );

@@ -70,7 +70,9 @@ class CookieDK_Frontend {
 	 * @return void
 	 */
 	public function init() {
-		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_assets' ) );
+		// WP Consent API registrerer sit script på PHP_INT_MAX - 100.
+		// CookieDK skal i kø bagefter, så dependency-handle findes.
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_assets' ), PHP_INT_MAX - 50 );
 		add_action( 'wp_footer', array( $this, 'render_banner' ) );
 	}
 
@@ -90,10 +92,15 @@ class CookieDK_Frontend {
 			COOKIEDK_VERSION
 		);
 
+		$consent_dependencies = array();
+		if ( function_exists( 'wp_has_consent' ) ) {
+			$consent_dependencies[] = 'wp-consent-api';
+		}
+
 		wp_enqueue_script(
 			'cookiedk-consent',
 			COOKIEDK_PLUGIN_URL . 'public/assets/js/cookie-consent.js',
-			array(),
+			$consent_dependencies,
 			COOKIEDK_VERSION,
 			true
 		);
