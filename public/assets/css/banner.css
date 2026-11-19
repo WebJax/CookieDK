@@ -155,9 +155,11 @@
 	cursor: pointer;
 }
 
-.cookiedk-reopen svg {
-	width: 1.35rem;
-	height: 1.35rem;
+.cookiedk-reopen svg,
+.cookiedk-reopen img {
+	display: block;
+	width: 1.75rem;
+	height: 1.75rem;
 }
 
 .cookiedk-reopen:hover {

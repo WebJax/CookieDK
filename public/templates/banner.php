@@ -86,13 +86,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	aria-hidden="true"
 	aria-label="<?php esc_attr_e( 'Åbn cookie-banner', 'cookiedk' ); ?>"
 >
-	<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-		<circle cx="12" cy="12" r="8.2" fill="none" stroke="currentColor" stroke-width="1.8"></circle>
-		<circle cx="9" cy="10" r="1.25" fill="currentColor"></circle>
-		<circle cx="14.2" cy="8.6" r="1.05" fill="currentColor"></circle>
-		<circle cx="13.6" cy="14.2" r="1.35" fill="currentColor"></circle>
-		<circle cx="8.7" cy="14.8" r="0.95" fill="currentColor"></circle>
-	</svg>
+	<img
+		src="<?php echo esc_url( COOKIEDK_PLUGIN_URL . 'cookie-white.svg' ); ?>"
+		alt=""
+		width="28"
+		height="28"
+		decoding="async"
+		aria-hidden="true"
+	>
 </button>
 
 <!-- Live region til skærmlæsere -->
