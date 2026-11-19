@@ -3,7 +3,7 @@
  * Plugin Name:       CookieDK
  * Plugin URI:        https://github.com/WebJax/CookieDK
  * Description:       GDPR-compliant cookiebanner med auto-detektion (dansk)
- * Version:           1.0.0
+ * Version:           1.2.7
  * Requires at least: 5.0
  * Requires PHP:      7.4
  * Author:            WebJax
@@ -27,7 +27,7 @@ define( 'COOKIEDK_PLUGIN_FILE', __FILE__ );
 define( 'COOKIEDK_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'COOKIEDK_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'COOKIEDK_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
-define( 'COOKIEDK_DB_VERSION', '1.0.0' );
+define( 'COOKIEDK_DB_VERSION', '1.2.7' );
 
 /**
  * Returnerer temats primærfarve fra globale styles.
