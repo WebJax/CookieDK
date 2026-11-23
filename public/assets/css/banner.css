@@ -24,7 +24,7 @@
 		--cookiedk-radius-sm:   4px;
 		--cookiedk-transition:  0.2s ease;
 		--cookiedk-z-banner:    99990;
-		--cookiedk-z-overlay:   99980;
+		--cookiedk-z-overlay:   99992;
 		--cookiedk-z-panel:     99995;
 	}
 	
@@ -353,7 +353,7 @@
 		background: var(--cookiedk-bg);
 		border-radius: var(--cookiedk-radius);
 		box-shadow: var(--cookiedk-shadow);
-		width: min(600px, calc(100vw - 32px));
+		width: min(600px, 95%);
 		max-height: calc(100vh - 64px);
 		overflow-y: auto;
 		box-sizing: border-box;
@@ -649,7 +649,8 @@
 			padding: 16px;
 		}
 	
-		/* Kort-positioner bliver bundbanner på mobil med 1% sidemargin */
+		/* Bund- og kort-positioner: 95% bredde, centreret, med luft til kanten */
+		#cookiedk-banner.cookiedk-position-bottom,
 		#cookiedk-banner.cookiedk-position-side,
 		#cookiedk-banner.cookiedk-position-top-left,
 		#cookiedk-banner.cookiedk-position-top-right,
@@ -657,13 +658,18 @@
 		#cookiedk-banner.cookiedk-position-bottom-left,
 		#cookiedk-banner.cookiedk-position-bottom-right {
 			top: auto;
-			bottom: 0;
-			left: 1%;
-			right: 1%;
-			width: auto;
+			bottom: 12px;
+			left: 50%;
+			right: auto;
+			width: 95%;
 			max-width: none;
-			transform: none;
+			transform: translateX(-50%);
 			border-radius: var(--cookiedk-radius);
+		}
+
+		#cookiedk-settings-panel {
+			width: 95%;
+			max-height: calc(100vh - 32px);
 		}
 	
 		.cookiedk-banner__inner {

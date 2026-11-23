@@ -96,6 +96,22 @@ final class CookieDKFrontendTest extends TestCase
         unset($GLOBALS['__cookiedk_hooks']['filters']['cookiedk_enable_google_consent_mode']);
     }
 
+    public function test_banner_css_mobile_modal_uses_95_percent_width(): void
+    {
+        $css = file_get_contents(COOKIEDK_PLUGIN_DIR . 'public/assets/css/banner.css');
+
+        $this->assertNotFalse($css);
+        $this->assertStringContainsString('#cookiedk-banner.cookiedk-position-bottom', $css);
+
+        $mobile_query_pos = strpos($css, '@media screen and (max-width: 782px)');
+        $this->assertNotFalse($mobile_query_pos);
+
+        $mobile_css = substr($css, $mobile_query_pos);
+        $this->assertStringContainsString('#cookiedk-banner.cookiedk-position-bottom', $mobile_css);
+        $this->assertStringContainsString('width: 95%;', $mobile_css);
+        $this->assertStringContainsString('#cookiedk-settings-panel', $mobile_css);
+    }
+
     /**
      * @param bool $set_default Om default-kaldet skal med.
      */
