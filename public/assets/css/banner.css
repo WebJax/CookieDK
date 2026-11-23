@@ -27,7 +27,7 @@
 		--cookiedk-z-overlay:   99992;
 		--cookiedk-z-panel:     99995;
 	}
-	
+
 	/* =========================================================
 		Accessibility: focus rings
 		========================================================= */
@@ -35,7 +35,7 @@
 		outline: 3px solid var(--cookiedk-primary);
 		outline-offset: 2px;
 	}
-	
+
 	/* =========================================================
 		Banner – base
 		========================================================= */
@@ -53,7 +53,7 @@
 		line-height: 1.5;
 		color: var(--cookiedk-text);
 	}
-	
+
 	/* Position: bottom (fuld bredde) */
 	#cookiedk-banner.cookiedk-position-bottom {
 		bottom: 20px;
@@ -62,13 +62,13 @@
 		left: 33%;
 		border-radius: var(--cookiedk-radius);
 	}
-	
+
 	/* Position: top (fuld bredde) */
 	#cookiedk-banner.cookiedk-position-top {
 		top: 0;
 		border-bottom: 3px solid var(--cookiedk-primary);
 	}
-	
+
 	/* Kort-positioner: ca. 1/3 skærmbredde på desktop */
 	#cookiedk-banner.cookiedk-position-side,
 	#cookiedk-banner.cookiedk-position-top-left,
@@ -83,34 +83,34 @@
 		border-radius: var(--cookiedk-radius);
 		border-top: 3px solid var(--cookiedk-primary);
 	}
-	
+
 	#cookiedk-banner.cookiedk-position-side,
 	#cookiedk-banner.cookiedk-position-bottom-right {
 		bottom: 24px;
 		right: 24px;
 	}
-	
+
 	#cookiedk-banner.cookiedk-position-bottom-left {
 		bottom: 24px;
 		left: 24px;
 	}
-	
+
 	#cookiedk-banner.cookiedk-position-top-right {
 		top: 24px;
 		right: 24px;
 	}
-	
+
 	#cookiedk-banner.cookiedk-position-top-left {
 		top: 24px;
 		left: 24px;
 	}
-	
+
 	#cookiedk-banner.cookiedk-position-center {
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
 	}
-	
+
 	#cookiedk-banner.cookiedk-position-side .cookiedk-banner__inner,
 	#cookiedk-banner.cookiedk-position-top-left .cookiedk-banner__inner,
 	#cookiedk-banner.cookiedk-position-top-right .cookiedk-banner__inner,
@@ -121,7 +121,7 @@
 		align-items: stretch;
 		max-width: none;
 	}
-	
+
 	#cookiedk-banner.cookiedk-position-side .cookiedk-banner__actions,
 	#cookiedk-banner.cookiedk-position-top-left .cookiedk-banner__actions,
 	#cookiedk-banner.cookiedk-position-top-right .cookiedk-banner__actions,
@@ -130,12 +130,12 @@
 	#cookiedk-banner.cookiedk-position-bottom-right .cookiedk-banner__actions {
 		width: 100%;
 	}
-	
+
 	/* Skjult */
 	#cookiedk-banner.cookiedk-hidden {
 		display: none !important;
 	}
-	
+
 	/* =========================================================
 		Genkalds-ikon
 		========================================================= */
@@ -157,68 +157,68 @@
 		box-shadow: var(--cookiedk-shadow);
 		cursor: pointer;
 	}
-	
+
 	.cookiedk-reopen svg,
 	.cookiedk-reopen img {
 		display: block;
 		width: 1.75rem;
 		height: 1.75rem;
 	}
-	
+
 	.cookiedk-reopen:hover {
 		background: var(--cookiedk-secondary);
 	}
-	
+
 	.cookiedk-reopen:focus-visible {
 		outline: 3px solid var(--cookiedk-primary);
 		outline-offset: 2px;
 		background: var(--cookiedk-secondary);
 	}
-	
+
 	.cookiedk-reopen.cookiedk-hidden {
 		display: none;
 	}
-	
+
 	.cookiedk-reopen--top,
 	.cookiedk-reopen--top-left,
 	.cookiedk-reopen--top-right,
 	.cookiedk-reopen--center {
 		bottom: auto;
 	}
-	
+
 	.cookiedk-reopen--top-right,
 	.cookiedk-reopen--bottom-right,
 	.cookiedk-reopen--side {
 		left: auto;
 		right: 1rem;
 	}
-	
+
 	.cookiedk-reopen--top,
 	.cookiedk-reopen--bottom {
 		right: auto;
 		left: 50%;
 		transform: translateX(-50%);
 	}
-	
+
 	.cookiedk-reopen--top,
 	.cookiedk-reopen--top-left,
 	.cookiedk-reopen--top-right {
 		top: 1rem;
 	}
-	
+
 	.cookiedk-reopen--center {
 		top: 50%;
 		left: 50%;
 		right: auto;
 		transform: translate(-50%, -50%);
 	}
-	
+
 	body.admin-bar .cookiedk-reopen--top,
 	body.admin-bar .cookiedk-reopen--top-left,
 	body.admin-bar .cookiedk-reopen--top-right {
 		top: calc(1rem + 32px);
 	}
-	
+
 	/* =========================================================
 		Banner – layout
 		========================================================= */
@@ -230,33 +230,33 @@
 		flex-wrap: wrap;
 		flex-direction: column;
 	}
-	
+
 	.cookiedk-banner__content {
 		flex: 1 1;
 	}
-	
+
 	.cookiedk-banner__title {
 		font-size: 16px;
 		font-weight: 600;
 		margin: 0 0 6px;
 		color: var(--cookiedk-text);
 	}
-	
+
 	.cookiedk-banner__text {
 		margin: 0;
 		color: var(--cookiedk-text-muted);
 	}
-	
+
 	.cookiedk-banner__link {
 		color: var(--cookiedk-primary);
 		text-decoration: underline;
 	}
-	
+
 	.cookiedk-banner__link:hover,
 	.cookiedk-banner__link:focus {
 		color: var(--cookiedk-secondary);
 	}
-	
+
 	/* =========================================================
 		Knapper
 		========================================================= */
@@ -267,7 +267,7 @@
 		flex-wrap: wrap;
 		justify-content: flex-end;
 	}
-	
+
 	.cookiedk-btn {
 		display: inline-flex;
 		align-items: center;
@@ -285,32 +285,32 @@
 					color var(--cookiedk-transition);
 		white-space: nowrap;
 	}
-	
+
 	.cookiedk-btn--primary {
 		background-color: var(--cookiedk-primary);
 		border-color: var(--cookiedk-primary);
 		color: #ffffff;
 	}
-	
+
 	.cookiedk-btn--primary:hover,
 	.cookiedk-btn--primary:focus {
 		background-color: var(--cookiedk-secondary);
 		border-color: var(--cookiedk-secondary);
 		color: #ffffff;
 	}
-	
+
 	.cookiedk-btn--secondary {
 		background-color: transparent;
 		border-color: var(--cookiedk-border);
 		color: var(--cookiedk-text);
 	}
-	
+
 	.cookiedk-btn--secondary:hover,
 	.cookiedk-btn--secondary:focus {
 		border-color: var(--cookiedk-primary);
 		color: var(--cookiedk-primary);
 	}
-	
+
 	.cookiedk-btn--text {
 		background: none;
 		border-color: transparent;
@@ -318,13 +318,13 @@
 		padding-left: 0;
 		padding-right: 0;
 	}
-	
+
 	.cookiedk-btn--text:hover,
 	.cookiedk-btn--text:focus {
 		color: var(--cookiedk-secondary);
 		text-decoration: underline;
 	}
-	
+
 	/* =========================================================
 		Overlay
 		========================================================= */
@@ -335,11 +335,11 @@
 		z-index: var(--cookiedk-z-overlay);
 		background: var(--cookiedk-overlay);
 	}
-	
+
 	#cookiedk-overlay.cookiedk-overlay--active {
 		display: block;
 	}
-	
+
 	/* =========================================================
 		Indstillingspanel
 		========================================================= */
@@ -358,12 +358,12 @@
 		overflow-y: auto;
 		box-sizing: border-box;
 	}
-	
+
 	#cookiedk-settings-panel.cookiedk-panel--active {
 		display: flex;
 		flex-direction: column;
 	}
-	
+
 	.cookiedk-panel__header {
 		display: flex;
 		align-items: center;
@@ -375,14 +375,14 @@
 		background: var(--cookiedk-bg);
 		z-index: 1;
 	}
-	
+
 	.cookiedk-panel__title {
 		font-size: 18px;
 		font-weight: 600;
 		margin: 0;
 		color: var(--cookiedk-text);
 	}
-	
+
 	.cookiedk-panel__close {
 		background: none;
 		border: none;
@@ -394,23 +394,23 @@
 		border-radius: var(--cookiedk-radius-sm);
 		transition: color var(--cookiedk-transition);
 	}
-	
+
 	.cookiedk-panel__close:hover,
 	.cookiedk-panel__close:focus {
 		color: var(--cookiedk-text);
 	}
-	
+
 	.cookiedk-panel__body {
 		padding: 20px 24px;
 		flex: 1;
 	}
-	
+
 	.cookiedk-panel__intro {
 		margin: 0 0 20px;
 		color: var(--cookiedk-text-muted);
 		font-size: 14px;
 	}
-	
+
 	/* Kategori-blok */
 	.cookiedk-category {
 		border: 1px solid var(--cookiedk-border);
@@ -418,7 +418,7 @@
 		margin-bottom: 12px;
 		overflow: hidden;
 	}
-	
+
 	.cookiedk-category__header {
 		display: flex;
 		align-items: center;
@@ -426,11 +426,11 @@
 		background: #f6f7f7;
 		gap: 12px;
 	}
-	
+
 	.cookiedk-category__header:hover {
 		background: #f0f0f1;
 	}
-	
+
 	/* Toggle-switch */
 	.cookiedk-toggle {
 		position: relative;
@@ -439,14 +439,14 @@
 		height: 24px;
 		flex-shrink: 0;
 	}
-	
+
 	.cookiedk-toggle input {
 		opacity: 0;
 		width: 0;
 		height: 0;
 		position: absolute;
 	}
-	
+
 	.cookiedk-toggle__track {
 		position: absolute;
 		inset: 0;
@@ -455,7 +455,7 @@
 		transition: background var(--cookiedk-transition);
 		cursor: pointer;
 	}
-	
+
 	.cookiedk-toggle__track::after {
 		content: "";
 		position: absolute;
@@ -468,36 +468,36 @@
 		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 		transition: transform var(--cookiedk-transition);
 	}
-	
+
 	.cookiedk-toggle input:checked + .cookiedk-toggle__track {
 		background: var(--cookiedk-primary);
 	}
-	
+
 	.cookiedk-toggle input:checked + .cookiedk-toggle__track::after {
 		transform: translateX(20px);
 	}
-	
+
 	.cookiedk-toggle input:disabled + .cookiedk-toggle__track {
 		opacity: 0.6;
 		cursor: not-allowed;
 	}
-	
+
 	.cookiedk-category__label-group {
 		flex: 1;
 	}
-	
+
 	.cookiedk-category__name {
 		font-weight: 600;
 		font-size: 14px;
 		color: var(--cookiedk-text);
 		display: block;
 	}
-	
+
 	.cookiedk-category__count {
 		font-size: 12px;
 		color: var(--cookiedk-text-muted);
 	}
-	
+
 	.cookiedk-category__required-badge {
 		font-size: 11px;
 		font-weight: 500;
@@ -507,7 +507,7 @@
 		border-radius: 20px;
 		white-space: nowrap;
 	}
-	
+
 	.cookiedk-category__expander {
 		background: none;
 		border: none;
@@ -519,11 +519,11 @@
 		display: flex;
 		align-items: center;
 	}
-	
+
 	.cookiedk-category__expander[aria-expanded="true"] {
 		transform: rotate(180deg);
 	}
-	
+
 	/* Cookie-liste */
 	.cookiedk-cookie-list {
 		display: none;
@@ -532,21 +532,21 @@
 		list-style: none;
 		border-top: 1px solid var(--cookiedk-border);
 	}
-	
+
 	.cookiedk-cookie-list.cookiedk-expanded {
 		display: block;
 	}
-	
+
 	.cookiedk-cookie-list__item {
 		padding: 12px 16px;
 		border-bottom: 1px solid var(--cookiedk-border);
 		font-size: 13px;
 	}
-	
+
 	.cookiedk-cookie-list__item:last-child {
 		border-bottom: none;
 	}
-	
+
 	.cookiedk-cookie-list__name {
 		font-weight: 600;
 		color: var(--cookiedk-text);
@@ -556,29 +556,29 @@
 		padding: 2px 6px;
 		border-radius: 3px;
 	}
-	
+
 	.cookiedk-cookie-list__meta {
 		display: flex;
 		gap: 16px;
 		margin-top: 4px;
 		flex-wrap: wrap;
 	}
-	
+
 	.cookiedk-cookie-list__meta-item {
 		color: var(--cookiedk-text-muted);
 		font-size: 12px;
 	}
-	
+
 	.cookiedk-cookie-list__meta-item strong {
 		color: var(--cookiedk-text);
 	}
-	
+
 	.cookiedk-cookie-list__desc {
 		margin-top: 6px;
 		color: var(--cookiedk-text-muted);
 		line-height: 1.5;
 	}
-	
+
 	/* Panel-footer */
 	.cookiedk-panel__footer {
 		display: flex;
@@ -590,7 +590,7 @@
 		bottom: 0;
 		background: var(--cookiedk-bg);
 	}
-	
+
 	/* =========================================================
 		Tilgængelighed
 		========================================================= */
@@ -605,7 +605,7 @@
 		white-space: nowrap;
 		border-width: 0;
 	}
-	
+
 	/* =========================================================
 		Dark mode
 		========================================================= */
@@ -616,25 +616,25 @@
 			--cookiedk-text-muted: #a7aaad;
 			--cookiedk-border:     #3c434a;
 		}
-	
+
 		.cookiedk-category__header {
 			background: #2c3338;
 		}
-	
+
 		.cookiedk-category__header:hover {
 			background: #32373c;
 		}
-	
+
 		.cookiedk-cookie-list__name {
 			background: #2c3338;
 		}
-	
+
 		.cookiedk-category__required-badge {
 			background: #1a3a6b;
 			color: #93c5fd;
 		}
 	}
-	
+
 	/* =========================================================
 		Responsive
 		========================================================= */
@@ -644,11 +644,11 @@
 		body.admin-bar .cookiedk-reopen--top-right {
 			top: calc(1rem + 46px);
 		}
-	
+
 		#cookiedk-banner {
 			padding: 16px;
 		}
-	
+
 		/* Bund- og kort-positioner: 95% bredde, centreret, med luft til kanten */
 		#cookiedk-banner.cookiedk-position-bottom,
 		#cookiedk-banner.cookiedk-position-side,
@@ -671,40 +671,40 @@
 			width: 95%;
 			max-height: calc(100vh - 32px);
 		}
-	
+
 		.cookiedk-banner__inner {
 			flex-direction: column;
 			align-items: flex-start;
 			gap: 14px;
 		}
-	
+
 		.cookiedk-banner__actions {
 			width: 100%;
 		}
-	
+
 		.cookiedk-btn {
 			flex: 1;
 			justify-content: center;
 		}
-	
+
 		.cookiedk-panel__header,
 		.cookiedk-panel__body,
 		.cookiedk-panel__footer {
 			padding-left: 16px;
 			padding-right: 16px;
 		}
-	
+
 		.cookiedk-panel__footer {
 			flex-direction: column;
 		}
-	
+
 		.cookiedk-panel__footer .cookiedk-btn {
 			width: 100%;
 		}
 	}
-	
+
 	@media screen and (max-width: 480px) {
 		.cookiedk-banner__actions {
 			flex-direction: column;
 		}
-	}	
+	}
