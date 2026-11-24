@@ -11,6 +11,11 @@ og dette projekt følger [Semantisk Versionering](https://semver.org/lang/da/).
 
 ### Tilføjet
 
+#### Release-workflow
+- GitHub Action `Release` åbner en version-PR (`patch`/`minor`/`major`) i stedet for at committe direkte på `main`
+- Merge til `main` opretter git-tag og GitHub Release
+- Display-version synkroniseres i plugin-header, `COOKIEDK_VERSION`, `readme.txt` og README-badge. `COOKIEDK_DB_VERSION` bumper ikke automatisk
+
 #### Google Consent Mode v2
 - Tidligt head-script sætter `ad_storage`, `ad_user_data`, `ad_personalization` og `analytics_storage` til `denied`, før Google-tags kører
 - `analytics` opdaterer `analytics_storage`. `marketing` opdaterer `ad_storage`, `ad_user_data` og `ad_personalization`
@@ -240,5 +245,6 @@ og dette projekt følger [Semantisk Versionering](https://semver.org/lang/da/).
 
 ---
 
+[Unreleased]: https://github.com/WebJax/CookieDK/compare/v1.2.7...HEAD
 [1.0.0]: https://github.com/WebJax/CookieDK/releases/tag/v1.0.0
 [0.1.0]: https://github.com/WebJax/CookieDK/releases/tag/v0.1.0
