@@ -7,7 +7,7 @@ og dette projekt følger [Semantisk Versionering](https://semver.org/lang/da/).
 
 ---
 
-## [Unreleased]
+## [1.2.8] – 2026-11-24
 
 ### Tilføjet
 
