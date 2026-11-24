@@ -1,0 +1,146 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      bump:
+        description: Semver level to bump (display version only)
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+        default: patch
+  push:
+    branches: ["main"]
+    paths:
+      - cookiedk.php
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  prepare:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          ref: main
+          fetch-depth: 0
+          token: ${{ secrets.RELEASE_TOKEN || github.token }}
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+
+      - name: Configure git identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Bump display version
+        run: |
+          php scripts/bump-version.php --check
+          php scripts/bump-version.php "${{ github.event.inputs.bump }}"
+
+      - name: Open release pull request
+        env:
+          GH_TOKEN: ${{ secrets.RELEASE_TOKEN || github.token }}
+        run: |
+          set -euo pipefail
+          VERSION="$(php scripts/bump-version.php --current)"
+          BRANCH="release/v${VERSION}"
+          git checkout -b "${BRANCH}"
+          git add cookiedk.php readme.txt README.md CHANGELOG.md
+          git commit -m "chore: release v${VERSION}"
+          git push -u origin "${BRANCH}"
+          gh pr create \
+            --base main \
+            --head "${BRANCH}" \
+            --title "Release v${VERSION}" \
+            --body "$(printf '%s\n' \
+              "## Summary" \
+              "Automated release PR for **v${VERSION}** (\`${{ github.event.inputs.bump }}\` bump)." \
+              "" \
+              "Updates the plugin header, \`COOKIEDK_VERSION\`, \`readme.txt\` Stable tag, README badge, and moves \`CHANGELOG.md\` Unreleased notes into this version." \
+              "" \
+              "\`COOKIEDK_DB_VERSION\` is left unchanged." \
+              "" \
+              "## After merge" \
+              "- This workflow tags \`v${VERSION}\` and publishes a GitHub Release." \
+              "- Fetch \`main\` in Cursor so the bump commit is local: \`git fetch origin && git checkout main && git pull\`." \
+              "- Feature PRs should not bump the version; use this workflow instead.")"
+
+  publish:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+
+      - name: Tag and publish GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          if ! git rev-parse --verify HEAD^1 >/dev/null 2>&1; then
+            echo "No parent commit; skipping publish."
+            exit 0
+          fi
+          if ! git cat-file -e "HEAD^1:cookiedk.php" 2>/dev/null; then
+            echo "Parent commit has no cookiedk.php; skipping publish."
+            exit 0
+          fi
+
+          NEW_VERSION="$(php scripts/bump-version.php --current)"
+          OLD_VERSION="$(git show HEAD^1:cookiedk.php | php scripts/bump-version.php --current --stdin)"
+
+          if [ "${NEW_VERSION}" = "${OLD_VERSION}" ]; then
+            echo "COOKIEDK_VERSION is still ${NEW_VERSION}; not a release commit."
+            exit 0
+          fi
+
+          TAG="v${NEW_VERSION}"
+          if git ls-remote --exit-code origin "refs/tags/${TAG}" >/dev/null 2>&1; then
+            echo "Tag ${TAG} already exists on origin; skipping publish."
+            exit 0
+          fi
+          if git rev-parse --verify "refs/tags/${TAG}" >/dev/null 2>&1; then
+            echo "Tag ${TAG} already exists locally; skipping publish."
+            exit 0
+          fi
+
+          php scripts/bump-version.php --notes "${NEW_VERSION}" > "${RUNNER_TEMP}/release-notes.md"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag -a "${TAG}" -m "CookieDK ${TAG}"
+          git push origin "${TAG}"
+
+          ARCHIVE="${RUNNER_TEMP}/cookiedk-${NEW_VERSION}.zip"
+          git archive --format=zip --prefix=CookieDK/ -o "${ARCHIVE}" HEAD \
+            cookiedk.php uninstall.php readme.txt LICENSE README.md CHANGELOG.md \
+            includes admin public languages database cookie.svg cookie-white.svg
+
+          gh release create "${TAG}" \
+            --title "CookieDK ${TAG}" \
+            --notes-file "${RUNNER_TEMP}/release-notes.md" \
+            "${ARCHIVE}"

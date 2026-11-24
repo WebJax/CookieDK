@@ -27,7 +27,9 @@
     "phpstan": "phpstan analyse --configuration=.phpstan.neon",
     "phpcs": "phpcs --standard=WordPress ./cookiedk.php ./includes ./admin ./public",
     "phpcbf": "phpcbf --standard=WordPress ./cookiedk.php ./includes ./admin ./public",
-    "lint": "find . -type f -name '*.php' -not -path './vendor/*' -print0 | xargs -0 -n1 php -l"
+    "lint": "find . -type f -name '*.php' -not -path './vendor/*' -print0 | xargs -0 -n1 php -l",
+    "release:check": "php scripts/bump-version.php --check",
+    "release:bump": "php scripts/bump-version.php"
   },
   "config": {
     "allow-plugins": {
