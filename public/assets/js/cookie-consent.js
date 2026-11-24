@@ -139,8 +139,8 @@
 	/**
 	 * Sender samtykket til Google Consent Mode v2.
 	 *
-	 * analytics → analytics_storage.
-	 * marketing → ad_storage, ad_user_data og ad_personalization.
+	 * Analytics → analytics_storage.
+	 * Marketing → ad_storage, ad_user_data og ad_personalization.
 	 * Samme mapping ligger i det tidlige head-script.
 	 *
 	 * @param {Object} consent Samtykke-objekt.

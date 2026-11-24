@@ -72,6 +72,10 @@ og dette projekt følger [Semantisk Versionering](https://semver.org/lang/da/).
 - `includes/class-gdpr-compliance.php`: Tilføjet `$exporter`- og `$valid_categories`-properties
 - `README.md`: Opdateret mappestruktur, funktionsliste, GDPR-integration og i18n-sektioner
 
+### Rettet
+- Mobilvisning af cookie-banneret: standard-position `bottom` beholdt desktop-bredden `33%` under 782px, så modalen blev en smal stribe. Bund- og kort-positioner plus indstillingspanelet bruger nu `width: 95%` på mobil.
+- Overlay bag indstillingspanelet lå under banneret (`z-index` 99980 vs. 99990), så banner-knapperne stak frem under modalen på mobil. Overlay er nu over banneret.
+
 #### Fase 4 – Banner & Brugergrænsefladen
 - Oprettet `public/class-frontend.php` med:
   - Registrering af banner-scripts og styles via `wp_enqueue_scripts`
