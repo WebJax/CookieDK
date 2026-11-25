@@ -309,6 +309,140 @@
 
 	$( document ).on(
 		'click',
+		'#cookiedk-sync-catalog',
+		function ( e ) {
+			e.preventDefault();
+			var $btn = $( this );
+			$btn.prop( 'disabled', true );
+
+			$.post(
+				data.ajaxUrl,
+				{
+					action: 'cookiedk_sync_catalog',
+					nonce:  data.nonce,
+				}
+			)
+			.done(
+				function ( response ) {
+					if ( response.success ) {
+						showNotice( response.data.message, 'success' );
+						setTimeout(
+							function () {
+								window.location.reload();
+							},
+							1200
+						);
+					} else {
+						showNotice( ( response.data && response.data.message ) || data.i18n.error, 'error' );
+						$btn.prop( 'disabled', false );
+					}
+				}
+			)
+			.fail(
+				function () {
+					showNotice( data.i18n.error, 'error' );
+					$btn.prop( 'disabled', false );
+				}
+			);
+		}
+	);
+
+	$( document ).on(
+		'click',
+		'.cookiedk-describe-cookie',
+		function ( e ) {
+			e.preventDefault();
+			var $btn = $( this );
+			$btn.prop( 'disabled', true ).text( data.i18n.loading );
+
+			$.post(
+				data.ajaxUrl,
+				{
+					action: 'cookiedk_describe_cookie',
+					nonce:  data.nonce,
+					id:     $btn.data( 'id' ),
+					name:   $btn.data( 'name' ),
+				}
+			)
+			.done(
+				function ( response ) {
+					if ( response.success ) {
+						showNotice( response.data.message, 'success' );
+						setTimeout(
+							function () {
+								window.location.reload();
+							},
+							1200
+						);
+					} else {
+						showNotice( ( response.data && response.data.message ) || data.i18n.error, 'error' );
+						$btn.prop( 'disabled', false ).text( data.i18n.generate_ai || 'Generér med AI' );
+					}
+				}
+			)
+			.fail(
+				function () {
+					showNotice( data.i18n.error, 'error' );
+					$btn.prop( 'disabled', false ).text( data.i18n.generate_ai || 'Generér med AI' );
+				}
+			);
+		}
+	);
+
+	$( document ).on(
+		'change',
+		'#cookiedk-origin-filter',
+		function () {
+			var origin = $( this ).val();
+			var url    = new URL( window.location.href );
+			if ( origin ) {
+				url.searchParams.set( 'origin', origin );
+			} else {
+				url.searchParams.delete( 'origin' );
+			}
+			window.location.href = url.toString();
+		}
+	);
+
+	$( document ).on(
+		'click',
+		'#cookiedk-export-catalog-cookies',
+		function ( e ) {
+			e.preventDefault();
+
+			$.post(
+				data.ajaxUrl,
+				{
+					action: 'cookiedk_export_catalog_cookies',
+					nonce:  data.nonce,
+				}
+			)
+			.done(
+				function ( response ) {
+					if ( response.success ) {
+						var json   = JSON.stringify( response.data.cookies, null, 2 );
+						var blob   = new Blob( [ json ], { type: 'application/json' } );
+						var url    = URL.createObjectURL( blob );
+						var a      = document.createElement( 'a' );
+						a.href     = url;
+						a.download = 'cookiedk-catalog-' + new Date().toISOString().slice( 0, 10 ) + '.json';
+						a.click();
+						URL.revokeObjectURL( url );
+					} else {
+						showNotice( data.i18n.error, 'error' );
+					}
+				}
+			)
+			.fail(
+				function () {
+					showNotice( data.i18n.error, 'error' );
+				}
+			);
+		}
+	);
+
+	$( document ).on(
+		'click',
 		'#cookiedk-export-cookies',
 		function ( e ) {
 			e.preventDefault();

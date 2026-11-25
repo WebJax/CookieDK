@@ -25,9 +25,36 @@ if ( isset( $_POST['cookiedk_cookie_nonce'] ) ) {
 
 settings_errors( 'cookiedk_cookies' );
 
-$storage    = $this->get_storage();
-$cookies    = $storage->get_all_cookies();
-$categories = CookieDK_Cookie_Detector::get_categories();
+$storage       = $this->get_storage();
+$cookies       = $storage->get_all_cookies();
+$categories    = CookieDK_Cookie_Detector::get_categories();
+$origin_filter = isset( $_GET['origin'] ) ? sanitize_key( wp_unslash( $_GET['origin'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+$origin_labels = array(
+	'catalog'  => __( 'Katalog', 'cookiedk' ),
+	'wildcard' => __( 'Katalog', 'cookiedk' ),
+	'ai'       => __( 'AI', 'cookiedk' ),
+	'manual'   => __( 'Manuel', 'cookiedk' ),
+	'unknown'  => __( 'Ukendt', 'cookiedk' ),
+);
+$sync          = new CookieDK_Catalog_Sync();
+$meta          = $sync->get_meta();
+$describer     = new CookieDK_Cookie_Describer();
+$ai_ready      = $describer->is_ai_available();
+
+if ( '' !== $origin_filter ) {
+	$cookies = array_values(
+		array_filter(
+			$cookies,
+			static function ( $cookie ) use ( $origin_filter ) {
+				$origin = isset( $cookie->origin ) ? (string) $cookie->origin : 'unknown';
+				if ( 'catalog' === $origin_filter ) {
+					return in_array( $origin, array( 'catalog', 'wildcard' ), true );
+				}
+				return $origin === $origin_filter;
+			}
+		)
+	);
+}
 ?>
 
 <div class="cookiedk-notice"></div>
@@ -38,10 +65,62 @@ $categories = CookieDK_Cookie_Detector::get_categories();
 	<button type="button" class="button button-primary" id="cookiedk-add-cookie-btn">
 		<?php esc_html_e( '+ Tilføj cookie', 'cookiedk' ); ?>
 	</button>
+	<button type="button" class="button" id="cookiedk-sync-catalog">
+		<?php esc_html_e( 'Opdater katalog nu', 'cookiedk' ); ?>
+	</button>
 	<button type="button" class="button" id="cookiedk-export-cookies">
 		<?php esc_html_e( 'Eksportér cookies (JSON)', 'cookiedk' ); ?>
 	</button>
+	<button type="button" class="button" id="cookiedk-export-catalog-cookies">
+		<?php esc_html_e( 'Eksportér lokale cookies (katalog-format)', 'cookiedk' ); ?>
+	</button>
 </div>
+
+<p class="description" id="cookiedk-catalog-sync-status">
+	<?php if ( ! empty( $meta['synced_at'] ) ) : ?>
+		<?php
+		echo esc_html(
+			sprintf(
+				/* translators: %s: Datetime. */
+				__( 'Sidste katalog-sync: %s', 'cookiedk' ),
+				$meta['synced_at']
+			)
+		);
+		?>
+	<?php else : ?>
+		<?php esc_html_e( 'Kataloget er endnu ikke synkroniseret fra GitHub. Bundled JSON bruges indtil første sync.', 'cookiedk' ); ?>
+	<?php endif; ?>
+	<?php if ( ! empty( $meta['last_error'] ) ) : ?>
+		<br><span class="cookiedk-sync-error"><?php echo esc_html( $meta['last_error'] ); ?></span>
+	<?php endif; ?>
+	<?php if ( ! empty( $meta['last_push_at'] ) ) : ?>
+		<br>
+		<?php
+		echo esc_html(
+			sprintf(
+				/* translators: 1: Cookie name, 2: Datetime. */
+				__( 'Sidste GitHub-push: %1$s (%2$s)', 'cookiedk' ),
+				$meta['last_push_cookie'],
+				$meta['last_push_at']
+			)
+		);
+		?>
+	<?php endif; ?>
+	<?php if ( ! empty( $meta['last_push_error'] ) ) : ?>
+		<br><span class="cookiedk-sync-error"><?php echo esc_html( $meta['last_push_error'] ); ?></span>
+	<?php endif; ?>
+</p>
+
+<p>
+	<label for="cookiedk-origin-filter"><?php esc_html_e( 'Vis', 'cookiedk' ); ?></label>
+	<select id="cookiedk-origin-filter">
+		<option value=""><?php esc_html_e( 'Alle cookies', 'cookiedk' ); ?></option>
+		<option value="unknown" <?php selected( $origin_filter, 'unknown' ); ?>><?php esc_html_e( 'Ukendte', 'cookiedk' ); ?></option>
+		<option value="ai" <?php selected( $origin_filter, 'ai' ); ?>><?php esc_html_e( 'AI-genererede', 'cookiedk' ); ?></option>
+		<option value="catalog" <?php selected( $origin_filter, 'catalog' ); ?>><?php esc_html_e( 'Katalog', 'cookiedk' ); ?></option>
+		<option value="manual" <?php selected( $origin_filter, 'manual' ); ?>><?php esc_html_e( 'Manuelle', 'cookiedk' ); ?></option>
+	</select>
+</p>
 
 <div class="cookiedk-table-wrap">
 	<table class="cookiedk-table" id="cookiedk-cookies-table">
@@ -52,18 +131,23 @@ $categories = CookieDK_Cookie_Detector::get_categories();
 				<th><?php esc_html_e( 'Udbyder', 'cookiedk' ); ?></th>
 				<th><?php esc_html_e( 'Varighed', 'cookiedk' ); ?></th>
 				<th><?php esc_html_e( 'Beskrivelse', 'cookiedk' ); ?></th>
+				<th><?php esc_html_e( 'Kilde', 'cookiedk' ); ?></th>
 				<th><?php esc_html_e( 'Handlinger', 'cookiedk' ); ?></th>
 			</tr>
 		</thead>
 		<tbody>
 			<?php if ( empty( $cookies ) ) : ?>
 				<tr>
-					<td colspan="6">
+					<td colspan="7">
 						<em><?php esc_html_e( 'Ingen cookies detekteret endnu. Besøg hjemmesiden for at starte detektion.', 'cookiedk' ); ?></em>
 					</td>
 				</tr>
 			<?php else : ?>
 				<?php foreach ( $cookies as $cookie ) : ?>
+					<?php
+					$origin       = isset( $cookie->origin ) ? (string) $cookie->origin : 'unknown';
+					$origin_label = isset( $origin_labels[ $origin ] ) ? $origin_labels[ $origin ] : $origin_labels['unknown'];
+					?>
 					<tr id="cookiedk-cookie-<?php echo esc_attr( $cookie->id ); ?>">
 						<td><code><?php echo esc_html( $cookie->name ); ?></code></td>
 						<td>
@@ -74,6 +158,11 @@ $categories = CookieDK_Cookie_Detector::get_categories();
 						<td><?php echo esc_html( $cookie->provider ); ?></td>
 						<td><?php echo esc_html( $cookie->duration ); ?></td>
 						<td><?php echo esc_html( wp_trim_words( $cookie->description_da, 10 ) ); ?></td>
+						<td>
+							<span class="cookiedk-badge cookiedk-badge--origin-<?php echo esc_attr( $origin ); ?>">
+								<?php echo esc_html( $origin_label ); ?>
+							</span>
+						</td>
 						<td class="cookiedk-table__actions">
 							<button
 								type="button"
@@ -86,6 +175,16 @@ $categories = CookieDK_Cookie_Detector::get_categories();
 							>
 					<?php esc_html_e( 'Rediger', 'cookiedk' ); ?>
 							</button>
+							<?php if ( 'unknown' === $origin && $ai_ready ) : ?>
+								<button
+									type="button"
+									class="button button-small cookiedk-describe-cookie"
+									data-id="<?php echo esc_attr( $cookie->id ); ?>"
+									data-name="<?php echo esc_attr( $cookie->name ); ?>"
+								>
+									<?php esc_html_e( 'Generér med AI', 'cookiedk' ); ?>
+								</button>
+							<?php endif; ?>
 							<button
 								type="button"
 								class="button button-small cookiedk-delete-cookie"

@@ -12,6 +12,8 @@
 ## 🍪 Funktioner
 
 - **Auto-detektion** – Finder og klassificerer cookies automatisk (server-side og client-side)
+- **Katalog-sync** – Henter opdaterede cookie-beskrivelser fra GitHub uden ny plugin-version
+- **AI-beskrivelser** – Ukendte cookies beskrives med WordPress AI Client og pushes til GitHub-kataloget
 - **Dansk** – Alle tekster og cookie-beskrivelser på dansk (i18n-klar)
 - **GDPR-compliant** – Overholder EU's GDPR og den danske cookielovgivning
 - **Kategorier** – Nødvendige, Funktionelle, Analyser og Marketing
@@ -108,6 +110,8 @@ cookiedk/
 ├── PROJEKTPLAN.md                      # Projektplan
 ├── includes/
 │   ├── class-cookie-detector.php       # Cookie-detektion
+│   ├── class-cookiedk-catalog-sync.php # GitHub-katalog sync/push
+│   ├── class-cookiedk-cookie-describer.php # WP AI-beskrivelser
 │   ├── class-cookie-storage.php        # Database-lagring & CRUD
 │   ├── class-gdpr-compliance.php       # GDPR-overholdelse & AJAX-endpoints
 │   ├── class-consent-export.php        # DSAR data-export (Fase 6)

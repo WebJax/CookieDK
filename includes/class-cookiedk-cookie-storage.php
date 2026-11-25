@@ -51,6 +51,13 @@ class CookieDK_Cookie_Storage {
 	private $valid_sources = array( 'server', 'client', 'manual' );
 
 	/**
+	 * Gyldige katalog-oprindelser.
+	 *
+	 * @var array
+	 */
+	private $valid_origins = array( 'catalog', 'wildcard', 'ai', 'manual', 'unknown' );
+
+	/**
 	 * Konstruktør – sætter tabelnavne.
 	 */
 	public function __construct() {
@@ -84,6 +91,8 @@ class CookieDK_Cookie_Storage {
 			last_updated DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
 			enabled TINYINT(1) NOT NULL DEFAULT 1,
 			wp_option_name VARCHAR(255) DEFAULT NULL,
+			origin VARCHAR(20) NOT NULL DEFAULT 'unknown',
+			locked TINYINT(1) NOT NULL DEFAULT 0,
 			PRIMARY KEY (id),
 			UNIQUE KEY name (name)
 		) $charset_collate;";
@@ -126,7 +135,34 @@ class CookieDK_Cookie_Storage {
 		$now = current_time( 'mysql' );
 
 		if ( $existing ) {
-			// Opdater eksisterende cookie.
+			$locked          = ! empty( $existing->locked );
+			$existing_origin = isset( $existing->origin ) ? (string) $existing->origin : 'unknown';
+			$incoming_origin = $sanitized['origin'];
+
+			if ( $locked ) {
+				$result = $wpdb->update( // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+					$this->cookies_table,
+					array( 'last_updated' => $now ),
+					array( 'id' => $existing->id ),
+					array( '%s' ),
+					array( '%d' )
+				);
+
+				return false === $result ? false : (int) $existing->id;
+			}
+
+			if ( 'unknown' === $incoming_origin && in_array( $existing_origin, array( 'catalog', 'wildcard', 'ai', 'manual' ), true ) ) {
+				$result = $wpdb->update( // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+					$this->cookies_table,
+					array( 'last_updated' => $now ),
+					array( 'id' => $existing->id ),
+					array( '%s' ),
+					array( '%d' )
+				);
+
+				return false === $result ? false : (int) $existing->id;
+			}
+
 			$result = $wpdb->update( // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 				$this->cookies_table,
 				array(
@@ -136,10 +172,12 @@ class CookieDK_Cookie_Storage {
 					'provider'       => $sanitized['provider'],
 					'source'         => $sanitized['source'],
 					'necessary'      => $sanitized['necessary'],
+					'origin'         => $sanitized['origin'],
+					'locked'         => $sanitized['locked'],
 					'last_updated'   => $now,
 				),
 				array( 'id' => $existing->id ),
-				array( '%s', '%s', '%s', '%s', '%s', '%d', '%s' ),
+				array( '%s', '%s', '%s', '%s', '%s', '%d', '%s', '%d', '%s' ),
 				array( '%d' )
 			);
 
@@ -164,8 +202,10 @@ class CookieDK_Cookie_Storage {
 				'detected_at'    => $now,
 				'last_updated'   => $now,
 				'enabled'        => 1,
+				'origin'         => $sanitized['origin'],
+				'locked'         => $sanitized['locked'],
 			),
-			array( '%s', '%s', '%s', '%s', '%s', '%s', '%d', '%s', '%s', '%d' )
+			array( '%s', '%s', '%s', '%s', '%s', '%s', '%d', '%s', '%s', '%d', '%s', '%d' )
 		);
 
 		if ( false === $result ) {
@@ -249,10 +289,26 @@ class CookieDK_Cookie_Storage {
 	public function update_cookie( $id, array $cookie_data ) {
 		global $wpdb;
 
-		$id        = absint( $id );
+		$id = absint( $id );
+		if ( ! $id ) {
+			return false;
+		}
+
+		$existing = $this->get_cookie_by_id( $id );
+		if ( ! $existing ) {
+			return false;
+		}
+
+		if ( empty( $cookie_data['name'] ) ) {
+			$cookie_data['name'] = $existing->name;
+		}
+		if ( ! isset( $cookie_data['necessary'] ) && isset( $existing->necessary ) ) {
+			$cookie_data['necessary'] = $existing->necessary;
+		}
+
 		$sanitized = $this->sanitize_cookie_data( $cookie_data );
 
-		if ( false === $sanitized || ! $id ) {
+		if ( false === $sanitized ) {
 			return false;
 		}
 
@@ -263,10 +319,13 @@ class CookieDK_Cookie_Storage {
 				'description_da' => $sanitized['description_da'],
 				'duration'       => $sanitized['duration'],
 				'provider'       => $sanitized['provider'],
+				'necessary'      => $sanitized['necessary'],
+				'origin'         => 'manual',
+				'locked'         => 1,
 				'last_updated'   => current_time( 'mysql' ),
 			),
 			array( 'id' => $id ),
-			array( '%s', '%s', '%s', '%s', '%s' ),
+			array( '%s', '%s', '%s', '%s', '%d', '%s', '%d', '%s' ),
 			array( '%d' )
 		);
 
@@ -436,6 +495,14 @@ class CookieDK_Cookie_Storage {
 			$source = 'server';
 		}
 
+		$origin = isset( $data['origin'] ) ? sanitize_key( (string) $data['origin'] ) : 'unknown';
+		if ( ! in_array( $origin, $this->valid_origins, true ) ) {
+			$origin = 'unknown';
+		}
+		if ( 'manual' === $source ) {
+			$origin = 'manual';
+		}
+
 		return array(
 			'name'           => sanitize_text_field( $data['name'] ),
 			'category'       => $category,
@@ -444,6 +511,39 @@ class CookieDK_Cookie_Storage {
 			'provider'       => isset( $data['provider'] ) ? sanitize_text_field( $data['provider'] ) : '',
 			'source'         => $source,
 			'necessary'      => ! empty( $data['necessary'] ) ? 1 : 0,
+			'origin'         => $origin,
+			'locked'         => ! empty( $data['locked'] ) || 'manual' === $source ? 1 : 0,
+		);
+	}
+
+	/**
+	 * Udfylder origin for rækker oprettet før schema 1.1.0.
+	 *
+	 * @return void
+	 */
+	public function backfill_origin() {
+		global $wpdb;
+
+		$unknown_label = __( 'Ukendt udbyder', 'cookiedk' );
+		$placeholder   = __( 'Formålet med denne cookie er ikke identificeret.', 'cookiedk' );
+
+		$wpdb->query( // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+			$wpdb->prepare(
+				"UPDATE {$this->cookies_table} SET origin = 'manual', locked = 1 WHERE source = %s", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+				'manual'
+			)
+		);
+
+		$wpdb->query( // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+			$wpdb->prepare(
+				"UPDATE {$this->cookies_table} SET origin = 'unknown' WHERE locked = 0 AND (provider = %s OR description_da LIKE %s)", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+				$unknown_label,
+				'%' . $wpdb->esc_like( $placeholder ) . '%'
+			)
+		);
+
+		$wpdb->query( // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+			"UPDATE {$this->cookies_table} SET origin = 'catalog' WHERE origin = 'unknown' AND locked = 0 AND provider <> '' AND provider IS NOT NULL AND description_da NOT LIKE '%ikke identificeret%'" // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 		);
 	}
 

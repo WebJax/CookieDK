@@ -5,6 +5,8 @@
             <file>test-cookie-database.php</file>
             <file>test-cookie-detector.php</file>
             <file>test-cookie-storage.php</file>
+            <file>test-catalog-sync.php</file>
+            <file>test-cookie-describer.php</file>
             <file>test-gdpr-compliance.php</file>
             <file>test-frontend.php</file>
             <file>test-admin.php</file>

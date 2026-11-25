@@ -6,6 +6,7 @@ final class CookieDKCookieDatabaseTest extends TestCase
 {
     protected function setUp(): void
     {
+        $GLOBALS['__cookiedk_options'] = array();
         CookieDK_Cookie_Database::reset_cache();
     }
 
@@ -50,6 +51,27 @@ final class CookieDKCookieDatabaseTest extends TestCase
         $this->assertTrue($cookies['wordpress_test_cookie']['necessary']);
         $this->assertSame('marketing', $cookies['_fbp']['category']);
         $this->assertSame('Meta', $cookies['_fbp']['provider']);
+    }
+
+    public function test_overlay_cookie_overrides_catalog(): void
+    {
+        CookieDK_Cookie_Database::save_overlay_entry(
+            '_ga',
+            array(
+                'name'           => '_ga',
+                'pattern'        => '_ga',
+                'match_type'     => 'exact',
+                'category'       => 'marketing',
+                'provider_id'    => 'google',
+                'description_da' => 'Overlay',
+                'essential'      => false,
+            )
+        );
+
+        $database = new CookieDK_Cookie_Database();
+        $cookies  = $database->get_known_cookies();
+        $this->assertSame('marketing', $cookies['_ga']['category']);
+        $this->assertSame('Overlay', $cookies['_ga']['description_da']);
     }
 
     public function test_get_provider_returns_vendor_metadata(): void

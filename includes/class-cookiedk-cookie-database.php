@@ -49,6 +49,13 @@ class CookieDK_Cookie_Database {
 	private static $providers = null;
 
 	/**
+	 * Option-nøgle for lokale overlay-cookies.
+	 *
+	 * @var string
+	 */
+	const OVERLAY_OPTION = 'cookiedk_local_cookies';
+
+	/**
 	 * Nulstiller intern cache (bruges i tests).
 	 *
 	 * @return void
@@ -119,43 +126,98 @@ class CookieDK_Cookie_Database {
 		$providers = $this->get_providers();
 		$mapped    = array();
 
-		if ( ! is_array( $decoded ) ) {
-			self::$known_cookies = array();
-			return self::$known_cookies;
+		if ( is_array( $decoded ) ) {
+			foreach ( $decoded as $key => $entry ) {
+				$formatted = $this->format_cookie_entry( (string) $key, $entry, $providers );
+				if ( null !== $formatted ) {
+					$mapped[ (string) $key ] = $formatted;
+				}
+			}
 		}
 
-		foreach ( $decoded as $key => $entry ) {
-			if ( ! is_array( $entry ) ) {
-				continue;
+		foreach ( self::get_overlay() as $key => $entry ) {
+			$formatted = $this->format_cookie_entry( (string) $key, $entry, $providers );
+			if ( null !== $formatted ) {
+				$mapped[ (string) $key ] = $formatted;
 			}
-
-			$key         = (string) $key;
-			$provider_id = isset( $entry['provider_id'] ) ? sanitize_key( (string) $entry['provider_id'] ) : '';
-			$provider    = isset( $providers[ $provider_id ]['name'] ) ? (string) $providers[ $provider_id ]['name'] : $provider_id;
-			$essential   = ! empty( $entry['essential'] );
-			$match_type  = isset( $entry['match_type'] ) && 'wildcard' === $entry['match_type'] ? 'wildcard' : 'exact';
-
-			$mapped[ $key ] = array(
-				'name'           => isset( $entry['name'] ) ? (string) $entry['name'] : $key,
-				'pattern'        => isset( $entry['pattern'] ) ? (string) $entry['pattern'] : $key,
-				'match_type'     => $match_type,
-				'category'       => self::map_category( isset( $entry['category'] ) ? (string) $entry['category'] : '' ),
-				'provider'       => $provider,
-				'provider_id'    => $provider_id,
-				'purpose'        => isset( $entry['purpose'] ) ? (string) $entry['purpose'] : '',
-				'description_da' => isset( $entry['description_da'] ) ? (string) $entry['description_da'] : '',
-				'description_en' => isset( $entry['description_en'] ) ? (string) $entry['description_en'] : '',
-				'duration'       => isset( $entry['duration'] ) ? (string) $entry['duration'] : '',
-				'first_party'    => ! empty( $entry['first_party'] ),
-				'essential'      => $essential,
-				'necessary'      => $essential,
-				'tags'           => isset( $entry['tags'] ) && is_array( $entry['tags'] ) ? $entry['tags'] : array(),
-			);
 		}
 
 		self::$known_cookies = $mapped;
 
 		return self::$known_cookies;
+	}
+
+	/**
+	 * Returnerer lokale overlay-cookies i cookies.json-skema.
+	 *
+	 * @return array<string, array>
+	 */
+	public static function get_overlay() {
+		$stored = get_option( self::OVERLAY_OPTION, array() );
+		if ( ! is_array( $stored ) ) {
+			return array();
+		}
+
+		$filtered = apply_filters( 'cookiedk_local_cookies', $stored );
+		return is_array( $filtered ) ? $filtered : $stored;
+	}
+
+	/**
+	 * Gemmer eller opdaterer én overlay-post.
+	 *
+	 * @param string $key   Cookie-nøgle.
+	 * @param array  $entry cookies.json-post.
+	 * @return void
+	 */
+	public static function save_overlay_entry( $key, array $entry ) {
+		$key = (string) $key;
+		if ( '' === $key ) {
+			return;
+		}
+
+		$overlay = get_option( self::OVERLAY_OPTION, array() );
+		if ( ! is_array( $overlay ) ) {
+			$overlay = array();
+		}
+		$overlay[ $key ] = $entry;
+		update_option( self::OVERLAY_OPTION, $overlay );
+		self::reset_cache();
+	}
+
+	/**
+	 * Mapper en rå JSON-post til detektorens format.
+	 *
+	 * @param string $key       Cookie-nøgle.
+	 * @param mixed  $entry     Rå post.
+	 * @param array  $providers Udbydere.
+	 * @return array<string, mixed>|null
+	 */
+	private function format_cookie_entry( $key, $entry, array $providers ) {
+		if ( ! is_array( $entry ) ) {
+			return null;
+		}
+
+		$provider_id = isset( $entry['provider_id'] ) ? sanitize_key( (string) $entry['provider_id'] ) : '';
+		$provider    = isset( $providers[ $provider_id ]['name'] ) ? (string) $providers[ $provider_id ]['name'] : $provider_id;
+		$essential   = ! empty( $entry['essential'] );
+		$match_type  = isset( $entry['match_type'] ) && 'wildcard' === $entry['match_type'] ? 'wildcard' : 'exact';
+
+		return array(
+			'name'           => isset( $entry['name'] ) ? (string) $entry['name'] : $key,
+			'pattern'        => isset( $entry['pattern'] ) ? (string) $entry['pattern'] : $key,
+			'match_type'     => $match_type,
+			'category'       => self::map_category( isset( $entry['category'] ) ? (string) $entry['category'] : '' ),
+			'provider'       => $provider,
+			'provider_id'    => $provider_id,
+			'purpose'        => isset( $entry['purpose'] ) ? (string) $entry['purpose'] : '',
+			'description_da' => isset( $entry['description_da'] ) ? (string) $entry['description_da'] : '',
+			'description_en' => isset( $entry['description_en'] ) ? (string) $entry['description_en'] : '',
+			'duration'       => isset( $entry['duration'] ) ? (string) $entry['duration'] : '',
+			'first_party'    => ! empty( $entry['first_party'] ),
+			'essential'      => $essential,
+			'necessary'      => $essential,
+			'tags'           => isset( $entry['tags'] ) && is_array( $entry['tags'] ) ? $entry['tags'] : array(),
+		);
 	}
 
 	/**
@@ -170,9 +232,8 @@ class CookieDK_Cookie_Database {
 			return null;
 		}
 
-		$path = COOKIEDK_PLUGIN_DIR . 'database/' . $filename;
-
-		if ( ! is_readable( $path ) ) {
+		$path = $this->resolve_json_path( $filename );
+		if ( '' === $path ) {
 			return null;
 		}
 
@@ -188,5 +249,24 @@ class CookieDK_Cookie_Database {
 		}
 
 		return $decoded;
+	}
+
+	/**
+	 * Foretrækker synket snapshot, ellers bundled JSON.
+	 *
+	 * @param string $filename Filnavn.
+	 * @return string
+	 */
+	private function resolve_json_path( $filename ) {
+		if ( class_exists( 'CookieDK_Catalog_Sync' ) ) {
+			$sync = new CookieDK_Catalog_Sync();
+			$path = $sync->get_snapshot_path( $filename );
+			if ( '' !== $path ) {
+				return $path;
+			}
+		}
+
+		$bundled = COOKIEDK_PLUGIN_DIR . 'database/' . $filename;
+		return is_readable( $bundled ) ? $bundled : '';
 	}
 }

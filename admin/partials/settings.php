@@ -314,6 +314,107 @@ $settings = $this->get_settings();
 			</td>
 		</tr>
 
+		<!-- Katalog-sync -->
+		<tr>
+			<th scope="row"><?php esc_html_e( 'Cookie-katalog', 'cookiedk' ); ?></th>
+			<td>
+				<label>
+					<input
+						type="checkbox"
+						name="catalog_auto_sync"
+						value="1"
+						<?php checked( $settings['catalog_auto_sync'] ); ?>
+					>
+					<?php esc_html_e( 'Hent automatisk cookies.json og providers.json fra GitHub hver dag', 'cookiedk' ); ?>
+				</label>
+				<p class="description"><?php esc_html_e( 'Bruger bundled JSON som fallback, hvis sync fejler. Snapshot gemmes i uploads/cookiedk/.', 'cookiedk' ); ?></p>
+			</td>
+		</tr>
+
+		<tr>
+			<th scope="row"><?php esc_html_e( 'AI-beskrivelser', 'cookiedk' ); ?></th>
+			<td>
+				<label>
+					<input
+						type="checkbox"
+						name="ai_descriptions"
+						value="1"
+						<?php checked( $settings['ai_descriptions'] ); ?>
+					>
+					<?php esc_html_e( 'Brug WordPress AI Client til ukendte cookies og push resultatet til GitHub', 'cookiedk' ); ?>
+				</label>
+				<p class="description">
+					<?php esc_html_e( 'Kræver WordPress 7.0+ med en konfigureret AI-connector (Indstillinger → Connectors). AI-tekster er estimater og bør tjekkes.', 'cookiedk' ); ?>
+				</p>
+			</td>
+		</tr>
+
+		<tr>
+			<th scope="row">
+				<label for="ai_daily_limit"><?php esc_html_e( 'AI-kald pr. døgn', 'cookiedk' ); ?></label>
+			</th>
+			<td>
+				<input
+					type="number"
+					name="ai_daily_limit"
+					id="ai_daily_limit"
+					value="<?php echo esc_attr( $settings['ai_daily_limit'] ); ?>"
+					min="1"
+					max="100"
+					class="small-text"
+				>
+			</td>
+		</tr>
+
+		<tr>
+			<th scope="row">
+				<label for="github_repo"><?php esc_html_e( 'GitHub-repo', 'cookiedk' ); ?></label>
+			</th>
+			<td>
+				<input
+					type="text"
+					name="github_repo"
+					id="github_repo"
+					value="<?php echo esc_attr( $settings['github_repo'] ); ?>"
+					class="regular-text"
+				>
+				<p class="description"><?php esc_html_e( 'Format: ejer/navn. Bruges til både hentning og push af cookies.json.', 'cookiedk' ); ?></p>
+			</td>
+		</tr>
+
+		<tr>
+			<th scope="row">
+				<label for="github_branch"><?php esc_html_e( 'GitHub-branch', 'cookiedk' ); ?></label>
+			</th>
+			<td>
+				<input
+					type="text"
+					name="github_branch"
+					id="github_branch"
+					value="<?php echo esc_attr( $settings['github_branch'] ); ?>"
+					class="regular-text"
+				>
+			</td>
+		</tr>
+
+		<tr>
+			<th scope="row">
+				<label for="github_token"><?php esc_html_e( 'GitHub-token', 'cookiedk' ); ?></label>
+			</th>
+			<td>
+				<input
+					type="password"
+					name="github_token"
+					id="github_token"
+					value=""
+					class="regular-text"
+					autocomplete="new-password"
+					placeholder="<?php echo $settings['github_token'] ? esc_attr__( 'Token er gemt – udfyld for at erstatte', 'cookiedk' ) : ''; ?>"
+				>
+				<p class="description"><?php esc_html_e( 'Personal access token med contents:write. Kan også sættes som COOKIEDK_GITHUB_TOKEN i wp-config.php. Påkrævet for at pushe AI-beskrivelser til kataloget.', 'cookiedk' ); ?></p>
+			</td>
+		</tr>
+
 		<!-- Logopbevaringsperiode -->
 		<tr>
 			<th scope="row">
