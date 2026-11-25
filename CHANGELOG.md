@@ -7,6 +7,20 @@ og dette projekt følger [Semantisk Versionering](https://semver.org/lang/da/).
 
 ---
 
+## [Unreleased]
+
+### Tilføjet
+- Daglig remote-sync af `database/cookies.json` og `providers.json` fra GitHub, med snapshot i `uploads/cookiedk/` og bundled JSON som fallback
+- Ukendte cookies kan beskrives med WordPress AI Client (`wp_ai_client_prompt`). Resultatet gemmes lokalt og **pushes til GitHub-kataloget**
+- Admin: opdater katalog, filter på kilde, Generér med AI, eksport i katalog-format
+- Indstillinger til auto-sync, AI, GitHub-repo/branch og token (`COOKIEDK_GITHUB_TOKEN`)
+
+### Ændret
+- Detektion overskriver ikke længere manuelle/låste cookie-rækker eller AI-beskrivelser med placeholder-tekst
+- `COOKIEDK_DB_VERSION` 1.1.0: kolonnerne `origin` og `locked` på `wp_cookiedk_cookies`
+
+---
+
 ## [1.2.8] – 2026-11-24
 
 ### Tilføjet

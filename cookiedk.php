@@ -27,7 +27,7 @@ define( 'COOKIEDK_PLUGIN_FILE', __FILE__ );
 define( 'COOKIEDK_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'COOKIEDK_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'COOKIEDK_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
-define( 'COOKIEDK_DB_VERSION', '1.0.0' );
+define( 'COOKIEDK_DB_VERSION', '1.1.0' );
 
 /**
  * Returnerer temats primærfarve fra globale styles.
@@ -103,6 +103,8 @@ function cookiedk_get_theme_secondary_color() {
  */
 function cookiedk_load_dependencies() {
 	include_once COOKIEDK_PLUGIN_DIR . 'includes/class-cookiedk-cookie-database.php';
+	include_once COOKIEDK_PLUGIN_DIR . 'includes/class-cookiedk-catalog-sync.php';
+	include_once COOKIEDK_PLUGIN_DIR . 'includes/class-cookiedk-cookie-describer.php';
 	include_once COOKIEDK_PLUGIN_DIR . 'includes/class-cookiedk-cookie-detector.php';
 	include_once COOKIEDK_PLUGIN_DIR . 'includes/class-cookiedk-cookie-storage.php';
 	include_once COOKIEDK_PLUGIN_DIR . 'includes/class-cookiedk-security.php';
@@ -149,6 +151,12 @@ function cookiedk_activate() {
 		'log_retention_days'    => 365,
 		'primary_color'         => cookiedk_get_theme_primary_color(),
 		'secondary_color'       => cookiedk_get_theme_secondary_color(),
+		'catalog_auto_sync'     => true,
+		'ai_descriptions'       => true,
+		'ai_daily_limit'        => 20,
+		'github_token'          => '',
+		'github_repo'           => 'WebJax/CookieDK',
+		'github_branch'         => 'main',
 	);
 	add_option( 'cookiedk_settings', $default_settings );
 
@@ -194,16 +202,20 @@ function cookiedk_init() {
 	cookiedk_maybe_upgrade();
 
 	// Initialisér klasser.
-	$detector = new CookieDK_Cookie_Detector();
-	$storage  = new CookieDK_Cookie_Storage();
-	$security = new CookieDK_Security();
-	$gdpr     = new CookieDK_GDPR_Compliance();
-	$privacy  = new CookieDK_Privacy_Policy();
+	$detector  = new CookieDK_Cookie_Detector();
+	$storage   = new CookieDK_Cookie_Storage();
+	$security  = new CookieDK_Security();
+	$gdpr      = new CookieDK_GDPR_Compliance();
+	$privacy   = new CookieDK_Privacy_Policy();
+	$sync      = new CookieDK_Catalog_Sync();
+	$describer = new CookieDK_Cookie_Describer();
 
 	$detector->init();
 	$security->init();
 	$gdpr->init();
 	$privacy->init();
+	$sync->init();
+	$describer->init();
 
 	// Fase 4: Frontend-banner (kun på frontend).
 	if ( ! is_admin() ) {
@@ -231,6 +243,9 @@ function cookiedk_maybe_upgrade() {
 	if ( version_compare( $current_db_version, COOKIEDK_DB_VERSION, '<' ) ) {
 		$storage = new CookieDK_Cookie_Storage();
 		$storage->create_tables();
+		if ( version_compare( $current_db_version, '1.1.0', '<' ) ) {
+			$storage->backfill_origin();
+		}
 		update_option( 'cookiedk_db_version', COOKIEDK_DB_VERSION );
 	}
 }

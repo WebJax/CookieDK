@@ -68,9 +68,9 @@ function wp_unslash( $value )
 {
     return $value; 
 }
-function wp_json_encode( $value )
+function wp_json_encode( $value, $options = 0, $depth = 512 )
 {
-    return json_encode($value); 
+    return json_encode($value, $options, $depth); 
 }
 function absint( $value )
 {
@@ -97,15 +97,17 @@ function add_filter( $hook, $callback, $priority = 10, $accepted_args = 1 )
 }
 function apply_filters( $hook, $value )
 {
+    $args = func_get_args();
+    array_shift($args);
     if ( empty($GLOBALS['__cookiedk_hooks']['filters'][ $hook ]) ) {
         return $value;
     }
 
     foreach ( $GLOBALS['__cookiedk_hooks']['filters'][ $hook ] as $callback ) {
-        $value = call_user_func($callback, $value);
+        $args[0] = call_user_func_array($callback, $args);
     }
 
-    return $value;
+    return $args[0];
 }
 function is_admin()
 {
@@ -200,9 +202,26 @@ function wp_schedule_event()
 {
     return true; 
 }
-function wp_next_scheduled()
+function wp_schedule_single_event( $timestamp, $hook, $args = array() )
 {
-    return false; 
+    $GLOBALS['__cookiedk_cron'][] = array(
+        'timestamp' => $timestamp,
+        'hook'      => $hook,
+        'args'      => $args,
+    );
+    return true;
+}
+function wp_next_scheduled( $hook, $args = array() )
+{
+    if ( empty($GLOBALS['__cookiedk_cron']) ) {
+        return false;
+    }
+    foreach ( $GLOBALS['__cookiedk_cron'] as $event ) {
+        if ( $event['hook'] === $hook && $event['args'] === $args ) {
+            return $event['timestamp'];
+        }
+    }
+    return false;
 }
 function get_site_url()
 {
@@ -308,6 +327,10 @@ class FakeWpdb
     {
         return 1; 
     }
+    public function esc_like( $text )
+    {
+        return addcslashes((string) $text, '_%\\');
+    }
     public function get_row( $query )
     {
         if (preg_match("/WHERE name = '([^']+)'/", $query, $m) ) {
@@ -334,8 +357,93 @@ class FakeWpdb
 
 $GLOBALS['wpdb'] = new FakeWpdb();
 
+if ( ! class_exists('WP_Error') ) {
+    class WP_Error
+    {
+        private $code;
+        private $message;
+        public function __construct( $code = '', $message = '', $data = '' )
+        {
+            $this->code    = $code;
+            $this->message = $message;
+        }
+        public function get_error_code()
+        {
+            return $this->code;
+        }
+        public function get_error_message()
+        {
+            return $this->message;
+        }
+    }
+}
+if ( ! function_exists('is_wp_error') ) {
+    function is_wp_error( $thing )
+    {
+        return $thing instanceof WP_Error;
+    }
+}
+if ( ! defined('DAY_IN_SECONDS') ) {
+    define('DAY_IN_SECONDS', 86400);
+}
+function wp_parse_url( $url, $component = -1 )
+{
+    return parse_url($url, $component);
+}
+function untrailingslashit( $value )
+{
+    return rtrim((string) $value, '/\\');
+}
+function trailingslashit( $value )
+{
+    return untrailingslashit($value) . '/';
+}
+function wp_upload_dir()
+{
+    return array(
+        'basedir' => sys_get_temp_dir(),
+        'error'   => false,
+    );
+}
+function wp_mkdir_p( $dir )
+{
+    return is_dir($dir) || mkdir($dir, 0777, true);
+}
+function wp_remote_request( $url, $args = array() )
+{
+    unset($url, $args);
+    return new WP_Error('http_request_failed', 'HTTP disabled in tests');
+}
+function wp_remote_retrieve_response_code( $response )
+{
+    if ( is_wp_error($response) ) {
+        return 0;
+    }
+    return isset($response['response']['code']) ? (int) $response['response']['code'] : 0;
+}
+function wp_remote_retrieve_body( $response )
+{
+    if ( is_wp_error($response) ) {
+        return '';
+    }
+    return isset($response['body']) ? (string) $response['body'] : '';
+}
+function wp_remote_retrieve_header( $response, $header )
+{
+    if ( is_wp_error($response) ) {
+        return '';
+    }
+    $headers = isset($response['headers']) ? $response['headers'] : array();
+    $header  = strtolower((string) $header);
+    return isset($headers[ $header ]) ? $headers[ $header ] : '';
+}
+
+$GLOBALS['__cookiedk_cron'] = array();
+
 require_once dirname(__DIR__) . '/includes/class-cookiedk-cookie-storage.php';
 require_once dirname(__DIR__) . '/includes/class-cookiedk-cookie-database.php';
+require_once dirname(__DIR__) . '/includes/class-cookiedk-catalog-sync.php';
+require_once dirname(__DIR__) . '/includes/class-cookiedk-cookie-describer.php';
 require_once dirname(__DIR__) . '/includes/class-cookiedk-cookie-detector.php';
 require_once dirname(__DIR__) . '/includes/class-cookiedk-consent-export.php';
 require_once dirname(__DIR__) . '/includes/class-cookiedk-consent-api.php';

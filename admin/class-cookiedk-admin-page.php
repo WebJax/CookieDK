@@ -82,6 +82,9 @@ class CookieDK_Admin_Page {
 			'cookiedk_export_cookies',
 			'cookiedk_save_settings',
 			'cookiedk_create_policy_page',
+			'cookiedk_sync_catalog',
+			'cookiedk_describe_cookie',
+			'cookiedk_export_catalog_cookies',
 		);
 		foreach ( $actions as $action ) {
 			add_action( 'wp_ajax_' . $action, array( $this, 'handle_ajax_' . str_replace( 'cookiedk_', '', $action ) ) );
@@ -252,6 +255,97 @@ class CookieDK_Admin_Page {
 		}
 
 		wp_send_json_success( array( 'cookies' => $export ) );
+	}
+
+	/**
+	 * AJAX: Synkronisér kataloget fra GitHub.
+	 *
+	 * @return void
+	 */
+	public function handle_ajax_sync_catalog() {
+		check_ajax_referer( 'cookiedk_admin_nonce', 'nonce' );
+		if ( class_exists( 'CookieDK_Security' ) && ! CookieDK_Security::check_rate_limit( 'cookiedk_sync_catalog', 10, 60 ) ) {
+			status_header( 429 );
+			wp_send_json_error( array( 'message' => __( 'For mange forespørgsler. Prøv igen senere.', 'cookiedk' ) ) );
+		}
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( array( 'message' => __( 'Utilstrækkelige rettigheder.', 'cookiedk' ) ) );
+		}
+
+		$sync   = new CookieDK_Catalog_Sync();
+		$result = $sync->sync();
+		if ( is_wp_error( $result ) ) {
+			wp_send_json_error( array( 'message' => $result->get_error_message() ) );
+		}
+
+		$meta = $sync->get_meta();
+		wp_send_json_success(
+			array(
+				'message'   => __( 'Cookie-kataloget er opdateret fra GitHub.', 'cookiedk' ),
+				'synced_at' => isset( $meta['synced_at'] ) ? $meta['synced_at'] : '',
+			)
+		);
+	}
+
+	/**
+	 * AJAX: Generér AI-beskrivelse og push til GitHub.
+	 *
+	 * @return void
+	 */
+	public function handle_ajax_describe_cookie() {
+		check_ajax_referer( 'cookiedk_admin_nonce', 'nonce' );
+		if ( class_exists( 'CookieDK_Security' ) && ! CookieDK_Security::check_rate_limit( 'cookiedk_describe_cookie', 20, 60 ) ) {
+			status_header( 429 );
+			wp_send_json_error( array( 'message' => __( 'For mange forespørgsler. Prøv igen senere.', 'cookiedk' ) ) );
+		}
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( array( 'message' => __( 'Utilstrækkelige rettigheder.', 'cookiedk' ) ) );
+		}
+
+		$name = isset( $_POST['name'] ) ? sanitize_text_field( wp_unslash( $_POST['name'] ) ) : '';
+		if ( '' === $name ) {
+			$id     = absint( isset( $_POST['id'] ) ? $_POST['id'] : 0 );
+			$cookie = $id ? $this->storage->get_cookie_by_id( $id ) : null;
+			$name   = $cookie ? (string) $cookie->name : '';
+		}
+
+		if ( '' === $name ) {
+			wp_send_json_error( array( 'message' => __( 'Ugyldigt cookie-navn.', 'cookiedk' ) ) );
+		}
+
+		$describer = new CookieDK_Cookie_Describer();
+		$result    = $describer->describe_cookie( $name );
+		if ( is_wp_error( $result ) ) {
+			wp_send_json_error( array( 'message' => $result->get_error_message() ) );
+		}
+
+		wp_send_json_success(
+			array(
+				'message' => __( 'Beskrivelse oprettet og synkroniseret med GitHub.', 'cookiedk' ),
+			)
+		);
+	}
+
+	/**
+	 * AJAX: Eksportér lokale/AI-cookies i cookies.json-skema.
+	 *
+	 * @return void
+	 */
+	public function handle_ajax_export_catalog_cookies() {
+		check_ajax_referer( 'cookiedk_admin_nonce', 'nonce' );
+		if ( class_exists( 'CookieDK_Security' ) && ! CookieDK_Security::check_rate_limit( 'cookiedk_export_catalog_cookies', 20, 60 ) ) {
+			status_header( 429 );
+			wp_send_json_error( array( 'message' => __( 'For mange forespørgsler. Prøv igen senere.', 'cookiedk' ) ) );
+		}
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( array( 'message' => __( 'Utilstrækkelige rettigheder.', 'cookiedk' ) ) );
+		}
+
+		$overlay = CookieDK_Cookie_Database::get_overlay();
+		wp_send_json_success( array( 'cookies' => $overlay ) );
 	}
 
 	/**
@@ -432,6 +526,29 @@ class CookieDK_Admin_Page {
 
 		$existing = $this->get_settings();
 
+		$github_token = $existing['github_token'];
+		if ( isset( $input['github_token'] ) && '' !== trim( (string) wp_unslash( $input['github_token'] ) ) ) {
+			$github_token = sanitize_text_field( wp_unslash( $input['github_token'] ) );
+		}
+
+		$github_repo = isset( $input['github_repo'] ) ? sanitize_text_field( wp_unslash( $input['github_repo'] ) ) : $existing['github_repo'];
+		if ( ! preg_match( '/^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/', $github_repo ) ) {
+			$github_repo = 'WebJax/CookieDK';
+		}
+
+		$github_branch = isset( $input['github_branch'] ) ? sanitize_text_field( wp_unslash( $input['github_branch'] ) ) : $existing['github_branch'];
+		if ( ! preg_match( '/^[A-Za-z0-9._\/\-]+$/', $github_branch ) ) {
+			$github_branch = 'main';
+		}
+
+		$ai_daily_limit = isset( $input['ai_daily_limit'] ) ? absint( $input['ai_daily_limit'] ) : 20;
+		if ( $ai_daily_limit < 1 ) {
+			$ai_daily_limit = 20;
+		}
+		if ( $ai_daily_limit > 100 ) {
+			$ai_daily_limit = 100;
+		}
+
 		return array(
 			'banner_position'       => $position,
 			'reopen_position'       => $reopen_position,
@@ -451,6 +568,12 @@ class CookieDK_Admin_Page {
 			'log_retention_days'    => isset( $input['log_retention_days'] ) ? absint( $input['log_retention_days'] ) : 365,
 			'primary_color'         => isset( $input['primary_color'] ) ? sanitize_hex_color( $input['primary_color'] ) : '#2271b1',
 			'secondary_color'       => isset( $input['secondary_color'] ) ? sanitize_hex_color( $input['secondary_color'] ) : '#135e96',
+			'catalog_auto_sync'     => ! empty( $input['catalog_auto_sync'] ),
+			'ai_descriptions'       => ! empty( $input['ai_descriptions'] ),
+			'ai_daily_limit'        => $ai_daily_limit,
+			'github_token'          => $github_token,
+			'github_repo'           => $github_repo,
+			'github_branch'         => $github_branch,
 		);
 	}
 
@@ -479,6 +602,12 @@ class CookieDK_Admin_Page {
 			'log_retention_days'    => 365,
 			'primary_color'         => cookiedk_get_theme_primary_color(),
 			'secondary_color'       => cookiedk_get_theme_secondary_color(),
+			'catalog_auto_sync'     => true,
+			'ai_descriptions'       => true,
+			'ai_daily_limit'        => 20,
+			'github_token'          => '',
+			'github_repo'           => 'WebJax/CookieDK',
+			'github_branch'         => 'main',
 		);
 	}
 

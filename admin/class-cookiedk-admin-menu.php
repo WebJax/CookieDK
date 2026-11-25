@@ -115,6 +115,7 @@ class CookieDK_Admin_Menu {
 					'loading'              => __( 'Indlæser…', 'cookiedk' ),
 					'edit_policy'          => __( 'Rediger cookiepolitik-siden', 'cookiedk' ),
 					'theme_colors_applied' => __( 'Tema-farver indlæst.', 'cookiedk' ),
+					'generate_ai'          => __( 'Generér med AI', 'cookiedk' ),
 				),
 			)
 		);

@@ -97,6 +97,7 @@ class CookieDK_Cookie_Detector {
 
 		if ( ! empty( $detected ) ) {
 			$this->save_detected_cookies( $detected );
+			$this->queue_unknown_descriptions( $detected );
 		}
 	}
 
@@ -111,6 +112,7 @@ class CookieDK_Cookie_Detector {
 		if ( isset( $this->known_cookies[ $cookie_name ] ) ) {
 			$exact = $this->known_cookies[ $cookie_name ];
 			if ( empty( $exact['match_type'] ) || 'wildcard' !== $exact['match_type'] ) {
+				$exact['origin'] = 'catalog';
 				return $exact;
 			}
 		}
@@ -125,6 +127,7 @@ class CookieDK_Cookie_Detector {
 			$glob  = isset( $meta['pattern'] ) ? (string) $meta['pattern'] : (string) $pattern;
 			$regex = '/^' . str_replace( '\*', '.*', preg_quote( $glob, '/' ) ) . '$/';
 			if ( preg_match( $regex, $cookie_name ) ) {
+				$meta['origin'] = 'wildcard';
 				return $meta;
 			}
 		}
@@ -140,6 +143,7 @@ class CookieDK_Cookie_Detector {
 			'duration'       => __( 'Ukendt', 'cookiedk' ),
 			'provider'       => __( 'Ukendt udbyder', 'cookiedk' ),
 			'necessary'      => false,
+			'origin'         => 'unknown',
 		);
 	}
 
@@ -279,9 +283,33 @@ class CookieDK_Cookie_Detector {
 
 		if ( ! empty( $detected ) ) {
 			$this->save_detected_cookies( $detected );
+			$this->queue_unknown_descriptions( $detected );
 		}
 
 		wp_send_json_success( array( 'detected' => count( $detected ) ) );
+	}
+
+	/**
+	 * Planlægger AI-beskrivelse for ukendte cookies.
+	 *
+	 * @param array<string, array> $detected Detekterede cookies.
+	 * @return void
+	 */
+	private function queue_unknown_descriptions( array $detected ) {
+		if ( ! class_exists( 'CookieDK_Cookie_Describer' ) ) {
+			return;
+		}
+
+		$describer = new CookieDK_Cookie_Describer();
+		foreach ( $detected as $cookie ) {
+			if ( empty( $cookie['name'] ) ) {
+				continue;
+			}
+			if ( empty( $cookie['origin'] ) || 'unknown' !== $cookie['origin'] ) {
+				continue;
+			}
+			$describer->queue( (string) $cookie['name'] );
+		}
 	}
 
 	/**

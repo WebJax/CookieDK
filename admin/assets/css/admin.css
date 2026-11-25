@@ -171,6 +171,15 @@
 .cookiedk-badge--functional { background: #fef3c7; color: #92400e; }
 .cookiedk-badge--analytics  { background: #ecfdf5; color: #065f46; }
 .cookiedk-badge--marketing  { background: #fce7f3; color: #9d174d; }
+.cookiedk-badge--origin-catalog,
+.cookiedk-badge--origin-wildcard { background: #e0e7ff; color: #3730a3; }
+.cookiedk-badge--origin-ai { background: #fae8ff; color: #86198f; }
+.cookiedk-badge--origin-manual { background: #f3f4f6; color: #374151; }
+.cookiedk-badge--origin-unknown { background: #fee2e2; color: #991b1b; }
+
+.cookiedk-sync-error {
+	color: #b32d2e;
+}
 
 /* =========================================================
 	Formularer

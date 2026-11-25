@@ -26,6 +26,8 @@ $options_to_delete = array(
     'cookiedk_cookie_descriptions',
     'cookiedk_activated_at',
     'cookiedk_db_version',
+    'cookiedk_catalog_meta',
+    'cookiedk_local_cookies',
 );
 
 foreach ( $options_to_delete as $option ) {

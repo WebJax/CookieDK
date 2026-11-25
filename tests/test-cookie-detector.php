@@ -46,5 +46,13 @@ final class CookieDKCookieDetectorTest extends TestCase
 
         $this->assertSame('functional', $meta['category']);
         $this->assertArrayHasKey('description_da', $meta);
+        $this->assertSame('unknown', $meta['origin']);
+    }
+
+    public function test_classify_known_cookie_sets_catalog_origin(): void
+    {
+        $detector = new CookieDK_Cookie_Detector();
+        $meta     = $detector->classify_cookie('_ga');
+        $this->assertSame('catalog', $meta['origin']);
     }
 }
